@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <classPathEntry location="/Users/mhc/.m2/repository/mysql/mysql-connector-java/5.1.46/mysql-connector-java-5.1.46.jar"/>
+    <context id="MySQLTables" targetRuntime="MyBatis3" defaultModelType="flat">
+        <property name="autoDelimitKeywords" value="true"/>
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+            <property name="autoDelimitKeywords" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://rm-bp1cjiazfe8207a61o.mysql.rds.aliyuncs.com:3306/db_question"
+                        userId="root" password="Hello1234!">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true"/>
+        </javaTypeResolver>
+
+        <!-- entity实体类 targetPackage:包名,targetProject:生成到对应的项目路径-->
+        <javaModelGenerator targetPackage="com.cjs.question.dao.model" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+            <property name="enableComments" value="true"/>
+            <property name="ignoreSetterAndGetter" value="true"/>
+        </javaModelGenerator>
+
+        <!-- mapperxml文件 -->
+        <sqlMapGenerator targetPackage="mappers" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- mapper实体类 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.cjs.question.dao.mapper"
+                              targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!--<table tableName="tbl_staff_question" domainObjectName="StaffQuestion" enableCountByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>-->
+
+        <!--<table tableName="tbl_answer_record" domainObjectName="AnswerRecord" enableCountByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>-->
+
+        <!--<table tableName="tbl_temp" domainObjectName="Template" enableCountByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>-->
+
+        <table tableName="tbl_temp_details" domainObjectName="TemplateDetail" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>
+
+        <!--<table tableName="tbl_bus_temp" domainObjectName="BusTemplateService" enableCountByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>-->
+
+        <table tableName="tbl_bus_temp_detail" domainObjectName="BusTemplateDetail" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>
+
+        <table tableName="tbl_question_label" domainObjectName="QuestionLabel" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>
+
+        <!--<table tableName="tbl_ques_first" domainObjectName="QuestionFirst" enableCountByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>-->
+
+        <!--<table tableName="tbl_ques_second" domainObjectName="QuestionSecond" enableCountByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>-->
+
+        <!--<table tableName="tbl_ques_manage" domainObjectName="QuestionManage" enableCountByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>-->
+
+
+
+    </context>
+</generatorConfiguration>

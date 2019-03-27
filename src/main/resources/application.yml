@@ -1,0 +1,29 @@
+#端口
+server:
+  port: 8088
+
+#数据库配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://rm-bp1908u6a7tofk507ko.mysql.rds.aliyuncs.com:3306/db_question?useUnicode=true&allowMultiQueries=true&useSSL=false&characterEncoding=utf-8
+    username: root
+    password: aiYYH!1314
+    tomcat:
+      max-active: 10
+      max-idle: 5
+      min-idle: 5
+
+#mybatis
+mybatis:
+  type-aliases-package: com.cjs.question.dao.model
+  mapper-locations: classpath*:mappers/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#分页插件
+pagehelper:
+  reasonable: false
+  helper-dialect: mysql
+  support-methods-arguments: true
+  params: count=countSql
