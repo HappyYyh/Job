@@ -79,4 +79,17 @@
       province_id = #{provinceId,jdbcType=VARCHAR}
     where _id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getCitysByProvinceId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from city
+    where province_id = #{provinceId,jdbcType=INTEGER}
+  </select>
+
+  <select id="getAllCitys" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from city
+  </select>
 </mapper>
