@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyh.job.dao.mapper.JobMapper" >
+  <resultMap id="BaseResultMap" type="com.yyh.job.dao.model.Job" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="job_name" property="jobName" jdbcType="VARCHAR" />
+    <result column="category" property="category" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="INTEGER" />
+    <result column="create_id" property="createId" jdbcType="INTEGER" />
+    <result column="work_place" property="workPlace" jdbcType="VARCHAR" />
+    <result column="work_education" property="workEducation" jdbcType="BIT" />
+    <result column="salary_start" property="salaryStart" jdbcType="DOUBLE" />
+    <result column="salary_end" property="salaryEnd" jdbcType="DOUBLE" />
+    <result column="welfare" property="welfare" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="BIT" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_update" property="gmtUpdate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yyh.job.dao.model.Job" extends="BaseResultMap" >
+    <result column="job_duty" property="jobDuty" jdbcType="LONGVARCHAR" />
+    <result column="job_requirement" property="jobRequirement" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, job_name, category, company_id, create_id, work_place, work_education, salary_start, 
+    salary_end, welfare, `status`, gmt_create, gmt_update
+  </sql>
+  <sql id="Blob_Column_List" >
+    job_duty, job_requirement
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_job
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tbl_job
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yyh.job.dao.model.Job" >
+    insert into tbl_job (id, job_name, category, 
+      company_id, create_id, work_place, 
+      work_education, salary_start, salary_end, 
+      welfare, `status`, gmt_create, 
+      gmt_update, job_duty, job_requirement
+      )
+    values (#{id,jdbcType=INTEGER}, #{jobName,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, 
+      #{companyId,jdbcType=INTEGER}, #{createId,jdbcType=INTEGER}, #{workPlace,jdbcType=VARCHAR}, 
+      #{workEducation,jdbcType=BIT}, #{salaryStart,jdbcType=DOUBLE}, #{salaryEnd,jdbcType=DOUBLE}, 
+      #{welfare,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtUpdate,jdbcType=TIMESTAMP}, #{jobDuty,jdbcType=LONGVARCHAR}, #{jobRequirement,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyh.job.dao.model.Job" >
+    insert into tbl_job
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="jobName != null" >
+        job_name,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="workPlace != null" >
+        work_place,
+      </if>
+      <if test="workEducation != null" >
+        work_education,
+      </if>
+      <if test="salaryStart != null" >
+        salary_start,
+      </if>
+      <if test="salaryEnd != null" >
+        salary_end,
+      </if>
+      <if test="welfare != null" >
+        welfare,
+      </if>
+      <if test="status != null" >
+        `status`,
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create,
+      </if>
+      <if test="gmtUpdate != null" >
+        gmt_update,
+      </if>
+      <if test="jobDuty != null" >
+        job_duty,
+      </if>
+      <if test="jobRequirement != null" >
+        job_requirement,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="jobName != null" >
+        #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="workPlace != null" >
+        #{workPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="workEducation != null" >
+        #{workEducation,jdbcType=BIT},
+      </if>
+      <if test="salaryStart != null" >
+        #{salaryStart,jdbcType=DOUBLE},
+      </if>
+      <if test="salaryEnd != null" >
+        #{salaryEnd,jdbcType=DOUBLE},
+      </if>
+      <if test="welfare != null" >
+        #{welfare,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="gmtCreate != null" >
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtUpdate != null" >
+        #{gmtUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jobDuty != null" >
+        #{jobDuty,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="jobRequirement != null" >
+        #{jobRequirement,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyh.job.dao.model.Job" >
+    update tbl_job
+    <set >
+      <if test="jobName != null" >
+        job_name = #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="workPlace != null" >
+        work_place = #{workPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="workEducation != null" >
+        work_education = #{workEducation,jdbcType=BIT},
+      </if>
+      <if test="salaryStart != null" >
+        salary_start = #{salaryStart,jdbcType=DOUBLE},
+      </if>
+      <if test="salaryEnd != null" >
+        salary_end = #{salaryEnd,jdbcType=DOUBLE},
+      </if>
+      <if test="welfare != null" >
+        welfare = #{welfare,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        `status` = #{status,jdbcType=BIT},
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtUpdate != null" >
+        gmt_update = #{gmtUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jobDuty != null" >
+        job_duty = #{jobDuty,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="jobRequirement != null" >
+        job_requirement = #{jobRequirement,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yyh.job.dao.model.Job" >
+    update tbl_job
+    set job_name = #{jobName,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=INTEGER},
+      create_id = #{createId,jdbcType=INTEGER},
+      work_place = #{workPlace,jdbcType=VARCHAR},
+      work_education = #{workEducation,jdbcType=BIT},
+      salary_start = #{salaryStart,jdbcType=DOUBLE},
+      salary_end = #{salaryEnd,jdbcType=DOUBLE},
+      welfare = #{welfare,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_update = #{gmtUpdate,jdbcType=TIMESTAMP},
+      job_duty = #{jobDuty,jdbcType=LONGVARCHAR},
+      job_requirement = #{jobRequirement,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyh.job.dao.model.Job" >
+    update tbl_job
+    set job_name = #{jobName,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=INTEGER},
+      create_id = #{createId,jdbcType=INTEGER},
+      work_place = #{workPlace,jdbcType=VARCHAR},
+      work_education = #{workEducation,jdbcType=BIT},
+      salary_start = #{salaryStart,jdbcType=DOUBLE},
+      salary_end = #{salaryEnd,jdbcType=DOUBLE},
+      welfare = #{welfare,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_update = #{gmtUpdate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

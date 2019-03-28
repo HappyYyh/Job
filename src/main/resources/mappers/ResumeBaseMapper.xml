@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyh.job.dao.mapper.ResumeBaseMapper" >
+  <resultMap id="BaseResultMap" type="com.yyh.job.dao.model.ResumeBase" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="birth_day" property="birthDay" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="BIT" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="exp_job" property="expJob" jdbcType="VARCHAR" />
+    <result column="exp_job_type" property="expJobType" jdbcType="BIT" />
+    <result column="exp_city" property="expCity" jdbcType="VARCHAR" />
+    <result column="exp_start_salary" property="expStartSalary" jdbcType="INTEGER" />
+    <result column="exp_end_salary" property="expEndSalary" jdbcType="INTEGER" />
+    <result column="exp_now_status" property="expNowStatus" jdbcType="BIT" />
+    <result column="exp_come_time" property="expComeTime" jdbcType="BIT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yyh.job.dao.model.ResumeBase" extends="BaseResultMap" >
+    <result column="introduce" property="introduce" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, `name`, birth_day, sex, city, phone, email, exp_job, exp_job_type, exp_city, 
+    exp_start_salary, exp_end_salary, exp_now_status, exp_come_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    introduce
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_resume_base
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tbl_resume_base
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yyh.job.dao.model.ResumeBase" >
+    insert into tbl_resume_base (id, user_id, `name`, 
+      birth_day, sex, city, phone, 
+      email, exp_job, exp_job_type, 
+      exp_city, exp_start_salary, exp_end_salary, 
+      exp_now_status, exp_come_time, introduce
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{birthDay,jdbcType=VARCHAR}, #{sex,jdbcType=BIT}, #{city,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{expJob,jdbcType=VARCHAR}, #{expJobType,jdbcType=BIT}, 
+      #{expCity,jdbcType=VARCHAR}, #{expStartSalary,jdbcType=INTEGER}, #{expEndSalary,jdbcType=INTEGER}, 
+      #{expNowStatus,jdbcType=BIT}, #{expComeTime,jdbcType=BIT}, #{introduce,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyh.job.dao.model.ResumeBase" >
+    insert into tbl_resume_base
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="name != null" >
+        `name`,
+      </if>
+      <if test="birthDay != null" >
+        birth_day,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="expJob != null" >
+        exp_job,
+      </if>
+      <if test="expJobType != null" >
+        exp_job_type,
+      </if>
+      <if test="expCity != null" >
+        exp_city,
+      </if>
+      <if test="expStartSalary != null" >
+        exp_start_salary,
+      </if>
+      <if test="expEndSalary != null" >
+        exp_end_salary,
+      </if>
+      <if test="expNowStatus != null" >
+        exp_now_status,
+      </if>
+      <if test="expComeTime != null" >
+        exp_come_time,
+      </if>
+      <if test="introduce != null" >
+        introduce,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="birthDay != null" >
+        #{birthDay,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=BIT},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="expJob != null" >
+        #{expJob,jdbcType=VARCHAR},
+      </if>
+      <if test="expJobType != null" >
+        #{expJobType,jdbcType=BIT},
+      </if>
+      <if test="expCity != null" >
+        #{expCity,jdbcType=VARCHAR},
+      </if>
+      <if test="expStartSalary != null" >
+        #{expStartSalary,jdbcType=INTEGER},
+      </if>
+      <if test="expEndSalary != null" >
+        #{expEndSalary,jdbcType=INTEGER},
+      </if>
+      <if test="expNowStatus != null" >
+        #{expNowStatus,jdbcType=BIT},
+      </if>
+      <if test="expComeTime != null" >
+        #{expComeTime,jdbcType=BIT},
+      </if>
+      <if test="introduce != null" >
+        #{introduce,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyh.job.dao.model.ResumeBase" >
+    update tbl_resume_base
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="birthDay != null" >
+        birth_day = #{birthDay,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=BIT},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="expJob != null" >
+        exp_job = #{expJob,jdbcType=VARCHAR},
+      </if>
+      <if test="expJobType != null" >
+        exp_job_type = #{expJobType,jdbcType=BIT},
+      </if>
+      <if test="expCity != null" >
+        exp_city = #{expCity,jdbcType=VARCHAR},
+      </if>
+      <if test="expStartSalary != null" >
+        exp_start_salary = #{expStartSalary,jdbcType=INTEGER},
+      </if>
+      <if test="expEndSalary != null" >
+        exp_end_salary = #{expEndSalary,jdbcType=INTEGER},
+      </if>
+      <if test="expNowStatus != null" >
+        exp_now_status = #{expNowStatus,jdbcType=BIT},
+      </if>
+      <if test="expComeTime != null" >
+        exp_come_time = #{expComeTime,jdbcType=BIT},
+      </if>
+      <if test="introduce != null" >
+        introduce = #{introduce,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yyh.job.dao.model.ResumeBase" >
+    update tbl_resume_base
+    set user_id = #{userId,jdbcType=INTEGER},
+      `name` = #{name,jdbcType=VARCHAR},
+      birth_day = #{birthDay,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=BIT},
+      city = #{city,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      exp_job = #{expJob,jdbcType=VARCHAR},
+      exp_job_type = #{expJobType,jdbcType=BIT},
+      exp_city = #{expCity,jdbcType=VARCHAR},
+      exp_start_salary = #{expStartSalary,jdbcType=INTEGER},
+      exp_end_salary = #{expEndSalary,jdbcType=INTEGER},
+      exp_now_status = #{expNowStatus,jdbcType=BIT},
+      exp_come_time = #{expComeTime,jdbcType=BIT},
+      introduce = #{introduce,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyh.job.dao.model.ResumeBase" >
+    update tbl_resume_base
+    set user_id = #{userId,jdbcType=INTEGER},
+      `name` = #{name,jdbcType=VARCHAR},
+      birth_day = #{birthDay,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=BIT},
+      city = #{city,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      exp_job = #{expJob,jdbcType=VARCHAR},
+      exp_job_type = #{expJobType,jdbcType=BIT},
+      exp_city = #{expCity,jdbcType=VARCHAR},
+      exp_start_salary = #{expStartSalary,jdbcType=INTEGER},
+      exp_end_salary = #{expEndSalary,jdbcType=INTEGER},
+      exp_now_status = #{expNowStatus,jdbcType=BIT},
+      exp_come_time = #{expComeTime,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
