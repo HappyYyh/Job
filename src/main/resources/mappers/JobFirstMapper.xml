@@ -6,6 +6,27 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="first_id" property="firstId" jdbcType="VARCHAR" />
   </resultMap>
+
+  <resultMap id="firstMap" type="com.yyh.job.dto.response.JobFirstCategoryResponse">
+    <result column="firstName"  property="firstName" jdbcType="VARCHAR"/>
+    <result column="first_id"  property="firstId" jdbcType="VARCHAR"/>
+    <collection property="jobSecondCategoryResponseList" javaType="ArrayList" column="first_id"
+                ofType="com.yyh.job.dto.response.JobSecondCategoryResponse" resultMap="secondMap">
+    </collection>
+  </resultMap>
+
+  <resultMap id="secondMap" type="com.yyh.job.dto.response.JobSecondCategoryResponse">
+    <result column="secondName"  property="secondName" jdbcType="VARCHAR"/>
+    <result column="second_id"  property="secondId" jdbcType="VARCHAR"/>
+    <collection property="jobThirdCategoryResponseList" javaType="ArrayList" column="first_id"
+                ofType="com.yyh.job.dto.response.JobThirdCategoryResponse" resultMap="thirdMap">
+    </collection>
+  </resultMap>
+
+  <resultMap id="thirdMap" type="com.yyh.job.dto.response.JobThirdCategoryResponse">
+    <result column="thirdName"  property="thirdName" jdbcType="VARCHAR"/>
+  </resultMap>
+
   <sql id="Base_Column_List" >
     id, `name`, first_id
   </sql>
@@ -68,4 +89,11 @@
       first_id = #{firstId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectAllCategory" resultMap="firstMap">
+    SELECT c.name as firstName,c.first_id,b.name as secondName,b.second_id,a.name as ThirdName
+    FROM tbl_job_third_category a
+    LEFT JOIN tbl_job_second_category b on a.second_id = b.second_id
+    LEFT JOIN tbl_job_first_category c on c.first_id = b.first_id
+  </select>
 </mapper>
