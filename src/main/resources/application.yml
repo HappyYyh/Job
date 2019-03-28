@@ -1,6 +1,6 @@
 #端口
 server:
-  port: 8088
+  port: 8888
 
 #数据库配置
 spring:
@@ -16,7 +16,7 @@ spring:
 
 #mybatis
 mybatis:
-  type-aliases-package: com.cjs.question.dao.model
+  type-aliases-package: com.yyh.job.dao.model
   mapper-locations: classpath*:mappers/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -27,3 +27,11 @@ pagehelper:
   helper-dialect: mysql
   support-methods-arguments: true
   params: count=countSql
+
+
+#七牛云服务
+qiniu:
+  bucket: job_bucket
+  secretKey: QuVitoseWoGsZedMV2KUIsLz_ruew8PvCvXqH4lU
+  accessKey: YI609XuwI9gp-o6DZnVhEfGPSf-cGWHJIo8S-ASj
+  urlPrefix: http://image.yangyhao.top/
