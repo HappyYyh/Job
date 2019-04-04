@@ -1,4 +1,4 @@
-package com.yyh.job.config;
+package com.yyh.job.config.view;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
