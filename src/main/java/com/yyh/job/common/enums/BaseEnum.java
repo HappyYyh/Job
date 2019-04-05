@@ -19,9 +19,12 @@ public enum BaseEnum {
      */
     SUCCESS(200,""),
     ERROR(500,"Internal Server Error"),
-
     PARAM_HAS_ERROR(501,"参数错误!"),
+
+
     SEND_SMS_FAIL(502,"验证码发送失败!"),
+    SMS_ERROR(503,"验证码错误"),
+    USER_REGIST_ERROR(504,"用户注册失败"),
     ;
 
     @Getter

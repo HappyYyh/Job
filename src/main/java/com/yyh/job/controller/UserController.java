@@ -1,6 +1,7 @@
 package com.yyh.job.controller;
 
 import com.yyh.job.common.base.APIResult;
+import com.yyh.job.dto.request.CommonUserRequest;
 import com.yyh.job.dto.request.SendSmsRequest;
 import com.yyh.job.service.UserService;
 import io.swagger.annotations.Api;
@@ -29,8 +30,8 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public APIResult register(){
-        return null;
+    public APIResult register(@RequestBody @Valid CommonUserRequest request, BindingResult bindingResult){
+        return userService.regist(request);
     }
 
     /**

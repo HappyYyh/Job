@@ -1,6 +1,7 @@
 package com.yyh.job.service;
 
 import com.yyh.job.common.base.APIResult;
+import com.yyh.job.dto.request.CommonUserRequest;
 import com.yyh.job.dto.request.SendSmsRequest;
 
 /**
@@ -19,4 +20,11 @@ public interface UserService {
      * @return
      */
     APIResult sendCheckCode(SendSmsRequest request);
+
+    /**
+     * 用户注册
+     * @param request
+     * @return
+     */
+    APIResult regist(CommonUserRequest request);
 }
