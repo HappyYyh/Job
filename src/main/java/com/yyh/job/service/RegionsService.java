@@ -1,6 +1,7 @@
 package com.yyh.job.service;
 
 
+import com.yyh.job.common.base.APIResult;
 import com.yyh.job.dao.model.City;
 import com.yyh.job.dao.model.Country;
 import com.yyh.job.dao.model.Province;
@@ -21,14 +22,14 @@ public interface RegionsService {
      * 获取所有的省份
      * @return
      */
-    List<Province> getAllProvince();
+    APIResult<List<Province>>  getAllProvince();
 
     /**
      * 根据省份序号获取城市
      * @param provinceId
      * @return
      */
-    List<City> getCitysByProvinceId(String provinceId);
+    APIResult<List<City>> getCitysByProvinceId(String provinceId);
 
     /**
      * 获取所有城市
@@ -41,7 +42,7 @@ public interface RegionsService {
      * @param cityId
      * @return
      */
-    List<Country> getCountrysByCityId(String cityId);
+    APIResult<List<Country>> getCountrysByCityId(String cityId);
 
     /**
      * 获取所有的区县

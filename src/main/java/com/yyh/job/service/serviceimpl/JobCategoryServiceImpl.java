@@ -1,5 +1,6 @@
 package com.yyh.job.service.serviceimpl;
 
+import com.yyh.job.common.base.APIResult;
 import com.yyh.job.dao.mapper.JobFirstMapper;
 import com.yyh.job.dto.response.JobFirstCategoryResponse;
 import com.yyh.job.service.JobCategoryService;
@@ -28,7 +29,7 @@ public class JobCategoryServiceImpl implements JobCategoryService {
      * @return
      */
     @Override
-    public List<JobFirstCategoryResponse> getAllCategory() {
-        return jobFirstMapper.selectAllCategory();
+    public APIResult<List<JobFirstCategoryResponse>> getAllCategory() {
+        return APIResult.create(jobFirstMapper.selectAllCategory());
     }
 }

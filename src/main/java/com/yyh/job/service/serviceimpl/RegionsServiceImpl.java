@@ -1,5 +1,6 @@
 package com.yyh.job.service.serviceimpl;
 
+import com.yyh.job.common.base.APIResult;
 import com.yyh.job.dao.mapper.CityMapper;
 import com.yyh.job.dao.mapper.CountryMapper;
 import com.yyh.job.dao.mapper.ProvinceMapper;
@@ -38,8 +39,8 @@ public class RegionsServiceImpl implements RegionsService {
      * @return
      */
     @Override
-    public List<Province> getAllProvince() {
-        return provinceMapper.getAllProvince();
+    public APIResult<List<Province>> getAllProvince() {
+        return APIResult.create(provinceMapper.getAllProvince());
     }
 
     /**
@@ -49,8 +50,8 @@ public class RegionsServiceImpl implements RegionsService {
      * @return
      */
     @Override
-    public List<City> getCitysByProvinceId(String provinceId) {
-        return cityMapper.getCitysByProvinceId(provinceId);
+    public APIResult<List<City>> getCitysByProvinceId(String provinceId) {
+        return APIResult.create(cityMapper.getCitysByProvinceId(provinceId));
     }
 
     /**
@@ -70,8 +71,8 @@ public class RegionsServiceImpl implements RegionsService {
      * @return
      */
     @Override
-    public List<Country> getCountrysByCityId(String cityId) {
-        return countryMapper.getCountrysByCityId(cityId);
+    public APIResult<List<Country>> getCountrysByCityId(String cityId) {
+        return APIResult.create(countryMapper.getCountrysByCityId(cityId));
     }
 
     /**

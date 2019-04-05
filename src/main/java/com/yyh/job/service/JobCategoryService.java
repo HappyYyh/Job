@@ -1,5 +1,6 @@
 package com.yyh.job.service;
 
+import com.yyh.job.common.base.APIResult;
 import com.yyh.job.dto.response.JobFirstCategoryResponse;
 
 import java.util.List;
@@ -18,5 +19,5 @@ public interface JobCategoryService {
      * 获取所有的职位分类
      * @return
      */
-    List<JobFirstCategoryResponse> getAllCategory();
+    APIResult<List<JobFirstCategoryResponse>> getAllCategory();
 }
