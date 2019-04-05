@@ -21,6 +21,7 @@ public enum BaseEnum {
     ERROR(500,"Internal Server Error"),
 
     PARAM_HAS_ERROR(501,"参数错误!"),
+    SEND_SMS_FAIL(502,"验证码发送失败!"),
     ;
 
     @Getter
