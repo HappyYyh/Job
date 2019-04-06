@@ -94,6 +94,10 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public APIResult regist(CommonUserRequest request) {
+        User isExist = userMapper.selectByPhoneAndEmail(request.getPhone(), request.getEmail());
+        if(isExist != null){
+            return APIResult.error(BaseEnum.USER_ALREADY_EXIST);
+        }
         //获取验证码
         String key = CHECK_CODE_REGIST + request.getPhone();
         String checkCode = stringRedisTemplate.opsForValue().get(key);
