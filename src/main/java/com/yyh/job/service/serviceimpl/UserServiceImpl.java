@@ -44,9 +44,10 @@ public class UserServiceImpl implements UserService {
     private static final String CHECK_CODE_LOGIN = "CHECK_CODE_LOGIN:";
     private static final String CHECK_CODE_PASSWORD = "CHECK_CODE_PASSWORD:";
     /**
-     * token前缀
+     * token
      */
     private static final String TOKEN_PREFIX = "TOKEN_PREFIX-";
+    private static final String TOKEN_SUFFIX = "-TOKEN_SUFFIX";
     /**
      * 过期时间
      */
@@ -174,7 +175,7 @@ public class UserServiceImpl implements UserService {
             }
         }
         //存入token
-        String token = TOKEN_PREFIX + user.getPhone() + "-" + System.currentTimeMillis();
+        String token = TOKEN_PREFIX + user.getPhone() + TOKEN_SUFFIX;
         redisTemplate.opsForValue().set(token,user,TOKEN_EXPIR_TIME,TimeUnit.SECONDS);
         //构造返回数据
         UserLoginResponse response = new UserLoginResponse();
