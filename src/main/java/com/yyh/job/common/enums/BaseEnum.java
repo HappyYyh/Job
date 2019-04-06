@@ -6,7 +6,7 @@ import lombok.Getter;
 /**
  * All rights Reserved, Designed By 863044052@qq.com
  *
- * @Package com.cjs.question.common.enums
+ * @Package com.yyh.file.enums
  * @author: 昊天
  * @date: 2019-03-05 17:04
  * @since V1.1.0-SNAPSHOT
@@ -23,9 +23,12 @@ public enum BaseEnum {
 
 
     SEND_SMS_FAIL(502,"验证码发送失败!"),
+    PLEASE_SEND_CHECK_CODE(503,"请重新获取验证码!"),
     SMS_ERROR(503,"验证码错误"),
     USER_REGIST_ERROR(504,"用户注册失败"),
     USER_ALREADY_EXIST(505,"用户已存在,请直接登陆"),
+    USER_NOT_EXIST(506,"账号不存在?去注册一个吧!"),
+    PASSWORD_ERROR(507,"密码错误!"),
     ;
 
     @Getter

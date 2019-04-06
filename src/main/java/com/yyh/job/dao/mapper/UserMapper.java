@@ -23,4 +23,11 @@ public interface UserMapper {
      * @return
      */
     User selectByPhoneAndEmail(@Param("phone") String phone, @Param("email") String email);
+
+    /**
+     * 根据密码和 （手机或者邮箱）查找
+     * @param phoneAndEmail
+     * @return
+     */
+    User selectByPhoneOREmail(String phoneAndEmail);
 }

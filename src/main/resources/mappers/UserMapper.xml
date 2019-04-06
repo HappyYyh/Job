@@ -157,4 +157,10 @@
     where phone = #{phone,jdbcType=VARCHAR} or email = #{email,jdbcType=VARCHAR}
     limit 1
   </select>
+
+  <select id="selectByPhoneOREmail" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from tbl_user
+    where phone = #{phoneAndEmail} or email = #{phoneAndEmail}
+  </select>
 </mapper>

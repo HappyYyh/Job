@@ -2,16 +2,22 @@ package com.yyh.job.service.serviceimpl;
 
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.common.enums.BaseEnum;
+import com.yyh.job.common.enums.CommonEnum;
+import com.yyh.job.config.exception.BindErrorException;
 import com.yyh.job.dao.mapper.UserMapper;
 import com.yyh.job.dao.model.User;
 import com.yyh.job.dto.request.CommonUserRequest;
 import com.yyh.job.dto.request.SendSmsRequest;
+import com.yyh.job.dto.request.UserLoginRequest;
+import com.yyh.job.dto.response.UserLoginResponse;
 import com.yyh.job.service.UserService;
 import com.yyh.job.util.SmsUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -38,12 +44,20 @@ public class UserServiceImpl implements UserService {
     private static final String CHECK_CODE_LOGIN = "CHECK_CODE_LOGIN:";
     private static final String CHECK_CODE_PASSWORD = "CHECK_CODE_PASSWORD:";
     /**
+     * token前缀
+     */
+    private static final String TOKEN_PREFIX = "TOKEN_PREFIX-";
+    /**
      * 过期时间
      */
-    private static final int EXPIR_TIME = 5*60;
+    private static final int CHECK_CODE_EXPIR_TIME = 5*60;
+    private static final int TOKEN_EXPIR_TIME = 2*60*60;
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+
+    @Autowired
+    private RedisTemplate<Object,Object> redisTemplate;
 
     @Autowired
     private UserMapper userMapper;
@@ -79,7 +93,7 @@ public class UserServiceImpl implements UserService {
         }
         if(success){
             //验证码发送成功后放入redis缓存
-            stringRedisTemplate.opsForValue().set(key,String.valueOf(checkCode),EXPIR_TIME, TimeUnit.SECONDS);
+            stringRedisTemplate.opsForValue().set(key,String.valueOf(checkCode),CHECK_CODE_EXPIR_TIME, TimeUnit.SECONDS);
             log.info("redis给{}放入验证码:{}",request.getPhone(),checkCode);
             return APIResult.ok();
         }
@@ -101,7 +115,7 @@ public class UserServiceImpl implements UserService {
         //获取验证码
         String key = CHECK_CODE_REGIST + request.getPhone();
         String checkCode = stringRedisTemplate.opsForValue().get(key);
-        if(!checkCode.equals(request.getCheckCode())){
+        if(!request.getCheckCode().equals(checkCode)){
             return APIResult.error(BaseEnum.SMS_ERROR);
         }
         User user = new User();
@@ -118,6 +132,55 @@ public class UserServiceImpl implements UserService {
             return APIResult.error(BaseEnum.USER_REGIST_ERROR);
         }
         return APIResult.ok();
+    }
+
+    /**
+     * 用户登陆
+     * 登陆方式 0密码登陆 1验证码登陆
+     * @param request
+     * @return
+     */
+    @Override
+    public APIResult login(UserLoginRequest request) {
+        User user;
+        if(CommonEnum.ZERO.getCode().equals(request.getLoginType())){
+            //密码登陆
+            if(null == request.getPhoneAndEmail() || null == request.getPassword()){
+                throw new BindErrorException("登陆选项不为空");
+            }
+            user = userMapper.selectByPhoneOREmail(request.getPhoneAndEmail());
+            if(null == user){
+                return APIResult.error(BaseEnum.USER_NOT_EXIST);
+            }
+            if(!request.getPassword().equals(user.getPassword())){
+                return APIResult.error(BaseEnum.PASSWORD_ERROR);
+            }
+        }else {
+            //验证码登陆
+            if(null == request.getPhone() || null == request.getCheckCode()){
+                throw new BindErrorException("登陆选项不为空");
+            }
+            user = userMapper.selectByPhoneOREmail(request.getPhone());
+            if(null == user){
+                return APIResult.error(BaseEnum.USER_NOT_EXIST);
+            }
+            String key = CHECK_CODE_LOGIN + request.getPhone();
+            String checkCode = stringRedisTemplate.opsForValue().get(key);
+            if(StringUtils.isBlank(checkCode)){
+                return APIResult.error(BaseEnum.PLEASE_SEND_CHECK_CODE);
+            }
+            if(!request.getCheckCode().equals(checkCode)){
+                return APIResult.error(BaseEnum.SMS_ERROR);
+            }
+        }
+        //存入token
+        String token = TOKEN_PREFIX + user.getPhone() + "-" + System.currentTimeMillis();
+        redisTemplate.opsForValue().set(token,user,TOKEN_EXPIR_TIME,TimeUnit.SECONDS);
+        //构造返回数据
+        UserLoginResponse response = new UserLoginResponse();
+        BeanUtils.copyProperties(user,response);
+        response.setToken(token);
+        return APIResult.create(response);
     }
 
     /**

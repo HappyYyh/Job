@@ -3,6 +3,7 @@ package com.yyh.job.service;
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.dto.request.CommonUserRequest;
 import com.yyh.job.dto.request.SendSmsRequest;
+import com.yyh.job.dto.request.UserLoginRequest;
 
 /**
  * All rights Reserved, Designed By 863044052@qq.com
@@ -27,4 +28,11 @@ public interface UserService {
      * @return
      */
     APIResult regist(CommonUserRequest request);
+
+    /**
+     * 用户登陆
+     * @param request
+     * @return
+     */
+    APIResult login(UserLoginRequest request);
 }

@@ -3,11 +3,11 @@ package com.yyh.job.controller;
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.dto.request.CommonUserRequest;
 import com.yyh.job.dto.request.SendSmsRequest;
+import com.yyh.job.dto.request.UserLoginRequest;
 import com.yyh.job.service.UserService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +28,11 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @PostMapping("/login")
+    public APIResult login(@RequestBody UserLoginRequest request){
+        return userService.login(request);
+    }
 
     @PostMapping("/register")
     public APIResult register(@RequestBody @Valid CommonUserRequest request, BindingResult bindingResult){
