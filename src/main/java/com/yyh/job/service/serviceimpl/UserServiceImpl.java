@@ -44,6 +44,10 @@ public class UserServiceImpl implements UserService {
     private static final String CHECK_CODE_LOGIN = "CHECK_CODE_LOGIN:";
     private static final String CHECK_CODE_PASSWORD = "CHECK_CODE_PASSWORD:";
     /**
+     * 首次登陆表示
+     */
+    private static final String FIRST_LOGIN_PREFIX = "FIRST_LOGIN_PREFIX:";
+    /**
      * token
      */
     private static final String TOKEN_PREFIX = "TOKEN_PREFIX-";
@@ -132,6 +136,8 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
             return APIResult.error(BaseEnum.USER_REGIST_ERROR);
         }
+        //注册后添加首次信息，用户验证码是否首次登陆
+        stringRedisTemplate.opsForValue().set(FIRST_LOGIN_PREFIX+request.getPhone(),"1");
         return APIResult.ok();
     }
 
@@ -181,6 +187,13 @@ public class UserServiceImpl implements UserService {
         UserLoginResponse response = new UserLoginResponse();
         BeanUtils.copyProperties(user,response);
         response.setToken(token);
+        //获取
+        String firstLogin = stringRedisTemplate.opsForValue().get(FIRST_LOGIN_PREFIX + user.getPhone());
+        if(StringUtils.isNotBlank(firstLogin)){
+            //不为空则为首次登陆,然后移除这个键,下次登陆则不为首次登陆
+            response.setFirstLogin(true);
+            stringRedisTemplate.delete(FIRST_LOGIN_PREFIX + user.getPhone());
+        }
         return APIResult.create(response);
     }
 

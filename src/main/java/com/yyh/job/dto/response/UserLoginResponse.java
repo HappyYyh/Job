@@ -17,6 +17,19 @@ public class UserLoginResponse extends User {
      */
     private String token;
 
+    /**
+     * 是否首次登陆
+     */
+    private boolean firstLogin;
+
+    public boolean isFirstLogin() {
+        return firstLogin;
+    }
+
+    public void setFirstLogin(boolean firstLogin) {
+        this.firstLogin = firstLogin;
+    }
+
     public String getToken() {
         return token;
     }

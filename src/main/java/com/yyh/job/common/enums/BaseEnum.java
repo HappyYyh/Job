@@ -23,7 +23,7 @@ public enum BaseEnum {
 
 
     SEND_SMS_FAIL(502,"验证码发送失败!"),
-    PLEASE_SEND_CHECK_CODE(503,"请重新获取验证码!"),
+    PLEASE_SEND_CHECK_CODE(503,"验证码不存在,请重新获取!"),
     SMS_ERROR(503,"验证码错误"),
     USER_REGIST_ERROR(504,"用户注册失败"),
     USER_ALREADY_EXIST(505,"用户已存在,请直接登陆"),
