@@ -29,6 +29,8 @@ public enum BaseEnum {
     USER_ALREADY_EXIST(505,"用户已存在,请直接登陆"),
     USER_NOT_EXIST(506,"账号不存在?去注册一个吧!"),
     PASSWORD_ERROR(507,"密码错误!"),
+
+    ADD_COMPANY_ERROR(600,"企业认证失败,请重试"),
     ;
 
     @Getter
