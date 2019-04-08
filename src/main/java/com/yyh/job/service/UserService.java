@@ -35,4 +35,11 @@ public interface UserService {
      * @return
      */
     APIResult login(UserLoginRequest request);
+
+    /**
+     * 登出
+     * @param token
+     * @return
+     */
+    APIResult logout(String token);
 }

@@ -8,6 +8,7 @@ import com.yyh.job.service.UserService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,14 +30,35 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 登陆
+     * @param request
+     * @return
+     */
     @PostMapping("/login")
     public APIResult login(@RequestBody UserLoginRequest request){
         return userService.login(request);
     }
 
+    /**
+     * 注册
+     * @param request
+     * @param bindingResult
+     * @return
+     */
     @PostMapping("/register")
     public APIResult register(@RequestBody @Valid CommonUserRequest request, BindingResult bindingResult){
         return userService.regist(request);
+    }
+
+    /**
+     * 登出
+     * @param token
+     * @return
+     */
+    @GetMapping("/logout")
+    public APIResult logout(String token){
+        return userService.logout(token);
     }
 
     /**

@@ -199,10 +199,24 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 登出
+     *
+     * @param token
+     * @return
+     */
+    @Override
+    public APIResult logout(String token) {
+        redisTemplate.delete(token);
+        return APIResult.ok();
+    }
+
+    /**
      * 获取随机6为验证码
      * @return
      */
     private Integer getCheckCode(){
         return (int)((Math.random()*9+1)*100000);
     }
+
+
 }
