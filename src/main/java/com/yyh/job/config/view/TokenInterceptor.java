@@ -2,16 +2,15 @@ package com.yyh.job.config.view;
 
 import com.yyh.job.common.base.AuthToken;
 import com.yyh.job.dao.model.User;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -24,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  * @since V1.1.0-SNAPSHOT
  */
 @Configuration
+@Slf4j
 public class TokenInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
@@ -31,7 +31,6 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        //response.addHeader("Access-Control-Expose-Headers","redirect");
         //如果是是方法级
         if(handler instanceof HandlerMethod){
             HandlerMethod handlerMethod = (HandlerMethod) handler;
@@ -41,26 +40,16 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
                 return true;
             }
             //获取cookie
-            String token = "";
-            Cookie[] cookies = request.getCookies();
-            if(cookies != null){
-                for (Cookie cookie : cookies){
-                    //获取token
-                    if("token".equals(cookie.getName())){
-                        token = cookie.getValue();
-                    }
-                }
-                //获取登陆时放入的用户信息
+            String token = request.getHeader("token");
+            if(StringUtils.isNotBlank(token)){
                 User user = (User) redisTemplate.opsForValue().get(token);
-                if(null != user){
+                if(user != null){
                     return true;
                 }
-                //用户信息存在则重定向
-                response.addHeader("redirect","301");
+                response.sendError(401);
                 return false;
             }
-            //没有cookie让其重定向
-            response.addHeader("redirect","301");
+            response.sendError(401);
             return false;
         }
         return true;

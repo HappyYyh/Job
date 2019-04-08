@@ -22,6 +22,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 
@@ -56,7 +57,7 @@ public class UserServiceImpl implements UserService {
      * 过期时间
      */
     private static final int CHECK_CODE_EXPIR_TIME = 5*60;
-    private static final int TOKEN_EXPIR_TIME = 2*60*60;
+    private static final int TOKEN_EXPIR_TIME = 15;
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
@@ -181,8 +182,8 @@ public class UserServiceImpl implements UserService {
             }
         }
         //存入token
-        String token = TOKEN_PREFIX + user.getPhone() + TOKEN_SUFFIX;
-        redisTemplate.opsForValue().set(token,user,TOKEN_EXPIR_TIME,TimeUnit.SECONDS);
+        String token = TOKEN_PREFIX + UUID.randomUUID() + TOKEN_SUFFIX;
+        redisTemplate.opsForValue().set(token,user,TOKEN_EXPIR_TIME,TimeUnit.DAYS);
         //构造返回数据
         UserLoginResponse response = new UserLoginResponse();
         BeanUtils.copyProperties(user,response);
