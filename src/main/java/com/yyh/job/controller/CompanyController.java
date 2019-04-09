@@ -1,6 +1,7 @@
 package com.yyh.job.controller;
 
 import com.yyh.job.common.base.APIResult;
+import com.yyh.job.common.base.AuthToken;
 import com.yyh.job.dto.request.CommonCompanyRequest;
 import com.yyh.job.service.CompanyService;
 import io.swagger.annotations.Api;
@@ -30,6 +31,7 @@ public class CompanyController {
     private CompanyService companyService;
 
     @PostMapping("/certificate")
+    @AuthToken
     public APIResult certificate(@RequestBody @Valid CommonCompanyRequest request, BindingResult bindingResult){
         return companyService.certificate(request);
     }
