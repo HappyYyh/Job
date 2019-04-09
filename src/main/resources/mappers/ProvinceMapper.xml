@@ -8,23 +8,23 @@
   </resultMap>
 
   <resultMap id="firstMap" type="com.yyh.job.dto.response.RegionFirstResponse">
-    <result column="provinceName"  property="provinceName" jdbcType="VARCHAR"/>
-    <result column="province_id"  property="provinceId" jdbcType="VARCHAR"/>
-    <collection property="regionSecondResponseList" javaType="ArrayList" column="province_id"
+    <result column="provinceName"  property="name" jdbcType="VARCHAR"/>
+    <result column="province_id"  property="id" jdbcType="VARCHAR"/>
+    <collection property="children" javaType="ArrayList" column="province_id"
                 ofType="com.yyh.job.dto.response.RegionSecondResponse" resultMap="secondMap">
     </collection>
   </resultMap>
 
   <resultMap id="secondMap" type="com.yyh.job.dto.response.RegionSecondResponse">
-    <result column="cityName"  property="cityName" jdbcType="VARCHAR"/>
-    <result column="city_id"  property="cityId" jdbcType="VARCHAR"/>
-    <collection property="regionThirdResponseList" javaType="ArrayList" column="city_id"
+    <result column="cityName"  property="name" jdbcType="VARCHAR"/>
+    <result column="city_id"  property="id" jdbcType="VARCHAR"/>
+    <collection property="children" javaType="ArrayList" column="city_id"
                 ofType="com.yyh.job.dto.response.RegionThirdResponse" resultMap="thirdMap">
     </collection>
   </resultMap>
 
   <resultMap id="thirdMap" type="com.yyh.job.dto.response.RegionThirdResponse">
-    <result column="countryName"  property="countryName" jdbcType="VARCHAR"/>
+    <result column="countryName"  property="name" jdbcType="VARCHAR"/>
   </resultMap>
   <sql id="Base_Column_List" >
     _id, `name`, province_id

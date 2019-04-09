@@ -18,12 +18,12 @@ public class RegionFirstResponse {
     /**
      * 省名称
      */
-    private String provinceName;
+    private String name;
 
     /**
      * 省id
      */
-    private String provinceId;
+    private String id;
 
-    private List<RegionSecondResponse> regionSecondResponseList;
+    private List<RegionSecondResponse> children;
 }
