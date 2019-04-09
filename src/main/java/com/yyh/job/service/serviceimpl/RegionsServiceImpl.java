@@ -7,6 +7,7 @@ import com.yyh.job.dao.mapper.ProvinceMapper;
 import com.yyh.job.dao.model.City;
 import com.yyh.job.dao.model.Country;
 import com.yyh.job.dao.model.Province;
+import com.yyh.job.dto.response.RegionFirstResponse;
 import com.yyh.job.service.RegionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,16 @@ public class RegionsServiceImpl implements RegionsService {
 
     @Autowired
     private CountryMapper countryMapper;
+
+    /**
+     * 获取所有的省市区信息
+     *
+     * @return
+     */
+    @Override
+    public APIResult<List<RegionFirstResponse>> getAllRegions() {
+        return APIResult.create(provinceMapper.getAllRegions());
+    }
 
     /**
      * 获取所有的省份

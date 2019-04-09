@@ -5,6 +5,7 @@ import com.yyh.job.common.base.APIResult;
 import com.yyh.job.dao.model.City;
 import com.yyh.job.dao.model.Country;
 import com.yyh.job.dao.model.Province;
+import com.yyh.job.dto.response.RegionFirstResponse;
 
 import java.util.List;
 
@@ -17,6 +18,12 @@ import java.util.List;
  * @since V1.1.0-SNAPSHOT
  */
 public interface RegionsService {
+
+    /**
+     * 获取所有的省市区信息
+     * @return
+     */
+    APIResult<List<RegionFirstResponse>> getAllRegions();
 
     /**
      * 获取所有的省份
