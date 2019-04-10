@@ -8,10 +8,10 @@
     <result column="start_year" property="startYear" jdbcType="VARCHAR" />
     <result column="end_year" property="endYear" jdbcType="VARCHAR" />
     <result column="education" property="education" jdbcType="BIT" />
-    <result column="professional name" property="professionalName" jdbcType="VARCHAR" />
+    <result column="professional_name" property="professionalName" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, resume_id, university_name, start_year, end_year, education, `professional name`
+    id, resume_id, university_name, start_year, end_year, education, `professional_name`
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -26,7 +26,7 @@
   <insert id="insert" parameterType="com.yyh.job.dao.model.ResumeEducation" >
     insert into tbl_resume_edu (id, resume_id, university_name, 
       start_year, end_year, education, 
-      `professional name`)
+      `professional_name`)
     values (#{id,jdbcType=INTEGER}, #{resumeId,jdbcType=INTEGER}, #{universityName,jdbcType=VARCHAR}, 
       #{startYear,jdbcType=VARCHAR}, #{endYear,jdbcType=VARCHAR}, #{education,jdbcType=BIT}, 
       #{professionalName,jdbcType=VARCHAR})
@@ -53,7 +53,7 @@
         education,
       </if>
       <if test="professionalName != null" >
-        `professional name`,
+        `professional_name`,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -99,7 +99,7 @@
         education = #{education,jdbcType=BIT},
       </if>
       <if test="professionalName != null" >
-        `professional name` = #{professionalName,jdbcType=VARCHAR},
+        `professional_name` = #{professionalName,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -111,7 +111,7 @@
       start_year = #{startYear,jdbcType=VARCHAR},
       end_year = #{endYear,jdbcType=VARCHAR},
       education = #{education,jdbcType=BIT},
-      `professional name` = #{professionalName,jdbcType=VARCHAR}
+      `professional_name` = #{professionalName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

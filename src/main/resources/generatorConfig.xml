@@ -44,86 +44,90 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <!--城市-->
-        <table tableName="city" domainObjectName="City" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>
+        <!--&lt;!&ndash;城市&ndash;&gt;-->
+        <!--<table tableName="city" domainObjectName="City" enableCountByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>-->
 
-        <!--区-->
-        <table tableName="country" domainObjectName="Country" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>
+        <!--&lt;!&ndash;区&ndash;&gt;-->
+        <!--<table tableName="country" domainObjectName="Country" enableCountByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>-->
 
-        <!--省-->
-        <table tableName="province" domainObjectName="Province" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>
+        <!--&lt;!&ndash;省&ndash;&gt;-->
+        <!--<table tableName="province" domainObjectName="Province" enableCountByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>-->
 
-        <!--职位一级分类-->
-        <table tableName="tbl_job_first_category" domainObjectName="JobFirst" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>
+        <!--&lt;!&ndash;职位一级分类&ndash;&gt;-->
+        <!--<table tableName="tbl_job_first_category" domainObjectName="JobFirst" enableCountByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>-->
 
-        <!--职位二级分类-->
-        <table tableName="tbl_job_second_category" domainObjectName="JobSecond" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>
+        <!--&lt;!&ndash;职位二级分类&ndash;&gt;-->
+        <!--<table tableName="tbl_job_second_category" domainObjectName="JobSecond" enableCountByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>-->
 
-        <!--职位三级分类-->
-        <table tableName="tbl_job_third_category" domainObjectName="JobThird" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>
+        <!--&lt;!&ndash;职位三级分类&ndash;&gt;-->
+        <!--<table tableName="tbl_job_third_category" domainObjectName="JobThird" enableCountByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>-->
 
-        <!--公司-->
-        <table tableName="tbl_company" domainObjectName="Company" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false">
-            <columnOverride column="industry_category" javaType="Integer"/>
-            <columnOverride column="financing_status" javaType="Integer"/>
-            <columnOverride column="staff_num" javaType="Integer"/>
-            <columnOverride column="is_stop" javaType="Integer"/>
-        </table>
+        <!--&lt;!&ndash;公司&ndash;&gt;-->
+        <!--<table tableName="tbl_company" domainObjectName="Company" enableCountByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false">-->
+            <!--<columnOverride column="industry_category" javaType="Integer"/>-->
+            <!--<columnOverride column="financing_status" javaType="Integer"/>-->
+            <!--<columnOverride column="staff_num" javaType="Integer"/>-->
+            <!--<columnOverride column="is_stop" javaType="Integer"/>-->
+        <!--</table>-->
 
-        <!--职位-->
-        <table tableName="tbl_job" domainObjectName="Job" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false">
-            <columnOverride column="work_education" javaType="Integer"/>
-            <columnOverride column="status" javaType="Integer"/>
-        </table>
+        <!--&lt;!&ndash;职位&ndash;&gt;-->
+        <!--<table tableName="tbl_job" domainObjectName="Job" enableCountByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false">-->
+            <!--<columnOverride column="work_education" javaType="Integer"/>-->
+            <!--<columnOverride column="status" javaType="Integer"/>-->
+        <!--</table>-->
 
-        <!--用户-->
-        <table tableName="tbl_user" domainObjectName="User" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false">
-            <columnOverride column="role" javaType="Integer"/>
-            <columnOverride column="status" javaType="Integer"/>
-        </table>
+        <!--&lt;!&ndash;用户&ndash;&gt;-->
+        <!--<table tableName="tbl_user" domainObjectName="User" enableCountByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false">-->
+            <!--<columnOverride column="role" javaType="Integer"/>-->
+            <!--<columnOverride column="status" javaType="Integer"/>-->
+        <!--</table>-->
 
-        <!--职位投递-->
-        <table tableName="tbl_job_send" domainObjectName="JobSend" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false">
-            <columnOverride column="send_status" javaType="Integer"/>
-        </table>
+        <!--&lt;!&ndash;职位投递&ndash;&gt;-->
+        <!--<table tableName="tbl_job_send" domainObjectName="JobSend" enableCountByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false">-->
+            <!--<columnOverride column="send_status" javaType="Integer"/>-->
+        <!--</table>-->
 
-        <!--简历基本信息-->
-        <table tableName="tbl_resume_base" domainObjectName="ResumeBase" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false">
-            <columnOverride column="sex" javaType="Integer"/>
-            <columnOverride column="exp_job_type" javaType="Integer"/>
-            <columnOverride column="exp_now_status" javaType="Integer"/>
-            <columnOverride column="exp_come_time" javaType="Integer"/>
-        </table>
+        <!--&lt;!&ndash;简历基本信息&ndash;&gt;-->
+        <!--<table tableName="tbl_resume_base" domainObjectName="ResumeBase" enableCountByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false">-->
+            <!--<columnOverride column="sex" javaType="Integer"/>-->
+            <!--<columnOverride column="exp_job_type" javaType="Integer"/>-->
+            <!--<columnOverride column="exp_now_status" javaType="Integer"/>-->
+            <!--<columnOverride column="exp_come_time" javaType="Integer"/>-->
+        <!--</table>-->
 
 
-        <!--简历教育信息-->
-        <table tableName="tbl_resume_edu" domainObjectName="ResumeEducation" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false">
-            <columnOverride column="education" javaType="Integer"/>
-        </table>
+        <!--&lt;!&ndash;简历教育信息&ndash;&gt;-->
+        <!--<table tableName="tbl_resume_edu" domainObjectName="ResumeEducation" enableCountByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false">-->
+            <!--<columnOverride column="education" javaType="Integer"/>-->
+        <!--</table>-->
 
-        <!--简历工作经历表-->
-        <table tableName="tbl_resume_experience" domainObjectName="ResumeExperience" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>
+        <!--&lt;!&ndash;简历工作经历表&ndash;&gt;-->
+        <!--<table tableName="tbl_resume_experience" domainObjectName="ResumeExperience" enableCountByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>-->
 
-        <!--简历项目经历表-->
-        <table tableName="tbl_resume_project" domainObjectName="ResumeProject" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>
+        <!--&lt;!&ndash;简历项目经历表&ndash;&gt;-->
+        <!--<table tableName="tbl_resume_project" domainObjectName="ResumeProject" enableCountByExample="false"-->
+               <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>-->
 
         <!--公司招聘者表-->
         <table tableName="tbl_recruiter" domainObjectName="Recruiter" enableCountByExample="false"
-         enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>
+         enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false">
+            <columnOverride column="can_update" javaType="Integer"/>
+            <columnOverride column="is_owner" javaType="Integer"/>
+        </table>
+
 
 </context>
 </generatorConfiguration>
