@@ -7,10 +7,7 @@ import com.yyh.job.service.CompanyService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -34,5 +31,11 @@ public class CompanyController {
     @AuthToken
     public APIResult certificate(@RequestBody @Valid CommonCompanyRequest request, BindingResult bindingResult){
         return companyService.certificate(request);
+    }
+
+    @GetMapping("/info")
+    @AuthToken
+    public APIResult info(Integer recruiterId){
+        return companyService.getCompanyInfo(recruiterId);
     }
 }

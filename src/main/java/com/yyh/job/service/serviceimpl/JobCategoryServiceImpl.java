@@ -5,6 +5,7 @@ import com.yyh.job.dao.mapper.JobFirstMapper;
 import com.yyh.job.dto.response.JobFirstCategoryResponse;
 import com.yyh.job.service.JobCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class JobCategoryServiceImpl implements JobCategoryService {
      * @return
      */
     @Override
+    @Cacheable(cacheNames = "JobCategory")
     public APIResult<List<JobFirstCategoryResponse>> getAllCategory() {
         return APIResult.create(jobFirstMapper.selectAllCategory());
     }

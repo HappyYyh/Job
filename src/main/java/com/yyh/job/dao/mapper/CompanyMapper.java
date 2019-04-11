@@ -16,4 +16,11 @@ public interface CompanyMapper {
     int updateByPrimaryKeyWithBLOBs(Company record);
 
     int updateByPrimaryKey(Company record);
+
+    /**
+     * 根据求职者id获取公司信
+     * @param recruiterId
+     * @return
+     */
+    Company selectCompanyByRecruiterId(Integer recruiterId);
 }

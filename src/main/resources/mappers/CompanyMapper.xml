@@ -48,7 +48,7 @@
       #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtUpdate,jdbcType=TIMESTAMP}, #{introduce,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.yyh.job.dao.model.Company" >
+  <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true" parameterType="com.yyh.job.dao.model.Company" >
     insert into tbl_company
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -195,4 +195,12 @@
       gmt_update = #{gmtUpdate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectCompanyByRecruiterId" resultMap="BaseResultMap">
+    select  c.*
+    from tbl_recruiter r
+    left join tbl_company c
+    on r.company_id = c.id
+    where r.user_id = #{recruiterId}
+  </select>
 </mapper>

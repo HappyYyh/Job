@@ -4,6 +4,7 @@ import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 
 /**
  * All rights Reserved, Designed By 863044052@qq.com
@@ -15,6 +16,12 @@ import javax.validation.constraints.Max;
  */
 @Data
 public class CommonCompanyRequest {
+
+    /**
+     * 招聘者id
+     */
+    @NotNull(message = "招聘者信息不存在")
+    private Integer recruiterId;
 
     /**
      * 公司名称

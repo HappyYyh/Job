@@ -19,4 +19,11 @@ public interface CompanyService {
      * @return
      */
     APIResult certificate(CommonCompanyRequest request);
+
+    /**
+     * 根据求职者id获取公司信息
+     * @param recruiterId
+     * @return
+     */
+    APIResult getCompanyInfo(Integer recruiterId);
 }

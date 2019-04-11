@@ -31,7 +31,7 @@ public class Recruiter {
     private Integer canUpdate;
 
     /**
-     * 是否公司创建者(0无1有)
+     * 是否公司创建者(0否1是)
      */
     private Integer isOwner;
 
