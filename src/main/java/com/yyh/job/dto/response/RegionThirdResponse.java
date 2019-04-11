@@ -16,10 +16,10 @@ public class RegionThirdResponse {
     /**
      * 区/县名称
      */
-    private String name;
+    private String countryName;
 
     /**
      * 区/县id
      */
-    private String id;
+    private String countryId;
 }

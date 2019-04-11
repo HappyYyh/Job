@@ -10,6 +10,7 @@ import com.yyh.job.dao.model.Province;
 import com.yyh.job.dto.response.RegionFirstResponse;
 import com.yyh.job.service.RegionsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,8 +41,9 @@ public class RegionsServiceImpl implements RegionsService {
      * @return
      */
     @Override
-    public APIResult<List<RegionFirstResponse>> getAllRegions() {
-        return APIResult.create(provinceMapper.getAllRegions());
+    @Cacheable(cacheNames = "Regions")
+    public List<RegionFirstResponse> getAllRegions() {
+        return provinceMapper.getAllRegions();
     }
 
     /**

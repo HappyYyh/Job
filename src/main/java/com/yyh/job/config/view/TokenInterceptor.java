@@ -39,7 +39,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
             if(null == authToken){
                 return true;
             }
-            //获取cookie
+            //获取token
             String token = request.getHeader("token");
             if(StringUtils.isNotBlank(token)){
                 User user = (User) redisTemplate.opsForValue().get(token);

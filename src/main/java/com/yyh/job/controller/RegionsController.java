@@ -36,7 +36,7 @@ public class RegionsController {
      */
     @GetMapping("/getAllRegions")
     public APIResult<List<RegionFirstResponse>> getAllRegions(){
-        return regionsService.getAllRegions();
+        return APIResult.create(regionsService.getAllRegions());
     }
 
     /**

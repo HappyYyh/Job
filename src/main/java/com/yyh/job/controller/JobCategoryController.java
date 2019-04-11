@@ -1,7 +1,6 @@
 package com.yyh.job.controller;
 
 import com.yyh.job.common.base.APIResult;
-import com.yyh.job.common.base.AuthToken;
 import com.yyh.job.dto.response.JobFirstCategoryResponse;
 import com.yyh.job.service.JobCategoryService;
 import io.swagger.annotations.Api;
@@ -29,7 +28,6 @@ public class JobCategoryController {
     private JobCategoryService jobCategoryService;
 
     @GetMapping("/getAllCategory")
-    @AuthToken
     public APIResult<List<JobFirstCategoryResponse>> getAllCategory(){
         return jobCategoryService.getAllCategory();
     }

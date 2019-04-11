@@ -23,7 +23,7 @@ public interface RegionsService {
      * 获取所有的省市区信息
      * @return
      */
-    APIResult<List<RegionFirstResponse>> getAllRegions();
+    List<RegionFirstResponse> getAllRegions();
 
     /**
      * 获取所有的省份
