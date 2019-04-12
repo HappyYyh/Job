@@ -1,6 +1,7 @@
 package com.yyh.job.dao.mapper;
 
 import com.yyh.job.dao.model.Company;
+import com.yyh.job.dto.response.CompanyInfoResponse;
 
 public interface CompanyMapper {
     int deleteByPrimaryKey(Integer id);
@@ -18,9 +19,9 @@ public interface CompanyMapper {
     int updateByPrimaryKey(Company record);
 
     /**
-     * 根据求职者id获取公司信
+     * 根据求职者id获取公司信息
      * @param recruiterId
      * @return
      */
-    Company selectCompanyByRecruiterId(Integer recruiterId);
+    CompanyInfoResponse selectCompanyByRecruiterId(Integer recruiterId);
 }
