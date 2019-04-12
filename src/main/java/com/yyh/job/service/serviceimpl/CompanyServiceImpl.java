@@ -8,6 +8,7 @@ import com.yyh.job.dao.mapper.RecruiterMapper;
 import com.yyh.job.dao.model.Company;
 import com.yyh.job.dao.model.Recruiter;
 import com.yyh.job.dto.request.CommonCompanyRequest;
+import com.yyh.job.dto.request.UpdateCompanyRequest;
 import com.yyh.job.service.CompanyService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,5 +75,20 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public APIResult getCompanyInfo(Integer recruiterId) {
         return APIResult.create(companyMapper.selectCompanyByRecruiterId(recruiterId));
+    }
+
+    /**
+     * 信息修改
+     *
+     * @param request
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = RuntimeException.class)
+    public APIResult updateInfo(UpdateCompanyRequest request) {
+        Company company = new Company();
+        BeanUtils.copyProperties(request,company);
+        companyMapper.updateByPrimaryKeySelective(company);
+        return APIResult.ok();
     }
 }

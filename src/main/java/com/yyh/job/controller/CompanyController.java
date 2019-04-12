@@ -3,6 +3,7 @@ package com.yyh.job.controller;
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.common.base.AuthToken;
 import com.yyh.job.dto.request.CommonCompanyRequest;
+import com.yyh.job.dto.request.UpdateCompanyRequest;
 import com.yyh.job.service.CompanyService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,11 @@ public class CompanyController {
     @AuthToken
     public APIResult info(Integer recruiterId){
         return companyService.getCompanyInfo(recruiterId);
+    }
+
+    @PostMapping("/update")
+    @AuthToken
+    public APIResult update(@RequestBody @Valid UpdateCompanyRequest request, BindingResult bindingResult){
+        return companyService.updateInfo(request);
     }
 }

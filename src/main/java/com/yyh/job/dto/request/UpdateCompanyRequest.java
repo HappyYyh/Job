@@ -1,18 +1,20 @@
-package com.yyh.job.dto.response;
+package com.yyh.job.dto.request;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.Max;
 
 /**
  * All rights Reserved, Designed By 863044052@qq.com
  *
- * @Package com.yyh.job.dto.response
+ * @Package com.yyh.job.dto.request
  * @author: 昊天
- * @date: 2019-04-12 09:35
+ * @date: 2019-04-12 10:06
  * @since V1.1.0-SNAPSHOT
  */
 @Data
-public class CompanyInfoResponse {
+public class UpdateCompanyRequest {
 
     /**
      * 主键id
@@ -22,11 +24,13 @@ public class CompanyInfoResponse {
     /**
      * 公司名称
      */
+    @NotBlank
     private String companyName;
 
     /**
      * 图片
      */
+    @NotBlank
     private String img;
 
     /**
@@ -51,35 +55,18 @@ public class CompanyInfoResponse {
      *  18:移动互联网 19:互联网 20:计算机软件 21:通信/网络设备 22:广告/公关/会展 23:互联网金融
      *  24:物流/仓储 25:贸易/进出口 26:咨询 27:工程施工 28:汽车生产 29:其他行业 )
      */
+    @Max(29)
     private Integer industryCategory;
 
     /**
      * 标签:融资状态（0:未融资 1:天使轮 2:A轮 3:B轮 4:C轮 5:D轮及以上 6:上市公司 7:不需要融资）
      */
+    @Max(7)
     private Integer financingStatus;
 
     /**
      * 标签:公司规模 (0:少于15人 1:15-50人 2:50-150人 3:150-500人 4:500-2000人 5:2000人以上)
      */
+    @Max(5)
     private Integer staffNum;
-
-    /**
-     * 是否停止招聘
-     */
-    private Integer isStop;
-
-    /**
-     * 招聘者id
-     */
-    private Integer recruiterId;
-
-    /**
-     * 能否修改(0否1是)
-     */
-    private Integer canUpdate;
-
-    /**
-     * 是否认证者(0否1是)
-     */
-    private Integer isOwner;
 }

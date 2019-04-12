@@ -1,7 +1,9 @@
 package com.yyh.job.service;
 
 import com.yyh.job.common.base.APIResult;
+import com.yyh.job.dao.model.Company;
 import com.yyh.job.dto.request.CommonCompanyRequest;
+import com.yyh.job.dto.request.UpdateCompanyRequest;
 
 /**
  * All rights Reserved, Designed By 863044052@qq.com
@@ -26,4 +28,11 @@ public interface CompanyService {
      * @return
      */
     APIResult getCompanyInfo(Integer recruiterId);
+
+    /**
+     * 信息修改
+     * @param request
+     * @return
+     */
+    APIResult updateInfo(UpdateCompanyRequest request);
 }
