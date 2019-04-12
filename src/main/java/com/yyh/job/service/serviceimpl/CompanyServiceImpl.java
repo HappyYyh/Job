@@ -1,5 +1,6 @@
 package com.yyh.job.service.serviceimpl;
 
+import com.google.common.collect.Lists;
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.common.enums.BaseEnum;
 import com.yyh.job.common.enums.CommonEnum;
@@ -9,13 +10,16 @@ import com.yyh.job.dao.model.Company;
 import com.yyh.job.dao.model.Recruiter;
 import com.yyh.job.dto.request.CommonCompanyRequest;
 import com.yyh.job.dto.request.UpdateCompanyRequest;
+import com.yyh.job.dto.response.QueryCompanyResponse;
 import com.yyh.job.service.CompanyService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * All rights Reserved, Designed By 863044052@qq.com
@@ -58,6 +62,7 @@ public class CompanyServiceImpl implements CompanyService {
             recruiter.setPosition("认证者");
             recruiter.setCanUpdate(CommonEnum.ONE.getCode());
             recruiter.setIsOwner(CommonEnum.ONE.getCode());
+            recruiter.setStatus(CommonEnum.ONE.getCode());
             recruiterMapper.insert(recruiter);
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,5 +95,24 @@ public class CompanyServiceImpl implements CompanyService {
         BeanUtils.copyProperties(request,company);
         companyMapper.updateByPrimaryKeySelective(company);
         return APIResult.ok();
+    }
+
+    /**
+     * 获取所有的公司名称
+     *
+     * @return
+     */
+    @Override
+    @Cacheable(cacheNames = "AllCompanyName")
+    public APIResult<List<QueryCompanyResponse>> getAllCompanyName() {
+        List<Company> companyList = companyMapper.selectAllCompany();
+        List<QueryCompanyResponse> responseList = Lists.newArrayList();
+        companyList.forEach(company -> {
+            QueryCompanyResponse response = new QueryCompanyResponse();
+            response.setId(company.getId());
+            response.setName(company.getCompanyName());
+            responseList.add(response);
+        });
+        return APIResult.create(responseList);
     }
 }

@@ -82,4 +82,9 @@ public class CompanyInfoResponse {
      * 是否认证者(0否1是)
      */
     private Integer isOwner;
+
+    /**
+     * 招聘者是否通过审核(0否1是)
+     */
+    private Integer status;
 }

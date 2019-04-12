@@ -4,6 +4,9 @@ import com.yyh.job.common.base.APIResult;
 import com.yyh.job.dao.model.Company;
 import com.yyh.job.dto.request.CommonCompanyRequest;
 import com.yyh.job.dto.request.UpdateCompanyRequest;
+import com.yyh.job.dto.response.QueryCompanyResponse;
+
+import java.util.List;
 
 /**
  * All rights Reserved, Designed By 863044052@qq.com
@@ -35,4 +38,10 @@ public interface CompanyService {
      * @return
      */
     APIResult updateInfo(UpdateCompanyRequest request);
+
+    /**
+     * 获取所有的公司名称
+     * @return
+     */
+    APIResult<List<QueryCompanyResponse>> getAllCompanyName();
 }

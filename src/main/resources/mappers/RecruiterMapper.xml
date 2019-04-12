@@ -8,9 +8,10 @@
     <result column="position" property="position" jdbcType="VARCHAR" />
     <result column="can_update" property="canUpdate" jdbcType="BIT" />
     <result column="is_owner" property="isOwner" jdbcType="BIT" />
+    <result column="status" property="status" jdbcType="BIT" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, user_id, company_id, `position`, can_update, is_owner
+    id, user_id, company_id, `position`, can_update, is_owner,`status`
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,10 +25,10 @@
   </delete>
   <insert id="insert" parameterType="com.yyh.job.dao.model.Recruiter" >
     insert into tbl_recruiter (id, user_id, company_id, 
-      `position`, can_update, is_owner
+      `position`, can_update, is_owner,status
       )
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{companyId,jdbcType=INTEGER}, 
-      #{position,jdbcType=VARCHAR}, #{canUpdate,jdbcType=BIT}, #{isOwner,jdbcType=BIT}
+      #{position,jdbcType=VARCHAR}, #{canUpdate,jdbcType=BIT}, #{isOwner,jdbcType=BIT},#{status,jdbcType=BIT}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.yyh.job.dao.model.Recruiter" >
@@ -51,6 +52,9 @@
       <if test="isOwner != null" >
         is_owner,
       </if>
+      <if test="status != null" >
+        `status`,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -70,6 +74,9 @@
       </if>
       <if test="isOwner != null" >
         #{isOwner,jdbcType=BIT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -91,6 +98,9 @@
       <if test="isOwner != null" >
         is_owner = #{isOwner,jdbcType=BIT},
       </if>
+      <if test="status != null" >
+        `status` = #{status,jdbcType=BIT},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -100,7 +110,8 @@
       company_id = #{companyId,jdbcType=INTEGER},
       `position` = #{position,jdbcType=VARCHAR},
       can_update = #{canUpdate,jdbcType=BIT},
-      is_owner = #{isOwner,jdbcType=BIT}
+      is_owner = #{isOwner,jdbcType=BIT},
+      `status` = #{status,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

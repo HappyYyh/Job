@@ -35,6 +35,11 @@ public class Recruiter {
      */
     private Integer isOwner;
 
+    /**
+     * 招聘者是否通过审核(0否1是)
+     */
+    private Integer status;
+
     public Integer getId() {
         return id;
     }
@@ -81,5 +86,13 @@ public class Recruiter {
 
     public void setIsOwner(Integer isOwner) {
         this.isOwner = isOwner;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

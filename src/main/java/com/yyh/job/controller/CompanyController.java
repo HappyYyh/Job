@@ -45,4 +45,10 @@ public class CompanyController {
     public APIResult update(@RequestBody @Valid UpdateCompanyRequest request, BindingResult bindingResult){
         return companyService.updateInfo(request);
     }
+
+    @GetMapping("/getAllCompanyName")
+    @AuthToken
+    public APIResult getAllCompanyName(){
+        return companyService.getAllCompanyName();
+    }
 }

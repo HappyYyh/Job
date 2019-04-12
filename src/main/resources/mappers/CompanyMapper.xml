@@ -27,6 +27,7 @@
     <result column="recruiterId" property="recruiterId" jdbcType="BIT" />
     <result column="can_update" property="canUpdate" jdbcType="BIT" />
     <result column="is_owner" property="isOwner" jdbcType="BIT" />
+    <result column="status" property="status" jdbcType="BIT" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.yyh.job.dao.model.Company" extends="BaseResultMap" >
     <result column="introduce" property="introduce" jdbcType="LONGVARCHAR" />
@@ -211,10 +212,15 @@
   </update>
 
   <select id="selectCompanyByRecruiterId" resultMap="CompanyInfo">
-    select  c.*,r.user_id as recruiterId,r.can_update,r.is_owner
+    select  c.*,r.user_id as recruiterId,r.can_update,r.is_owner,r.status
     from tbl_recruiter r
     left join tbl_company c
     on r.company_id = c.id
     where r.user_id = #{recruiterId}
+  </select>
+
+  <select id="selectAllCompany" resultMap="BaseResultMap">
+    select id,company_name
+    from tbl_company
   </select>
 </mapper>
