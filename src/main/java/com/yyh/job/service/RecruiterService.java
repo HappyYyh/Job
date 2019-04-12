@@ -1,6 +1,7 @@
 package com.yyh.job.service;
 
 import com.yyh.job.common.base.APIResult;
+import com.yyh.job.dto.request.BindCompanyRequest;
 
 /**
  * All rights Reserved, Designed By 863044052@qq.com
@@ -12,5 +13,10 @@ import com.yyh.job.common.base.APIResult;
  */
 public interface RecruiterService {
 
-    APIResult bindCompany();
+    /**
+     * 招聘者绑定公司
+     * @param request
+     * @return
+     */
+    APIResult bindCompany(BindCompanyRequest request);
 }
