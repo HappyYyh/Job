@@ -132,6 +132,13 @@
     where user_id = #{recruiterId}
   </select>
 
+  <select id="selectByRecruiterIdAndCompanyId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_recruiter
+    where user_id = #{recruiterId} and company_id = #{companyId}
+  </select>
+
   <select id="selectRecruitersByCompanyId" resultMap="RecruitersMap">
     SELECT r.user_id, r.company_id, r.`position`, r.can_update, r.is_owner,r.`status`,u.nick_name,u.email,u.phone
     FROM tbl_recruiter r

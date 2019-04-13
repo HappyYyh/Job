@@ -3,6 +3,7 @@ package com.yyh.job.service;
 import com.github.pagehelper.PageInfo;
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.dto.request.BindCompanyRequest;
+import com.yyh.job.dto.request.CommonRecruiterRequest;
 import com.yyh.job.dto.request.RecruiterListRequest;
 import com.yyh.job.dto.response.BindCompanyRecruiterResponse;
 
@@ -31,4 +32,11 @@ public interface RecruiterService {
      * @return
      */
     APIResult getRecruiters(RecruiterListRequest request);
+
+    /**
+     * 修改招聘者权限
+     * @param request
+     * @return
+     */
+    APIResult updateRecruiterInfo(CommonRecruiterRequest request);
 }

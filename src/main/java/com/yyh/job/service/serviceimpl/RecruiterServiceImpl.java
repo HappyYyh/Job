@@ -2,7 +2,6 @@ package com.yyh.job.service.serviceimpl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.common.base.BaseResponse;
 import com.yyh.job.common.enums.BaseEnum;
@@ -10,11 +9,13 @@ import com.yyh.job.common.enums.CommonEnum;
 import com.yyh.job.dao.mapper.RecruiterMapper;
 import com.yyh.job.dao.model.Recruiter;
 import com.yyh.job.dto.request.BindCompanyRequest;
+import com.yyh.job.dto.request.CommonRecruiterRequest;
 import com.yyh.job.dto.request.RecruiterListRequest;
 import com.yyh.job.dto.response.BindCompanyRecruiterResponse;
 import com.yyh.job.service.RecruiterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class RecruiterServiceImpl implements RecruiterService {
      * @return
      */
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public APIResult bindCompany(BindCompanyRequest request) {
         //先查询是否有绑定记录
         Recruiter isExist = recruiterMapper.selectByRecruiterId(request.getRecruiterId());
@@ -68,6 +70,25 @@ public class RecruiterServiceImpl implements RecruiterService {
         Page page = PageHelper.startPage(request.getPageNo(),request.getPageSize());
         List<BindCompanyRecruiterResponse> responseList = recruiterMapper.selectRecruitersByCompanyId(request.getCompanyId());
         return APIResult.create(BaseResponse.create(page.getTotal(),responseList));
+    }
+
+    /**
+     * 修改招聘者权限
+     * @param request
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = RuntimeException.class)
+    public APIResult updateRecruiterInfo(CommonRecruiterRequest request) {
+        //先查询记录
+        Recruiter recruiter = recruiterMapper.selectByRecruiterIdAndCompanyId(request.getRecruiterId(), request.getCompanyId());
+        if(CommonEnum.ZERO.getCode().equals(request.getUpdateType())){
+            recruiter.setStatus(CommonEnum.ONE.getCode());
+        }else {
+            recruiter.setCanUpdate(CommonEnum.ONE.getCode());
+        }
+        recruiterMapper.updateByPrimaryKeySelective(recruiter);
+        return APIResult.ok();
     }
 }
 

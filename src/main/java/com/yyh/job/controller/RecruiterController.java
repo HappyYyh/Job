@@ -3,6 +3,7 @@ package com.yyh.job.controller;
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.common.base.AuthToken;
 import com.yyh.job.dto.request.BindCompanyRequest;
+import com.yyh.job.dto.request.CommonRecruiterRequest;
 import com.yyh.job.dto.request.RecruiterListRequest;
 import com.yyh.job.service.RecruiterService;
 import io.swagger.annotations.Api;
@@ -41,5 +42,11 @@ public class RecruiterController {
     @AuthToken
     public APIResult getRecruiters(@RequestBody @Valid RecruiterListRequest request, BindingResult bindingResult){
         return recruiterService.getRecruiters(request);
+    }
+
+    @PostMapping("/updateRecruiterInfo")
+    @AuthToken
+    public APIResult updateRecruiterInfo(@RequestBody @Valid CommonRecruiterRequest request, BindingResult bindingResult){
+        return recruiterService.updateRecruiterInfo(request);
     }
 }
