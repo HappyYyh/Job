@@ -3,6 +3,7 @@ package com.yyh.job.controller;
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.common.base.AuthToken;
 import com.yyh.job.dto.request.BindCompanyRequest;
+import com.yyh.job.dto.request.RecruiterListRequest;
 import com.yyh.job.service.RecruiterService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,11 @@ public class RecruiterController {
     @AuthToken
     public APIResult bindCompany(@RequestBody @Valid BindCompanyRequest request, BindingResult bindingResult){
         return recruiterService.bindCompany(request);
+    }
+
+    @PostMapping("/getRecruiters")
+    @AuthToken
+    public APIResult getRecruiters(@RequestBody @Valid RecruiterListRequest request, BindingResult bindingResult){
+        return recruiterService.getRecruiters(request);
     }
 }

@@ -10,6 +10,17 @@
     <result column="is_owner" property="isOwner" jdbcType="BIT" />
     <result column="status" property="status" jdbcType="BIT" />
   </resultMap>
+
+  <resultMap id="RecruitersMap" type="com.yyh.job.dto.response.BindCompanyRecruiterResponse" >
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="user_id" property="recruiterId" jdbcType="INTEGER" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="can_update" property="canUpdate" jdbcType="BIT" />
+    <result column="is_owner" property="isOwner" jdbcType="BIT" />
+    <result column="status" property="status" jdbcType="BIT" />
+  </resultMap>
   <sql id="Base_Column_List" >
     id, user_id, company_id, `position`, can_update, is_owner,`status`
   </sql>
@@ -114,4 +125,17 @@
       `status` = #{status,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByRecruiterId" resultMap="BaseResultMap">
+    select company_id
+    from tbl_recruiter
+    where user_id = #{recruiterId}
+  </select>
+
+  <select id="selectRecruitersByCompanyId" resultMap="RecruitersMap">
+    SELECT r.user_id, r.company_id, r.`position`, r.can_update, r.is_owner,r.`status`,u.nick_name,u.email,u.phone
+    FROM tbl_recruiter r
+    LEFT JOIN tbl_user u  on r.user_id = u.id
+    where r.company_id = #{companyId}
+  </select>
 </mapper>

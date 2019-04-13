@@ -1,7 +1,12 @@
 package com.yyh.job.service;
 
+import com.github.pagehelper.PageInfo;
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.dto.request.BindCompanyRequest;
+import com.yyh.job.dto.request.RecruiterListRequest;
+import com.yyh.job.dto.response.BindCompanyRecruiterResponse;
+
+import java.util.List;
 
 /**
  * All rights Reserved, Designed By 863044052@qq.com
@@ -19,4 +24,11 @@ public interface RecruiterService {
      * @return
      */
     APIResult bindCompany(BindCompanyRequest request);
+
+    /**
+     * 查询招聘者信息
+     * @param request
+     * @return
+     */
+    APIResult getRecruiters(RecruiterListRequest request);
 }

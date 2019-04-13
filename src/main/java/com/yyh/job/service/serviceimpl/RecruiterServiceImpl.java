@@ -1,13 +1,22 @@
 package com.yyh.job.service.serviceimpl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.yyh.job.common.base.APIResult;
+import com.yyh.job.common.base.BaseResponse;
+import com.yyh.job.common.enums.BaseEnum;
 import com.yyh.job.common.enums.CommonEnum;
 import com.yyh.job.dao.mapper.RecruiterMapper;
 import com.yyh.job.dao.model.Recruiter;
 import com.yyh.job.dto.request.BindCompanyRequest;
+import com.yyh.job.dto.request.RecruiterListRequest;
+import com.yyh.job.dto.response.BindCompanyRecruiterResponse;
 import com.yyh.job.service.RecruiterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * All rights Reserved, Designed By 863044052@qq.com
@@ -31,6 +40,11 @@ public class RecruiterServiceImpl implements RecruiterService {
      */
     @Override
     public APIResult bindCompany(BindCompanyRequest request) {
+        //先查询是否有绑定记录
+        Recruiter isExist = recruiterMapper.selectByRecruiterId(request.getRecruiterId());
+        if(isExist != null){
+            return APIResult.create(BaseEnum.ALREADY_BIND_COMPANY);
+        }
         Recruiter recruiter = new Recruiter();
         recruiter.setUserId(request.getRecruiterId());
         recruiter.setCompanyId(request.getCompanyId());
@@ -40,6 +54,20 @@ public class RecruiterServiceImpl implements RecruiterService {
         recruiter.setStatus(CommonEnum.ZERO.getCode());
         recruiterMapper.insert(recruiter);
         return APIResult.ok();
+    }
+
+    /**
+     * 查询招聘者信息
+     *
+     * @param request
+     * @return
+     */
+    @Override
+    public APIResult getRecruiters(RecruiterListRequest request) {
+        //分页
+        Page page = PageHelper.startPage(request.getPageNo(),request.getPageSize());
+        List<BindCompanyRecruiterResponse> responseList = recruiterMapper.selectRecruitersByCompanyId(request.getCompanyId());
+        return APIResult.create(BaseResponse.create(page.getTotal(),responseList));
     }
 }
 

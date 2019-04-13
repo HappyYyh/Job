@@ -33,7 +33,7 @@ public class RedisConfig extends CachingConfigurerSupport {
      * org.springframework.cache.interceptor.SimpleKey cannot be cast to java.lang.String
      */
 
-    private static final int EXPIRE_TIME = 60*60;
+    private static final int EXPIRE_TIME = 15*24*60*60;
     /**
      *   缓存管理器管理的缓存都需要有对应的缓存空间，否则抛异常：No cache could be resolved for 'Builder...
      * @param redisTemplate

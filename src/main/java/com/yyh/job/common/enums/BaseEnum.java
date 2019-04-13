@@ -30,7 +30,9 @@ public enum BaseEnum {
     USER_NOT_EXIST(506,"账号不存在?去注册一个吧!"),
     PASSWORD_ERROR(507,"密码错误!"),
 
-    ADD_COMPANY_ERROR(600,"企业认证失败,请重试"),
+    ADD_COMPANY_ERROR(510,"企业认证失败,请重试"),
+
+    ALREADY_BIND_COMPANY(520,"您已经绑定企业了,请耐心等待审核!")
     ;
 
     @Getter
