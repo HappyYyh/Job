@@ -8,6 +8,7 @@ import com.yyh.job.dao.mapper.UserMapper;
 import com.yyh.job.dao.model.User;
 import com.yyh.job.dto.request.CommonUserRequest;
 import com.yyh.job.dto.request.SendSmsRequest;
+import com.yyh.job.dto.request.UpdateUserRequest;
 import com.yyh.job.dto.request.UserLoginRequest;
 import com.yyh.job.dto.response.UserLoginResponse;
 import com.yyh.job.service.UserService;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.UUID;
@@ -207,6 +209,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public APIResult logout(String token) {
         redisTemplate.delete(token);
+        return APIResult.ok();
+    }
+
+    @Override
+    @Transactional(rollbackFor = RuntimeException.class)
+    public APIResult updateUser(UpdateUserRequest request) {
+        User user = userMapper.selectByPrimaryKey(request.getId());
+        if(null == user){
+            return APIResult.error(BaseEnum.UPDATE_USER_ERROR);
+        }
+        user.setHeadImg(request.getImg());
+        user.setNickName(request.getNickName());
+        userMapper.updateByPrimaryKeySelective(user);
         return APIResult.ok();
     }
 

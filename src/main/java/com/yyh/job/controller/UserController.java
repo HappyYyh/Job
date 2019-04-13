@@ -3,6 +3,7 @@ package com.yyh.job.controller;
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.dto.request.CommonUserRequest;
 import com.yyh.job.dto.request.SendSmsRequest;
+import com.yyh.job.dto.request.UpdateUserRequest;
 import com.yyh.job.dto.request.UserLoginRequest;
 import com.yyh.job.service.UserService;
 import io.swagger.annotations.Api;
@@ -69,5 +70,10 @@ public class UserController {
     @PostMapping("/sendCheckCode")
     public APIResult sendCheckCode(@RequestBody @Valid SendSmsRequest request, BindingResult bindingResult){
         return userService.sendCheckCode(request);
+    }
+
+    @PostMapping("/user/updateInfo")
+    public APIResult updateInfo(@RequestBody @Valid UpdateUserRequest request, BindingResult bindingResult){
+        return userService.updateUser(request);
     }
 }

@@ -3,6 +3,7 @@ package com.yyh.job.service;
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.dto.request.CommonUserRequest;
 import com.yyh.job.dto.request.SendSmsRequest;
+import com.yyh.job.dto.request.UpdateUserRequest;
 import com.yyh.job.dto.request.UserLoginRequest;
 
 /**
@@ -42,4 +43,11 @@ public interface UserService {
      * @return
      */
     APIResult logout(String token);
+
+    /**
+     * 更新用户信息
+     * @param request
+     * @return
+     */
+    APIResult updateUser(UpdateUserRequest request);
 }
