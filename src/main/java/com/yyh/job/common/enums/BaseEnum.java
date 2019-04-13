@@ -32,7 +32,9 @@ public enum BaseEnum {
 
     ADD_COMPANY_ERROR(510,"企业认证失败,请重试"),
 
-    ALREADY_BIND_COMPANY(520,"您已经绑定企业了,请耐心等待审核!")
+    ALREADY_BIND_COMPANY(520,"您已经绑定企业了,请耐心等待审核!"),
+
+    URL_ERROR(530,"url不合法!")
     ;
 
     @Getter

@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.qiniu.common.QiniuException;
 import com.qiniu.common.Zone;
 import com.qiniu.http.Response;
+import com.qiniu.storage.BucketManager;
 import com.qiniu.storage.Configuration;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.storage.model.DefaultPutRet;
@@ -81,6 +82,20 @@ public class FileUtil {
             e.printStackTrace();
         }
         return urlPrefix + key;
+    }
+
+    public boolean delete(String key){
+        Configuration cfg = new Configuration(Zone.zone2());
+        Auth auth = Auth.create(accessKey, secretKey);
+        BucketManager bucketManager = new BucketManager(auth, cfg);
+        try {
+            bucketManager.delete(bucket, key);
+        } catch (QiniuException ex) {
+            //如果遇到异常，说明删除失败
+            log.error("删除文件失败code:{},info:{}",ex.code(),ex.response.toString());
+            return false;
+        }
+        return true;
     }
 
     /**
