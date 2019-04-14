@@ -3,6 +3,7 @@ package com.yyh.job.controller;
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.common.base.AuthToken;
 import com.yyh.job.dto.request.CommonJobRequest;
+import com.yyh.job.dto.request.QueryJobRequest;
 import com.yyh.job.service.JobService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,12 @@ public class JobController {
     @AuthToken
     public APIResult addJob(@RequestBody @Valid CommonJobRequest request, BindingResult bindingResult){
         return jobService.addJob(request);
+    }
+
+    @PostMapping("/getJobList")
+    @AuthToken
+    public APIResult getJobList(@RequestBody @Valid QueryJobRequest request, BindingResult bindingResult){
+        return jobService.getJobList(request);
     }
 
 }

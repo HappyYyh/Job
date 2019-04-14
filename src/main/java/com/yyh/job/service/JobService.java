@@ -2,6 +2,7 @@ package com.yyh.job.service;
 
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.dto.request.CommonJobRequest;
+import com.yyh.job.dto.request.QueryJobRequest;
 
 /**
  * @Package com.yyh.job.service
@@ -17,4 +18,11 @@ public interface JobService {
      * @return
      */
     APIResult addJob(CommonJobRequest request);
+
+    /**
+     * 查找招聘者发布的职位
+     * @param request
+     * @return
+     */
+    APIResult getJobList(QueryJobRequest request);
 }

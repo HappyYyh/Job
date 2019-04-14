@@ -1,6 +1,9 @@
 package com.yyh.job.service.serviceimpl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.yyh.job.common.base.APIResult;
+import com.yyh.job.common.base.BaseResponse;
 import com.yyh.job.common.enums.BaseEnum;
 import com.yyh.job.common.enums.CommonEnum;
 import com.yyh.job.dao.mapper.JobMapper;
@@ -8,6 +11,7 @@ import com.yyh.job.dao.mapper.RecruiterMapper;
 import com.yyh.job.dao.model.Job;
 import com.yyh.job.dao.model.Recruiter;
 import com.yyh.job.dto.request.CommonJobRequest;
+import com.yyh.job.dto.request.QueryJobRequest;
 import com.yyh.job.service.JobService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Package com.yyh.job.service.serviceimpl
@@ -51,5 +56,18 @@ public class JobServiceImpl implements JobService {
         job.setGmtCreate(new Date());
         jobMapper.insert(job);
         return APIResult.ok();
+    }
+
+    /**
+     * 查找招聘者发布的职位
+     *
+     * @param request
+     * @return
+     */
+    @Override
+    public APIResult getJobList(QueryJobRequest request) {
+        Page page = PageHelper.startPage(request.getPageNo(), request.getPageSize());
+        List<Job> jobList = jobMapper.selectByRecruiterId(request.getRecruiterId());
+        return APIResult.create(BaseResponse.create(page.getTotal(),jobList));
     }
 }

@@ -103,7 +103,7 @@ public class CompanyServiceImpl implements CompanyService {
      * @return
      */
     @Override
-    @Cacheable(cacheNames = "AllCompanyName")
+    //@Cacheable(cacheNames = "AllCompanyName")
     public APIResult<List<QueryCompanyResponse>> getAllCompanyName() {
         List<Company> companyList = companyMapper.selectAllCompany();
         List<QueryCompanyResponse> responseList = Lists.newArrayList();
