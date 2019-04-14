@@ -34,7 +34,8 @@ public enum BaseEnum {
     ADD_COMPANY_ERROR(510,"企业认证失败,请重试"),
 
     ALREADY_BIND_COMPANY(520,"您已经绑定企业了,请耐心等待审核!"),
-
+    NOT_BIND_COMPANY(521,"您尚未绑定企业，请先绑定企业以后在操作"),
+    NOT_COMPLATE_BIND(522,"您申请的绑定暂未通过审核"),
     URL_ERROR(530,"url不合法!")
     ;
 

@@ -127,7 +127,7 @@
   </update>
 
   <select id="selectByRecruiterId" resultMap="BaseResultMap">
-    select company_id
+    select company_id ,`position`,can_update,`status`
     from tbl_recruiter
     where user_id = #{recruiterId}
   </select>
