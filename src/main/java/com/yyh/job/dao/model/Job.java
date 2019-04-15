@@ -43,6 +43,11 @@ public class Job {
     private Integer workEducation;
 
     /**
+     * 工作经验(0:不限 1:应届毕业生 2:1年以内 3:1~3年 4:3～5年 5:5～10年 6:10年以上)
+     */
+    private Integer workExperience;
+
+    /**
      * 起始薪资
      */
     private Double salaryStart;
@@ -136,6 +141,14 @@ public class Job {
 
     public void setWorkEducation(Integer workEducation) {
         this.workEducation = workEducation;
+    }
+
+    public Integer getWorkExperience() {
+        return workExperience;
+    }
+
+    public void setWorkExperience(Integer workExperience) {
+        this.workExperience = workExperience;
     }
 
     public Double getSalaryStart() {

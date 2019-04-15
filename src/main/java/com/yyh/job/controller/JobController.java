@@ -8,10 +8,7 @@ import com.yyh.job.service.JobService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -34,6 +31,19 @@ public class JobController {
     public APIResult addJob(@RequestBody @Valid CommonJobRequest request, BindingResult bindingResult){
         return jobService.addJob(request);
     }
+
+    @GetMapping("/detail")
+    @AuthToken
+    public APIResult detail(Integer id){
+        return jobService.detail(id);
+    }
+
+    @PostMapping("/update")
+    @AuthToken
+    public APIResult update(@RequestBody @Valid CommonJobRequest request, BindingResult bindingResult){
+        return jobService.update(request);
+    }
+
 
     @PostMapping("/getJobList")
     @AuthToken

@@ -25,4 +25,18 @@ public interface JobService {
      * @return
      */
     APIResult getJobList(QueryJobRequest request);
+
+    /**
+     * 根据id查询详情
+     * @param id
+     * @return
+     */
+    APIResult detail(Integer id);
+
+    /**
+     * 修改
+     * @param request
+     * @return
+     */
+    APIResult update(CommonJobRequest request);
 }

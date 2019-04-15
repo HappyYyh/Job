@@ -17,6 +17,11 @@ import javax.validation.constraints.NotNull;
 public class CommonJobRequest {
 
     /**
+     * 主键
+     */
+    private Integer jobId;
+
+    /**
      * 职位名称
      */
     @NotBlank(message = "职位名称不能为空")
@@ -30,7 +35,6 @@ public class CommonJobRequest {
     /**
      * 创建者id
      */
-    @NotNull
     private Integer recruiterId;
 
     /**
@@ -43,6 +47,12 @@ public class CommonJobRequest {
      */
     @Max(4)
     private Integer workEducation;
+
+    /**
+     * 工作经验(0:不限 1:应届毕业生 2:1年以内 3:1~3年 4:3～5年 5:5～10年 6:10年以上)
+     */
+    @Max(6)
+    private Integer workExperience;
 
     /**
      * 起始薪资

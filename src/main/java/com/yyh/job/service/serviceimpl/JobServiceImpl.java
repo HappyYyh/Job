@@ -39,6 +39,9 @@ public class JobServiceImpl implements JobService {
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public APIResult addJob(CommonJobRequest request) {
+        if(null == request.getRecruiterId()){
+            return APIResult.error();
+        }
         //1、首先查询是否绑定了公司
         Recruiter recruiter = recruiterMapper.selectByRecruiterId(request.getRecruiterId());
         if(null == recruiter){
@@ -69,5 +72,31 @@ public class JobServiceImpl implements JobService {
         Page page = PageHelper.startPage(request.getPageNo(), request.getPageSize());
         List<Job> jobList = jobMapper.selectByRecruiterId(request.getRecruiterId());
         return APIResult.create(BaseResponse.create(page.getTotal(),jobList));
+    }
+
+    /**
+     * 根据id查询详情
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public APIResult detail(Integer id) {
+        return APIResult.create(jobMapper.selectByPrimaryKey(id));
+    }
+
+    /**
+     * 修改
+     *
+     * @param request
+     * @return
+     */
+    @Override
+    public APIResult update(CommonJobRequest request) {
+        Job job = new Job();
+        BeanUtils.copyProperties(request,job);
+        job.setId(request.getJobId());
+        jobMapper.updateByPrimaryKeySelective(job);
+        return APIResult.ok();
     }
 }
