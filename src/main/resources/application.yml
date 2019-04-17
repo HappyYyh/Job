@@ -2,17 +2,29 @@
 server:
   port: 8888
 
-#数据库配置
+
 spring:
+  #数据库配置
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://rm-bp1908u6a7tofk507ko.mysql.rds.aliyuncs.com:3306/db_question?useUnicode=true&allowMultiQueries=true&useSSL=false&characterEncoding=utf-8
+    url: jdbc:mysql://rm-bp1908u6a7tofk507ko.mysql.rds.aliyuncs.com:3306/db_job?useUnicode=true&allowMultiQueries=true&useSSL=false&characterEncoding=utf-8
     username: root
     password: aiYYH!1314
     tomcat:
       max-active: 10
       max-idle: 5
       min-idle: 5
+  #redis
+  redis:
+    host: 120.79.252.252
+    pool:
+      max-active: 200
+      max-wait: 5000
+      max-idle: 150
+      min-idle: 0
+
+    timeout: 6000
+
 
 #mybatis
 mybatis:

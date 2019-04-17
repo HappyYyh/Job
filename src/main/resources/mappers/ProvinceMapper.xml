@@ -6,6 +6,26 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="province_id" property="provinceId" jdbcType="VARCHAR" />
   </resultMap>
+
+  <resultMap id="firstMap" type="com.yyh.job.dto.response.RegionFirstResponse">
+    <result column="provinceName"  property="provinceName" jdbcType="VARCHAR"/>
+    <result column="province_id"  property="provinceId" jdbcType="VARCHAR"/>
+    <collection property="regionSecondResponseList" javaType="ArrayList" column="province_id"
+                ofType="com.yyh.job.dto.response.RegionSecondResponse" resultMap="secondMap">
+    </collection>
+  </resultMap>
+
+  <resultMap id="secondMap" type="com.yyh.job.dto.response.RegionSecondResponse">
+    <result column="cityName"  property="cityName" jdbcType="VARCHAR"/>
+    <result column="city_id"  property="cityId" jdbcType="VARCHAR"/>
+    <collection property="regionThirdResponseList" javaType="ArrayList" column="city_id"
+                ofType="com.yyh.job.dto.response.RegionThirdResponse" resultMap="thirdMap">
+    </collection>
+  </resultMap>
+
+  <resultMap id="thirdMap" type="com.yyh.job.dto.response.RegionThirdResponse">
+    <result column="countryName"  property="countryName" jdbcType="VARCHAR"/>
+  </resultMap>
   <sql id="Base_Column_List" >
     _id, `name`, province_id
   </sql>
@@ -68,4 +88,17 @@
       province_id = #{provinceId,jdbcType=VARCHAR}
     where _id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getAllProvince" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from province
+  </select>
+
+  <select id="getAllRegions" resultMap="firstMap">
+    SELECT province.name as provinceName,province.province_id ,city.name as cityName,city.city_id,country.name as countryName
+    FROM province
+    LEFT JOIN city  on province.province_id=city.province_id
+    LEFT JOIN country on city.city_id = country.city_id
+  </select>
 </mapper>

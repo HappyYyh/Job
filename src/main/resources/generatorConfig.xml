@@ -121,7 +121,13 @@
         <table tableName="tbl_resume_project" domainObjectName="ResumeProject" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>
 
+        <!--公司招聘者表-->
+        <table tableName="tbl_recruiter" domainObjectName="Recruiter" enableCountByExample="false"
+         enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false">
+            <columnOverride column="can_update" javaType="Integer"/>
+            <columnOverride column="is_owner" javaType="Integer"/>
+        </table>
 
 
-    </context>
+</context>
 </generatorConfiguration>

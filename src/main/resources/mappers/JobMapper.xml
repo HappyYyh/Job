@@ -9,6 +9,7 @@
     <result column="create_id" property="createId" jdbcType="INTEGER" />
     <result column="work_place" property="workPlace" jdbcType="VARCHAR" />
     <result column="work_education" property="workEducation" jdbcType="BIT" />
+    <result column="work_experience" property="workExperience" jdbcType="BIT" />
     <result column="salary_start" property="salaryStart" jdbcType="DOUBLE" />
     <result column="salary_end" property="salaryEnd" jdbcType="DOUBLE" />
     <result column="welfare" property="welfare" jdbcType="VARCHAR" />
@@ -21,7 +22,7 @@
     <result column="job_requirement" property="jobRequirement" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, job_name, category, company_id, create_id, work_place, work_education, salary_start, 
+    id, job_name, category, company_id, create_id, work_place, work_education,work_experience, salary_start,
     salary_end, welfare, `status`, gmt_create, gmt_update
   </sql>
   <sql id="Blob_Column_List" >
@@ -42,13 +43,13 @@
   <insert id="insert" parameterType="com.yyh.job.dao.model.Job" >
     insert into tbl_job (id, job_name, category, 
       company_id, create_id, work_place, 
-      work_education, salary_start, salary_end, 
+      work_education, work_experience,salary_start, salary_end,
       welfare, `status`, gmt_create, 
       gmt_update, job_duty, job_requirement
       )
     values (#{id,jdbcType=INTEGER}, #{jobName,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, 
       #{companyId,jdbcType=INTEGER}, #{createId,jdbcType=INTEGER}, #{workPlace,jdbcType=VARCHAR}, 
-      #{workEducation,jdbcType=BIT}, #{salaryStart,jdbcType=DOUBLE}, #{salaryEnd,jdbcType=DOUBLE}, 
+      #{workEducation,jdbcType=BIT},#{workExperience,jdbcType=BIT}, #{salaryStart,jdbcType=DOUBLE}, #{salaryEnd,jdbcType=DOUBLE},
       #{welfare,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
       #{gmtUpdate,jdbcType=TIMESTAMP}, #{jobDuty,jdbcType=LONGVARCHAR}, #{jobRequirement,jdbcType=LONGVARCHAR}
       )
@@ -76,6 +77,9 @@
       </if>
       <if test="workEducation != null" >
         work_education,
+      </if>
+      <if test="workExperience != null" >
+        work_experience,
       </if>
       <if test="salaryStart != null" >
         salary_start,
@@ -122,6 +126,9 @@
         #{workPlace,jdbcType=VARCHAR},
       </if>
       <if test="workEducation != null" >
+        #{workEducation,jdbcType=BIT},
+      </if>
+      <if test="workExperience != null" >
         #{workEducation,jdbcType=BIT},
       </if>
       <if test="salaryStart != null" >
@@ -171,6 +178,9 @@
       <if test="workEducation != null" >
         work_education = #{workEducation,jdbcType=BIT},
       </if>
+      <if test="workExperience != null" >
+        work_experience = #{workExperience,jdbcType=BIT},
+      </if>
       <if test="salaryStart != null" >
         salary_start = #{salaryStart,jdbcType=DOUBLE},
       </if>
@@ -206,6 +216,7 @@
       create_id = #{createId,jdbcType=INTEGER},
       work_place = #{workPlace,jdbcType=VARCHAR},
       work_education = #{workEducation,jdbcType=BIT},
+      work_experience = #{workExperience,jdbcType=BIT},
       salary_start = #{salaryStart,jdbcType=DOUBLE},
       salary_end = #{salaryEnd,jdbcType=DOUBLE},
       welfare = #{welfare,jdbcType=VARCHAR},
@@ -224,6 +235,7 @@
       create_id = #{createId,jdbcType=INTEGER},
       work_place = #{workPlace,jdbcType=VARCHAR},
       work_education = #{workEducation,jdbcType=BIT},
+      work_experience = #{workExperience,jdbcType=BIT},
       salary_start = #{salaryStart,jdbcType=DOUBLE},
       salary_end = #{salaryEnd,jdbcType=DOUBLE},
       welfare = #{welfare,jdbcType=VARCHAR},
@@ -232,4 +244,14 @@
       gmt_update = #{gmtUpdate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByRecruiterId" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_job
+    where create_id = #{recruiterId}
+    order by gmt_update desc
+  </select>
 </mapper>

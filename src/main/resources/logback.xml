@@ -23,7 +23,7 @@
     <!--全部日志-->
     <appender name="LOG_FIle" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 文件路径 -->
-        <file>${LOG_HOME}/question.log</file>
+        <file>${LOG_HOME}/job.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 文件名称 -->
             <fileNamePattern>${LOG_HOME}/job.%d{yyyy-MM-dd}.%i.log</fileNamePattern>

@@ -2,6 +2,8 @@ package com.yyh.job.dao.mapper;
 
 import com.yyh.job.dao.model.Job;
 
+import java.util.List;
+
 public interface JobMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -16,4 +18,11 @@ public interface JobMapper {
     int updateByPrimaryKeyWithBLOBs(Job record);
 
     int updateByPrimaryKey(Job record);
+
+    /**
+     * 根据recruiterId查找
+     * @param recruiterId
+     * @return
+     */
+    List<Job> selectByRecruiterId(Integer recruiterId);
 }
