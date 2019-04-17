@@ -92,6 +92,7 @@ public class JobServiceImpl implements JobService {
      * @return
      */
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public APIResult update(CommonJobRequest request) {
         Job job = new Job();
         BeanUtils.copyProperties(request,job);
