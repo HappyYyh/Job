@@ -2,6 +2,8 @@ package com.yyh.job.dao.mapper;
 
 import com.yyh.job.dao.model.ResumeProject;
 
+import java.util.List;
+
 public interface ResumeProjectMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -16,4 +18,12 @@ public interface ResumeProjectMapper {
     int updateByPrimaryKeyWithBLOBs(ResumeProject record);
 
     int updateByPrimaryKey(ResumeProject record);
+
+    /**
+     * 批量插入信息
+     * @param resumeProjectList
+     * @return
+     */
+    int batchInsert(List<ResumeProject> resumeProjectList);
+
 }

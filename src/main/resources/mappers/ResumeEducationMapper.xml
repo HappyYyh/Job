@@ -114,4 +114,15 @@
       `professional_name` = #{professionalName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <insert id="batchInsert" parameterType="java.util.List">
+    insert into tbl_resume_edu ( resume_id, university_name,
+                                 start_year, end_year, education,
+                                `professional_name`)
+    <foreach collection="list" item="item" separator=",">
+    values ( #{item.resumeId,jdbcType=INTEGER}, #{item.universityName,jdbcType=VARCHAR},
+      #{item.startYear,jdbcType=VARCHAR}, #{item.endYear,jdbcType=VARCHAR}, #{item.education,jdbcType=BIT},
+      #{item.professionalName,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
 </mapper>

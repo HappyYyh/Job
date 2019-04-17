@@ -129,4 +129,15 @@
       end_time = #{endTime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <insert id="batchInsert" parameterType="java.util.List">
+    insert into tbl_resume_project ( resume_id, project_name,
+                                   start_time, end_time,
+                                   description,`result`)
+    <foreach collection="list" item="item" separator=",">
+      values ( #{item.resumeId,jdbcType=INTEGER}, #{item.projectName,jdbcType=VARCHAR},
+               #{item.startTime,jdbcType=VARCHAR}, #{item.endTime,jdbcType=VARCHAR},
+               #{item.description,jdbcType=LONGVARCHAR}, #{item.result,jdbcType=LONGVARCHAR})
+    </foreach>
+  </insert>
 </mapper>

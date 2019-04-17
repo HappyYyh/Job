@@ -37,8 +37,8 @@
       department, `position`, job, 
       start_time, end_time, detail
       )
-    values (#{id,jdbcType=INTEGER}, #{resumeId,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, 
-      #{department,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{resumeId,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR},
+      #{department,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR},
       #{startTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, #{detail,jdbcType=LONGVARCHAR}
       )
   </insert>
@@ -156,4 +156,15 @@
       end_time = #{endTime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <insert id="batchInsert" parameterType="java.util.List">
+    insert into tbl_resume_experience (resume_id, company_name,
+                                      department, `position`, job,
+                                      start_time, end_time, detail)
+    <foreach collection="list" item="item" separator=",">
+      values ( #{item.resumeId,jdbcType=INTEGER}, #{item.companyName,jdbcType=VARCHAR},
+      #{item.department,jdbcType=VARCHAR}, #{item.position,jdbcType=VARCHAR}, #{item.job,jdbcType=VARCHAR},
+      #{item.startTime,jdbcType=VARCHAR}, #{item.endTime,jdbcType=VARCHAR}, #{item.detail,jdbcType=LONGVARCHAR})
+    </foreach>
+  </insert>
 </mapper>
