@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyh.job.dao.mapper.ResumeEducationMapper" >
+  <resultMap id="BaseResultMap" type="com.yyh.job.dao.model.ResumeEducation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="resume_id" property="resumeId" jdbcType="INTEGER" />
+    <result column="university_name" property="universityName" jdbcType="VARCHAR" />
+    <result column="start_year" property="startYear" jdbcType="VARCHAR" />
+    <result column="end_year" property="endYear" jdbcType="VARCHAR" />
+    <result column="education" property="education" jdbcType="BIT" />
+    <result column="professional_name" property="professionalName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, resume_id, university_name, start_year, end_year, education, `professional_name`
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_resume_edu
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tbl_resume_edu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yyh.job.dao.model.ResumeEducation" >
+    insert into tbl_resume_edu (id, resume_id, university_name, 
+      start_year, end_year, education, 
+      `professional_name`)
+    values (#{id,jdbcType=INTEGER}, #{resumeId,jdbcType=INTEGER}, #{universityName,jdbcType=VARCHAR}, 
+      #{startYear,jdbcType=VARCHAR}, #{endYear,jdbcType=VARCHAR}, #{education,jdbcType=BIT}, 
+      #{professionalName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyh.job.dao.model.ResumeEducation" >
+    insert into tbl_resume_edu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="resumeId != null" >
+        resume_id,
+      </if>
+      <if test="universityName != null" >
+        university_name,
+      </if>
+      <if test="startYear != null" >
+        start_year,
+      </if>
+      <if test="endYear != null" >
+        end_year,
+      </if>
+      <if test="education != null" >
+        education,
+      </if>
+      <if test="professionalName != null" >
+        `professional_name`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="resumeId != null" >
+        #{resumeId,jdbcType=INTEGER},
+      </if>
+      <if test="universityName != null" >
+        #{universityName,jdbcType=VARCHAR},
+      </if>
+      <if test="startYear != null" >
+        #{startYear,jdbcType=VARCHAR},
+      </if>
+      <if test="endYear != null" >
+        #{endYear,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        #{education,jdbcType=BIT},
+      </if>
+      <if test="professionalName != null" >
+        #{professionalName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyh.job.dao.model.ResumeEducation" >
+    update tbl_resume_edu
+    <set >
+      <if test="resumeId != null" >
+        resume_id = #{resumeId,jdbcType=INTEGER},
+      </if>
+      <if test="universityName != null" >
+        university_name = #{universityName,jdbcType=VARCHAR},
+      </if>
+      <if test="startYear != null" >
+        start_year = #{startYear,jdbcType=VARCHAR},
+      </if>
+      <if test="endYear != null" >
+        end_year = #{endYear,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        education = #{education,jdbcType=BIT},
+      </if>
+      <if test="professionalName != null" >
+        `professional_name` = #{professionalName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyh.job.dao.model.ResumeEducation" >
+    update tbl_resume_edu
+    set resume_id = #{resumeId,jdbcType=INTEGER},
+      university_name = #{universityName,jdbcType=VARCHAR},
+      start_year = #{startYear,jdbcType=VARCHAR},
+      end_year = #{endYear,jdbcType=VARCHAR},
+      education = #{education,jdbcType=BIT},
+      `professional_name` = #{professionalName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

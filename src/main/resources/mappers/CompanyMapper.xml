@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyh.job.dao.mapper.CompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.yyh.job.dao.model.Company" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="belong_place" property="belongPlace" jdbcType="VARCHAR" />
+    <result column="registered_capital" property="registeredCapital" jdbcType="VARCHAR" />
+    <result column="industry_category" property="industryCategory" jdbcType="BIT" />
+    <result column="financing_status" property="financingStatus" jdbcType="BIT" />
+    <result column="staff_num" property="staffNum" jdbcType="BIT" />
+    <result column="is_stop" property="isStop" jdbcType="BIT" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_update" property="gmtUpdate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="CompanyInfo" type="com.yyh.job.dto.response.CompanyInfoResponse" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="belong_place" property="belongPlace" jdbcType="VARCHAR" />
+    <result column="registered_capital" property="registeredCapital" jdbcType="VARCHAR" />
+    <result column="industry_category" property="industryCategory" jdbcType="BIT" />
+    <result column="financing_status" property="financingStatus" jdbcType="BIT" />
+    <result column="staff_num" property="staffNum" jdbcType="BIT" />
+    <result column="is_stop" property="isStop" jdbcType="BIT" />
+    <result column="recruiterId" property="recruiterId" jdbcType="BIT" />
+    <result column="can_update" property="canUpdate" jdbcType="BIT" />
+    <result column="is_owner" property="isOwner" jdbcType="BIT" />
+    <result column="status" property="status" jdbcType="BIT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yyh.job.dao.model.Company" extends="BaseResultMap" >
+    <result column="introduce" property="introduce" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, company_name, img, belong_place, registered_capital, industry_category, financing_status, 
+    staff_num, is_stop, gmt_create, gmt_update
+  </sql>
+  <sql id="Blob_Column_List" >
+    introduce
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_company
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tbl_company
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yyh.job.dao.model.Company" >
+    insert into tbl_company (id, company_name, img, 
+      belong_place, registered_capital, industry_category, 
+      financing_status, staff_num, is_stop, 
+      gmt_create, gmt_update, introduce
+      )
+    values (#{id,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}, 
+      #{belongPlace,jdbcType=VARCHAR}, #{registeredCapital,jdbcType=VARCHAR}, #{industryCategory,jdbcType=BIT}, 
+      #{financingStatus,jdbcType=BIT}, #{staffNum,jdbcType=BIT}, #{isStop,jdbcType=BIT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtUpdate,jdbcType=TIMESTAMP}, #{introduce,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true" parameterType="com.yyh.job.dao.model.Company" >
+    insert into tbl_company
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="img != null" >
+        img,
+      </if>
+      <if test="belongPlace != null" >
+        belong_place,
+      </if>
+      <if test="registeredCapital != null" >
+        registered_capital,
+      </if>
+      <if test="industryCategory != null" >
+        industry_category,
+      </if>
+      <if test="financingStatus != null" >
+        financing_status,
+      </if>
+      <if test="staffNum != null" >
+        staff_num,
+      </if>
+      <if test="isStop != null" >
+        is_stop,
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create,
+      </if>
+      <if test="gmtUpdate != null" >
+        gmt_update,
+      </if>
+      <if test="introduce != null" >
+        introduce,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="belongPlace != null" >
+        #{belongPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredCapital != null" >
+        #{registeredCapital,jdbcType=VARCHAR},
+      </if>
+      <if test="industryCategory != null" >
+        #{industryCategory,jdbcType=BIT},
+      </if>
+      <if test="financingStatus != null" >
+        #{financingStatus,jdbcType=BIT},
+      </if>
+      <if test="staffNum != null" >
+        #{staffNum,jdbcType=BIT},
+      </if>
+      <if test="isStop != null" >
+        #{isStop,jdbcType=BIT},
+      </if>
+      <if test="gmtCreate != null" >
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtUpdate != null" >
+        #{gmtUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="introduce != null" >
+        #{introduce,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyh.job.dao.model.Company" >
+    update tbl_company
+    <set >
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="belongPlace != null" >
+        belong_place = #{belongPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredCapital != null" >
+        registered_capital = #{registeredCapital,jdbcType=VARCHAR},
+      </if>
+      <if test="industryCategory != null" >
+        industry_category = #{industryCategory,jdbcType=BIT},
+      </if>
+      <if test="financingStatus != null" >
+        financing_status = #{financingStatus,jdbcType=BIT},
+      </if>
+      <if test="staffNum != null" >
+        staff_num = #{staffNum,jdbcType=BIT},
+      </if>
+      <if test="isStop != null" >
+        is_stop = #{isStop,jdbcType=BIT},
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtUpdate != null" >
+        gmt_update = #{gmtUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="introduce != null" >
+        introduce = #{introduce,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yyh.job.dao.model.Company" >
+    update tbl_company
+    set company_name = #{companyName,jdbcType=VARCHAR},
+      img = #{img,jdbcType=VARCHAR},
+      belong_place = #{belongPlace,jdbcType=VARCHAR},
+      registered_capital = #{registeredCapital,jdbcType=VARCHAR},
+      industry_category = #{industryCategory,jdbcType=BIT},
+      financing_status = #{financingStatus,jdbcType=BIT},
+      staff_num = #{staffNum,jdbcType=BIT},
+      is_stop = #{isStop,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_update = #{gmtUpdate,jdbcType=TIMESTAMP},
+      introduce = #{introduce,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyh.job.dao.model.Company" >
+    update tbl_company
+    set company_name = #{companyName,jdbcType=VARCHAR},
+      img = #{img,jdbcType=VARCHAR},
+      belong_place = #{belongPlace,jdbcType=VARCHAR},
+      registered_capital = #{registeredCapital,jdbcType=VARCHAR},
+      industry_category = #{industryCategory,jdbcType=BIT},
+      financing_status = #{financingStatus,jdbcType=BIT},
+      staff_num = #{staffNum,jdbcType=BIT},
+      is_stop = #{isStop,jdbcType=BIT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_update = #{gmtUpdate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectCompanyByRecruiterId" resultMap="CompanyInfo">
+    select  c.*,r.user_id as recruiterId,r.can_update,r.is_owner,r.status
+    from tbl_recruiter r
+    left join tbl_company c
+    on r.company_id = c.id
+    where r.user_id = #{recruiterId}
+  </select>
+
+  <select id="selectAllCompany" resultMap="BaseResultMap">
+    select id,company_name
+    from tbl_company
+  </select>
+</mapper>
