@@ -1,7 +1,9 @@
 package com.yyh.job.service;
 
 import com.yyh.job.common.base.APIResult;
-import com.yyh.job.dto.request.resume.AddResumeRequest;
+import com.yyh.job.dto.request.resume.*;
+
+import java.util.List;
 
 /**
  * @Package com.yyh.job.service
@@ -17,4 +19,32 @@ public interface ResumeService {
      * @return
      */
     APIResult addResume(AddResumeRequest request);
+
+    /**
+     * 新增简历基础信息
+     * @param request
+     * @return
+     */
+    APIResult addBase(ResumeBaseRequest request);
+
+    /**
+     * 新增简历教育信息
+     * @param request
+     * @return
+     */
+    APIResult addEducation(List<ResumeEducationRequest> request);
+
+    /**
+     * 新增简历工作经验
+     * @param request
+     * @return
+     */
+    APIResult addExperience(List<ResumeExperienceRequest> request);
+
+    /**
+     * 新增简历项目信息
+     * @param request
+     * @return
+     */
+    APIResult addProject(List<ResumeProjectRequest> request);
 }

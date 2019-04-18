@@ -3,6 +3,8 @@ package com.yyh.job.dto.request.resume;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotNull;
+
 
 /**
  * @Package com.yyh.job.dto.request.resume
@@ -12,6 +14,13 @@ import org.hibernate.validator.constraints.Length;
  */
 @Data
 public class ResumeEducationRequest {
+
+
+    /**
+     * 简历基础的id
+     */
+    @NotNull
+    private Integer resumeId;
 
 
     /**
