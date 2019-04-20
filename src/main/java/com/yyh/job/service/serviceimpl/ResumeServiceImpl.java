@@ -13,6 +13,7 @@ import com.yyh.job.dao.model.ResumeEducation;
 import com.yyh.job.dao.model.ResumeExperience;
 import com.yyh.job.dao.model.ResumeProject;
 import com.yyh.job.dto.request.resume.*;
+import com.yyh.job.dto.response.resume.*;
 import com.yyh.job.service.ResumeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,6 +111,7 @@ public class ResumeServiceImpl implements ResumeService {
      * @return
      */
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public APIResult addBase(ResumeBaseRequest request) {
         ResumeBase resumeBase = new ResumeBase();
         BeanUtils.copyProperties(request,resumeBase);
@@ -126,6 +128,23 @@ public class ResumeServiceImpl implements ResumeService {
             return APIResult.create(resumeBase);
         }
         return APIResult.error(BaseEnum.ADD_RESUME_BASE_ERROR);
+    }
+
+    /**
+     * 修改基础简历信息
+     *
+     * @param request
+     * @return
+     */
+    @Override
+    public APIResult editBase(ResumeBaseRequest request) {
+        if(null == request.getId()){
+            return APIResult.error();
+        }
+        ResumeBase resumeBase = new ResumeBase();
+        BeanUtils.copyProperties(request,resumeBase);
+        resumeBaseMapper.updateByPrimaryKeySelective(resumeBase);
+        return APIResult.ok();
     }
 
     /**
@@ -168,6 +187,32 @@ public class ResumeServiceImpl implements ResumeService {
         BeanUtils.copyProperties(request,resumeProject);
         resumeProjectMapper.insert(resumeProject);
         return APIResult.ok();
+    }
+
+    /**
+     * 查看我的简历
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public APIResult getResume(Integer userId) {
+        MyResumeResponse response = new MyResumeResponse();
+        //查询基础信息
+        ResumeBaseResponse resumeBaseResponse = resumeBaseMapper.selectByUserId(userId);
+        Integer resumeId = resumeBaseResponse.getId();
+        //查询教育信息
+        List<ResumeEducationResponse> resumeEducationResponseList = resumeEducationMapper.selectByResumeId(resumeId);
+        //查询工作信息
+        List<ResumeExperienceResponse> resumeExperienceResponseList = resumeExperienceMapper.selectByResumeId(resumeId);
+        //查询项目信息
+        List<ResumeProjectResponse> resumeProjectResponseList = resumeProjectMapper.selectByResumeId(resumeId);
+        //数据填充
+        response.setResumeBaseResponse(resumeBaseResponse);
+        response.setResumeEducationResponseList(resumeEducationResponseList);
+        response.setResumeExperienceResponseList(resumeExperienceResponseList);
+        response.setResumeProjectResponseList(resumeProjectResponseList);
+        return APIResult.create(response);
     }
 
 }

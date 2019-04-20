@@ -1,6 +1,7 @@
 package com.yyh.job.dao.mapper;
 
 import com.yyh.job.dao.model.ResumeProject;
+import com.yyh.job.dto.response.resume.ResumeProjectResponse;
 
 import java.util.List;
 
@@ -26,4 +27,10 @@ public interface ResumeProjectMapper {
      */
     int batchInsert(List<ResumeProject> resumeProjectList);
 
+    /**
+     * 根据resumeId查询
+     * @param resumeId
+     * @return
+     */
+    List<ResumeProjectResponse> selectByResumeId(Integer resumeId);
 }

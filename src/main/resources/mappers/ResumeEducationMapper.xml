@@ -10,6 +10,8 @@
     <result column="education" property="education" jdbcType="BIT" />
     <result column="professional_name" property="professionalName" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap id="resumeEducationResponse" type="com.yyh.job.dto.response.resume.ResumeEducationResponse" extends="BaseResultMap">
+  </resultMap>
   <sql id="Base_Column_List" >
     id, resume_id, university_name, start_year, end_year, education, `professional_name`
   </sql>
@@ -125,4 +127,11 @@
       #{item.professionalName,jdbcType=VARCHAR})
     </foreach>
   </insert>
+
+  <select id="selectByResumeId" resultMap="resumeEducationResponse">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_resume_edu
+    where resume_id = #{resumeId,jdbcType=INTEGER}
+  </select>
 </mapper>

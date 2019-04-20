@@ -1,21 +1,16 @@
-package com.yyh.job.dto.request.resume;
+package com.yyh.job.dto.response.resume;
 
 import lombok.Data;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Past;
-import java.util.Date;
 
 /**
- * @Package com.yyh.job.dto.request.resume
+ * @Package com.yyh.job.dto.response.resume
  * @author: 昊天
- * @date: 2019-04-17 20:33
+ * @date: 2019-04-20 13:58
  * @since V1.1.0-SNAPSHOT
  */
 @Data
-public class ResumeBaseRequest {
+public class ResumeBaseResponse {
 
     /**
      * 主键
@@ -32,16 +27,10 @@ public class ResumeBaseRequest {
      */
     private String name;
 
-    /**
-     * date类型生日
-     */
-    @Past(message = "生日不能早于当前时间")
-    private Date birthDayDate;
 
     /**
      * 生日
      */
-    @Length(max = 10)
     private String birthDay;
 
     /**
@@ -57,13 +46,11 @@ public class ResumeBaseRequest {
     /**
      * 联系手机
      */
-    @Length(min = 11,max = 11,message = "手机号码长度为11位")
     private String phone;
 
     /**
      * 联系邮箱
      */
-    @Email
     private String email;
 
     /**
@@ -84,13 +71,11 @@ public class ResumeBaseRequest {
     /**
      * 期望起始薪资 0～999K
      */
-    @Max(999)
     private Integer expStartSalary;
 
     /**
      * 期望结束薪资
      */
-    @Max(999)
     private Integer expEndSalary;
 
     /**

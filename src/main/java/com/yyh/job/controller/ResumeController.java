@@ -7,10 +7,7 @@ import com.yyh.job.service.ResumeService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -35,10 +32,22 @@ public class ResumeController {
         return resumeService.addResume(request);
     }
 
+    @GetMapping("/getResume")
+    @AuthToken
+    public APIResult getResume(Integer userId){
+        return resumeService.getResume(userId);
+    }
+
     @PostMapping("/addBase")
     @AuthToken
     public APIResult addBase(@RequestBody @Valid ResumeBaseRequest request, BindingResult bindingResult){
         return resumeService.addBase(request);
+    }
+
+    @PostMapping("/editBase")
+    @AuthToken
+    public APIResult editBase(@RequestBody @Valid ResumeBaseRequest request, BindingResult bindingResult){
+        return resumeService.editBase(request);
     }
 
     @PostMapping("/addEducation")

@@ -14,6 +14,9 @@
   <resultMap id="ResultMapWithBLOBs" type="com.yyh.job.dao.model.ResumeExperience" extends="BaseResultMap" >
     <result column="detail" property="detail" jdbcType="LONGVARCHAR" />
   </resultMap>
+  <resultMap id="ResumeExperienceResponse" type="com.yyh.job.dto.response.resume.ResumeExperienceResponse" extends="ResultMapWithBLOBs">
+
+  </resultMap>
   <sql id="Base_Column_List" >
     id, resume_id, company_name, department, `position`, job, start_time, end_time
   </sql>
@@ -167,4 +170,13 @@
       #{item.startTime,jdbcType=VARCHAR}, #{item.endTime,jdbcType=VARCHAR}, #{item.detail,jdbcType=LONGVARCHAR})
     </foreach>
   </insert>
+
+  <select id="selectByResumeId" resultMap="ResumeExperienceResponse">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_resume_experience
+    where resume_id = #{resumeId,jdbcType=INTEGER}
+  </select>
 </mapper>

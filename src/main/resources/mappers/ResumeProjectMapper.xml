@@ -12,6 +12,9 @@
     <result column="description" property="description" jdbcType="LONGVARCHAR" />
     <result column="result" property="result" jdbcType="LONGVARCHAR" />
   </resultMap>
+  <resultMap id="ResumeProjectResponse" type="com.yyh.job.dto.response.resume.ResumeProjectResponse" extends="ResultMapWithBLOBs">
+
+  </resultMap>
   <sql id="Base_Column_List" >
     id, resume_id, project_name, start_time, end_time
   </sql>
@@ -140,4 +143,13 @@
                #{item.description,jdbcType=LONGVARCHAR}, #{item.result,jdbcType=LONGVARCHAR})
     </foreach>
   </insert>
+
+  <select id="selectByResumeId" resultMap="ResumeProjectResponse">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_resume_project
+    where resume_id = #{resumeId,jdbcType=INTEGER}
+  </select>
 </mapper>

@@ -28,6 +28,13 @@ public interface ResumeService {
     APIResult addBase(ResumeBaseRequest request);
 
     /**
+     * 修改基础简历信息
+     * @param request
+     * @return
+     */
+    APIResult editBase(ResumeBaseRequest request);
+
+    /**
      * 新增简历教育信息
      * @param request
      * @return
@@ -47,4 +54,12 @@ public interface ResumeService {
      * @return
      */
     APIResult addProject(ResumeProjectRequest request);
+
+
+    /**
+     * 查看我的简历
+     * @param userId
+     * @return
+     */
+    APIResult getResume(Integer userId);
 }
