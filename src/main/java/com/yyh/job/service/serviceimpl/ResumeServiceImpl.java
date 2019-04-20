@@ -15,6 +15,7 @@ import com.yyh.job.dao.model.ResumeProject;
 import com.yyh.job.dto.request.resume.*;
 import com.yyh.job.dto.response.resume.*;
 import com.yyh.job.service.ResumeService;
+import com.yyh.job.util.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -113,16 +114,7 @@ public class ResumeServiceImpl implements ResumeService {
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public APIResult addBase(ResumeBaseRequest request) {
-        ResumeBase resumeBase = new ResumeBase();
-        BeanUtils.copyProperties(request,resumeBase);
-        //日期转换
-        if(null != request.getBirthDayDate()){
-            Instant instant = request.getBirthDayDate().toInstant();
-            ZoneId zoneId = ZoneId.systemDefault();
-            LocalDate localDate = instant.atZone(zoneId).toLocalDate();
-            resumeBase.setBirthDay(localDate.toString());
-        }
-        //首先插入基础的信息
+        ResumeBase resumeBase = copyBase(request);
         int insertBase = resumeBaseMapper.insert(resumeBase);
         if(CommonEnum.ONE.getCode().equals(insertBase)) {
             return APIResult.create(resumeBase);
@@ -141,10 +133,17 @@ public class ResumeServiceImpl implements ResumeService {
         if(null == request.getId()){
             return APIResult.error();
         }
+        resumeBaseMapper.updateByPrimaryKeySelective(copyBase(request));
+        return APIResult.ok();
+    }
+
+    private ResumeBase copyBase(ResumeBaseRequest request){
         ResumeBase resumeBase = new ResumeBase();
         BeanUtils.copyProperties(request,resumeBase);
-        resumeBaseMapper.updateByPrimaryKeySelective(resumeBase);
-        return APIResult.ok();
+        if(null != request.getBirthDayDate()){
+            resumeBase.setBirthDay(DateUtil.dateToLocalDate(request.getBirthDayDate()).toString());
+        }
+        return resumeBase;
     }
 
     /**
