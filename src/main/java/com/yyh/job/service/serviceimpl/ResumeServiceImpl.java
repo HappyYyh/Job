@@ -19,6 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 /**
@@ -110,12 +113,17 @@ public class ResumeServiceImpl implements ResumeService {
     public APIResult addBase(ResumeBaseRequest request) {
         ResumeBase resumeBase = new ResumeBase();
         BeanUtils.copyProperties(request,resumeBase);
+        //日期转换
+        if(null != request.getBirthDayDate()){
+            Instant instant = request.getBirthDayDate().toInstant();
+            ZoneId zoneId = ZoneId.systemDefault();
+            LocalDate localDate = instant.atZone(zoneId).toLocalDate();
+            resumeBase.setBirthDay(localDate.toString());
+        }
         //首先插入基础的信息
         int insertBase = resumeBaseMapper.insert(resumeBase);
         if(CommonEnum.ONE.getCode().equals(insertBase)) {
-            //获取生成的主键id
-            Integer resumeId = resumeBase.getId();
-            return APIResult.create(resumeId);
+            return APIResult.create(resumeBase);
         }
         return APIResult.error(BaseEnum.ADD_RESUME_BASE_ERROR);
     }
@@ -127,17 +135,10 @@ public class ResumeServiceImpl implements ResumeService {
      * @return
      */
     @Override
-    public APIResult addEducation(List<ResumeEducationRequest> request) {
-        Integer resumeId = request.get(0).getResumeId();
-        //构建简历教育信息
-        List<ResumeEducation> educationList = Lists.newArrayList();
-        request.forEach(resumeEducationRequest -> {
-            ResumeEducation resumeEducation = new ResumeEducation();
-            resumeEducation.setResumeId(resumeId);
-            BeanUtils.copyProperties(resumeEducationRequest,resumeEducation);
-            educationList.add(resumeEducation);
-        });
-        resumeEducationMapper.batchInsert(educationList);
+    public APIResult addEducation(ResumeEducationRequest request) {
+        ResumeEducation resumeEducation = new ResumeEducation();
+        BeanUtils.copyProperties(request,resumeEducation);
+        resumeEducationMapper.insert(resumeEducation);
         return APIResult.ok();
     }
 
@@ -148,17 +149,10 @@ public class ResumeServiceImpl implements ResumeService {
      * @return
      */
     @Override
-    public APIResult addExperience(List<ResumeExperienceRequest> request) {
-        Integer resumeId = request.get(0).getResumeId();
-        //构建简历工作经验信息信息
-        List<ResumeExperience> experienceList = Lists.newArrayList();
-        request.forEach(resumeExperienceRequest ->{
-            ResumeExperience resumeExperience = new ResumeExperience();
-            resumeExperience.setResumeId(resumeId);
-            BeanUtils.copyProperties(resumeExperienceRequest,resumeExperience);
-            experienceList.add(resumeExperience);
-        });
-        resumeExperienceMapper.batchInsert(experienceList);
+    public APIResult addExperience(ResumeExperienceRequest request) {
+        ResumeExperience resumeExperience = new ResumeExperience();
+        BeanUtils.copyProperties(request,resumeExperience);
+        resumeExperienceMapper.insert(resumeExperience);
         return APIResult.ok();
     }
 
@@ -169,17 +163,10 @@ public class ResumeServiceImpl implements ResumeService {
      * @return
      */
     @Override
-    public APIResult addProject(List<ResumeProjectRequest> request) {
-        Integer resumeId = request.get(0).getResumeId();
-        //构建简历工作经验信息信息
-        List<ResumeProject> projectList = Lists.newArrayList();
-        request.forEach(resumeProjectRequest ->  {
-            ResumeProject resumeProject = new ResumeProject();
-            resumeProject.setResumeId(resumeId);
-            BeanUtils.copyProperties(resumeProjectRequest,resumeProject);
-            projectList.add(resumeProject);
-        });
-        resumeProjectMapper.batchInsert(projectList);
+    public APIResult addProject(ResumeProjectRequest request) {
+        ResumeProject resumeProject = new ResumeProject();
+        BeanUtils.copyProperties(request,resumeProject);
+        resumeProjectMapper.insert(resumeProject);
         return APIResult.ok();
     }
 

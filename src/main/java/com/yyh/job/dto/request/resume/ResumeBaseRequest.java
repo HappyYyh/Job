@@ -5,6 +5,8 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Past;
+import java.util.Date;
 
 /**
  * @Package com.yyh.job.dto.request.resume
@@ -24,6 +26,12 @@ public class ResumeBaseRequest {
      * 姓名
      */
     private String name;
+
+    /**
+     * date类型生日
+     */
+    @Past(message = "生日不能早于当前时间")
+    private Date birthDayDate;
 
     /**
      * 生日
@@ -59,7 +67,7 @@ public class ResumeBaseRequest {
     private String expJob;
 
     /**
-     * 期望职业类型(0全职1兼职2实习）
+     * 期望职业类型(0:全职 1:兼职 2:实习）
      */
     private Integer expJobType;
 
@@ -81,12 +89,12 @@ public class ResumeBaseRequest {
     private Integer expEndSalary;
 
     /**
-     * 当前状态(0积极找工作1随便看看2暂时不换工作)
+     * 当前状态(0:积极找工作 1:随便看看 2:暂时不换工作)
      */
     private Integer expNowStatus;
 
     /**
-     * 到岗时间(0随时1两周以内2两周到一个月3一到三个月4三个月以上)
+     * 到岗时间(0:随时到岗 1:两周以内 2:两周到一个月 3:一到三个月 4:三个月以上)
      */
     private Integer expComeTime;
 

@@ -32,19 +32,19 @@ public interface ResumeService {
      * @param request
      * @return
      */
-    APIResult addEducation(List<ResumeEducationRequest> request);
+    APIResult addEducation(ResumeEducationRequest request);
 
     /**
      * 新增简历工作经验
      * @param request
      * @return
      */
-    APIResult addExperience(List<ResumeExperienceRequest> request);
+    APIResult addExperience(ResumeExperienceRequest request);
 
     /**
      * 新增简历项目信息
      * @param request
      * @return
      */
-    APIResult addProject(List<ResumeProjectRequest> request);
+    APIResult addProject(ResumeProjectRequest request);
 }

@@ -1,6 +1,7 @@
 package com.yyh.job.controller;
 
 import com.yyh.job.common.base.APIResult;
+import com.yyh.job.common.base.AuthToken;
 import com.yyh.job.dto.request.resume.*;
 import com.yyh.job.service.ResumeService;
 import io.swagger.annotations.Api;
@@ -35,22 +36,23 @@ public class ResumeController {
     }
 
     @PostMapping("/addBase")
+    @AuthToken
     public APIResult addBase(@RequestBody @Valid ResumeBaseRequest request, BindingResult bindingResult){
         return resumeService.addBase(request);
     }
 
     @PostMapping("/addEducation")
-    public APIResult addEducation(@RequestBody @Valid List<ResumeEducationRequest> request, BindingResult bindingResult){
+    public APIResult addEducation(@RequestBody @Valid ResumeEducationRequest request, BindingResult bindingResult){
         return resumeService.addEducation(request);
     }
 
     @PostMapping("/addExperience")
-    public APIResult addExperience(@RequestBody @Valid List<ResumeExperienceRequest> request, BindingResult bindingResult){
+    public APIResult addExperience(@RequestBody @Valid ResumeExperienceRequest request, BindingResult bindingResult){
         return resumeService.addExperience(request);
     }
 
     @PostMapping("/addProject")
-    public APIResult addProject(@RequestBody @Valid List<ResumeProjectRequest> request, BindingResult bindingResult){
+    public APIResult addProject(@RequestBody @Valid ResumeProjectRequest request, BindingResult bindingResult){
         return resumeService.addProject(request);
     }
 }
