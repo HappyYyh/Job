@@ -33,10 +33,10 @@ public class ResumeBaseRequest {
     private String name;
 
     /**
-     * date类型生日
+     * 生日
      */
-    @Past(message = "生日不能晚于当前时间")
-    private Date birthDayDate;
+    @Length(min = 10,max = 10,message = "日期不规范")
+    private String birthDay;
 
 
     /**

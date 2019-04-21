@@ -140,9 +140,6 @@ public class ResumeServiceImpl implements ResumeService {
     private ResumeBase copyBase(ResumeBaseRequest request){
         ResumeBase resumeBase = new ResumeBase();
         BeanUtils.copyProperties(request,resumeBase);
-        if(null != request.getBirthDayDate()){
-            resumeBase.setBirthDay(DateUtil.dateToLocalDate(request.getBirthDayDate()).toString());
-        }
         return resumeBase;
     }
 
@@ -156,15 +153,6 @@ public class ResumeServiceImpl implements ResumeService {
     public APIResult submitEducation(ResumeEducationRequest request) {
         ResumeEducation resumeEducation = new ResumeEducation();
         BeanUtils.copyProperties(request,resumeEducation);
-        //日期转换
-        if(null !=request.getStartYear()){
-            LocalDate localDate = DateUtil.dateToLocalDate(request.getStartYear());
-            resumeEducation.setStartYear(String.valueOf(localDate.getYear()));
-        }
-        if(null !=request.getEndYear()){
-            LocalDate localDate = DateUtil.dateToLocalDate(request.getEndYear());
-            resumeEducation.setEndYear(String.valueOf(localDate.getYear()));
-        }
         if(null == request.getId()){
             //新增
             resumeEducationMapper.insert(resumeEducation);
