@@ -56,13 +56,13 @@ public class ResumeController {
         return resumeService.submitEducation(request);
     }
 
-    @PostMapping("/addExperience")
-    public APIResult addExperience(@RequestBody @Valid ResumeExperienceRequest request, BindingResult bindingResult){
-        return resumeService.addExperience(request);
+    @PostMapping("/submitExperience")
+    public APIResult submitExperience(@RequestBody @Valid ResumeExperienceRequest request, BindingResult bindingResult){
+        return resumeService.submitExperience(request);
     }
 
-    @PostMapping("/addProject")
-    public APIResult addProject(@RequestBody @Valid ResumeProjectRequest request, BindingResult bindingResult){
-        return resumeService.addProject(request);
+    @PostMapping("/submitProject")
+    public APIResult submitProject(@RequestBody @Valid ResumeProjectRequest request, BindingResult bindingResult){
+        return resumeService.submitProject(request);
     }
 }

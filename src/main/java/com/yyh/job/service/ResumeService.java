@@ -46,14 +46,14 @@ public interface ResumeService {
      * @param request
      * @return
      */
-    APIResult addExperience(ResumeExperienceRequest request);
+    APIResult submitExperience(ResumeExperienceRequest request);
 
     /**
      * 新增简历项目信息
      * @param request
      * @return
      */
-    APIResult addProject(ResumeProjectRequest request);
+    APIResult submitProject(ResumeProjectRequest request);
 
 
     /**

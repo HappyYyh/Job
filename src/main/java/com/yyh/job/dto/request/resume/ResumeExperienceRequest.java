@@ -15,6 +15,8 @@ import javax.validation.constraints.NotNull;
 @Data
 public class ResumeExperienceRequest {
 
+    private Integer id;
+
     /**
      * 简历基础的id
      */

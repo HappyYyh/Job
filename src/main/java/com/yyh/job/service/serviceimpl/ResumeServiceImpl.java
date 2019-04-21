@@ -170,10 +170,14 @@ public class ResumeServiceImpl implements ResumeService {
      * @return
      */
     @Override
-    public APIResult addExperience(ResumeExperienceRequest request) {
+    public APIResult submitExperience(ResumeExperienceRequest request) {
         ResumeExperience resumeExperience = new ResumeExperience();
         BeanUtils.copyProperties(request,resumeExperience);
-        resumeExperienceMapper.insert(resumeExperience);
+        if(null == request.getId()) {
+            resumeExperienceMapper.insert(resumeExperience);
+        }else {
+            resumeExperienceMapper.updateByPrimaryKeySelective(resumeExperience);
+        }
         return APIResult.ok();
     }
 
@@ -184,10 +188,14 @@ public class ResumeServiceImpl implements ResumeService {
      * @return
      */
     @Override
-    public APIResult addProject(ResumeProjectRequest request) {
+    public APIResult submitProject(ResumeProjectRequest request) {
         ResumeProject resumeProject = new ResumeProject();
         BeanUtils.copyProperties(request,resumeProject);
-        resumeProjectMapper.insert(resumeProject);
+        if(null == request.getId()) {
+            resumeProjectMapper.insert(resumeProject);
+        }else {
+            resumeProjectMapper.updateByPrimaryKeySelective(resumeProject);
+        }
         return APIResult.ok();
     }
 

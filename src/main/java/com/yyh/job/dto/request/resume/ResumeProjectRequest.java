@@ -14,6 +14,8 @@ import javax.validation.constraints.NotNull;
 @Data
 public class ResumeProjectRequest {
 
+    private Integer id;
+
     /**
      * 简历基础的id
      */
