@@ -35,14 +35,9 @@ public class ResumeBaseRequest {
     /**
      * date类型生日
      */
-    @Past(message = "生日不能早于当前时间")
+    @Past(message = "生日不能晚于当前时间")
     private Date birthDayDate;
 
-    /**
-     * 生日
-     */
-    @Length(max = 10)
-    private String birthDay;
 
     /**
      * 性别(0男1女)

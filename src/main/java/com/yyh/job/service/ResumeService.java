@@ -35,11 +35,11 @@ public interface ResumeService {
     APIResult editBase(ResumeBaseRequest request);
 
     /**
-     * 新增简历教育信息
+     * 新增/修改简历教育信息
      * @param request
      * @return
      */
-    APIResult addEducation(ResumeEducationRequest request);
+    APIResult submitEducation(ResumeEducationRequest request);
 
     /**
      * 新增简历工作经验

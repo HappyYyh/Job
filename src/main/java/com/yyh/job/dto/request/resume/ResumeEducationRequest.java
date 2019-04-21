@@ -1,9 +1,9 @@
 package com.yyh.job.dto.request.resume;
 
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 
 /**
@@ -15,13 +15,13 @@ import javax.validation.constraints.NotNull;
 @Data
 public class ResumeEducationRequest {
 
+    private Integer id;
 
     /**
      * 简历基础的id
      */
     @NotNull
     private Integer resumeId;
-
 
     /**
      * 学校名称
@@ -31,14 +31,12 @@ public class ResumeEducationRequest {
     /**
      * 开始时间(4位 形如 ：2018)
      */
-    @Length(min = 4,max = 4,message = "日期不规范")
-    private String startYear;
+    private Date startYear;
 
     /**
      * 结束时间
      */
-    @Length(min = 4,max = 4,message = "日期不规范")
-    private String endYear;
+    private Date endYear;
 
     /**
      * 学历(0大专1本科2研究生3博士)

@@ -50,9 +50,10 @@ public class ResumeController {
         return resumeService.editBase(request);
     }
 
-    @PostMapping("/addEducation")
-    public APIResult addEducation(@RequestBody @Valid ResumeEducationRequest request, BindingResult bindingResult){
-        return resumeService.addEducation(request);
+    @PostMapping("/submitEducation")
+    @AuthToken
+    public APIResult submitEducation(@RequestBody @Valid ResumeEducationRequest request, BindingResult bindingResult){
+        return resumeService.submitEducation(request);
     }
 
     @PostMapping("/addExperience")

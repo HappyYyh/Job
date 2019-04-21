@@ -153,10 +153,25 @@ public class ResumeServiceImpl implements ResumeService {
      * @return
      */
     @Override
-    public APIResult addEducation(ResumeEducationRequest request) {
+    public APIResult submitEducation(ResumeEducationRequest request) {
         ResumeEducation resumeEducation = new ResumeEducation();
         BeanUtils.copyProperties(request,resumeEducation);
-        resumeEducationMapper.insert(resumeEducation);
+        //日期转换
+        if(null !=request.getStartYear()){
+            LocalDate localDate = DateUtil.dateToLocalDate(request.getStartYear());
+            resumeEducation.setStartYear(String.valueOf(localDate.getYear()));
+        }
+        if(null !=request.getEndYear()){
+            LocalDate localDate = DateUtil.dateToLocalDate(request.getEndYear());
+            resumeEducation.setEndYear(String.valueOf(localDate.getYear()));
+        }
+        if(null == request.getId()){
+            //新增
+            resumeEducationMapper.insert(resumeEducation);
+        }else {
+            //修改
+            resumeEducationMapper.updateByPrimaryKeySelective(resumeEducation);
+        }
         return APIResult.ok();
     }
 
