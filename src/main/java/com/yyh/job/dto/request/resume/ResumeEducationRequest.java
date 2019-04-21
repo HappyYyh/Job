@@ -3,7 +3,6 @@ package com.yyh.job.dto.request.resume;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 
 /**
@@ -31,12 +30,12 @@ public class ResumeEducationRequest {
     /**
      * 开始时间(4位 形如 ：2018)
      */
-    private Date startYear;
+    private String startYear;
 
     /**
      * 结束时间
      */
-    private Date endYear;
+    private String endYear;
 
     /**
      * 学历(0大专1本科2研究生3博士)

@@ -30,13 +30,13 @@ public class ResumeProjectRequest {
     /**
      * 开始时间
      */
-    @Length(min = 10,max = 10,message = "日期不规范")
+    @Length(min = 7,max = 7,message = "日期不规范")
     private String startTime;
 
     /**
      * 结束时间
      */
-    @Length(min = 10,max = 10,message = "日期不规范")
+    @Length(min = 7,max = 7,message = "日期不规范")
     private String endTime;
 
     /**

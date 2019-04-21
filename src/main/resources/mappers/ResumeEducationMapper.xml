@@ -133,5 +133,6 @@
     <include refid="Base_Column_List"/>
     from tbl_resume_edu
     where resume_id = #{resumeId,jdbcType=INTEGER}
+    order by end_year desc
   </select>
 </mapper>

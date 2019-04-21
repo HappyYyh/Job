@@ -178,5 +178,6 @@
     <include refid="Blob_Column_List" />
     from tbl_resume_experience
     where resume_id = #{resumeId,jdbcType=INTEGER}
+    order by end_time desc
   </select>
 </mapper>
