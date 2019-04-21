@@ -12,6 +12,7 @@ import com.yyh.job.dao.model.ResumeBase;
 import com.yyh.job.dao.model.ResumeEducation;
 import com.yyh.job.dao.model.ResumeExperience;
 import com.yyh.job.dao.model.ResumeProject;
+import com.yyh.job.dto.request.ResumeDeleteRequest;
 import com.yyh.job.dto.request.resume.*;
 import com.yyh.job.dto.response.resume.*;
 import com.yyh.job.service.ResumeService;
@@ -113,35 +114,18 @@ public class ResumeServiceImpl implements ResumeService {
      */
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public APIResult addBase(ResumeBaseRequest request) {
-        ResumeBase resumeBase = copyBase(request);
-        int insertBase = resumeBaseMapper.insert(resumeBase);
-        if(CommonEnum.ONE.getCode().equals(insertBase)) {
-            return APIResult.create(resumeBase);
-        }
-        return APIResult.error(BaseEnum.ADD_RESUME_BASE_ERROR);
-    }
-
-    /**
-     * 修改基础简历信息
-     *
-     * @param request
-     * @return
-     */
-    @Override
-    public APIResult editBase(ResumeBaseRequest request) {
+    public APIResult submitBase(ResumeBaseRequest request) {
+        ResumeBase resumeBase = new ResumeBase();
+        BeanUtils.copyProperties(request,resumeBase);
         if(null == request.getId()){
-            return APIResult.error();
+            resumeBaseMapper.insert(resumeBase);
+            return APIResult.create(resumeBase.getId());
+        }else {
+            resumeBaseMapper.updateByPrimaryKeySelective(resumeBase);
         }
-        resumeBaseMapper.updateByPrimaryKeySelective(copyBase(request));
         return APIResult.ok();
     }
 
-    private ResumeBase copyBase(ResumeBaseRequest request){
-        ResumeBase resumeBase = new ResumeBase();
-        BeanUtils.copyProperties(request,resumeBase);
-        return resumeBase;
-    }
 
     /**
      * 新增简历教育信息
@@ -210,6 +194,9 @@ public class ResumeServiceImpl implements ResumeService {
         MyResumeResponse response = new MyResumeResponse();
         //查询基础信息
         ResumeBaseResponse resumeBaseResponse = resumeBaseMapper.selectByUserId(userId);
+        if(null ==resumeBaseResponse){
+            return APIResult.error(BaseEnum.RESUME_BASE);
+        }
         Integer resumeId = resumeBaseResponse.getId();
         //查询教育信息
         List<ResumeEducationResponse> resumeEducationResponseList = resumeEducationMapper.selectByResumeId(resumeId);
@@ -223,6 +210,30 @@ public class ResumeServiceImpl implements ResumeService {
         response.setResumeExperienceResponseList(resumeExperienceResponseList);
         response.setResumeProjectResponseList(resumeProjectResponseList);
         return APIResult.create(response);
+    }
+
+    /**
+     * 删除简历信息
+     *
+     * @param request
+     * @return
+     */
+    @Override
+    public APIResult delete(ResumeDeleteRequest request) {
+        switch (request.getType()){
+            case 0:
+                resumeEducationMapper.deleteByPrimaryKey(request.getId());
+                break;
+            case 1:
+                resumeExperienceMapper.deleteByPrimaryKey(request.getId());
+                break;
+            case 2:
+                resumeProjectMapper.deleteByPrimaryKey(request.getId());
+                break;
+            default:
+                break;
+        }
+        return APIResult.ok();
     }
 
 }

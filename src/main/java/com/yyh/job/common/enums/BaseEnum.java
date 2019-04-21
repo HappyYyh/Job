@@ -38,7 +38,7 @@ public enum BaseEnum {
     NOT_COMPLATE_BIND(522,"您申请的绑定暂未通过审核"),
     URL_ERROR(530,"url不合法!"),
 
-    ADD_RESUME_BASE_ERROR(540,"填写简历基础信息失败"),
+    RESUME_BASE(540,"暂无简历，赶紧创建一个吧!"),
     ;
 
     @Getter

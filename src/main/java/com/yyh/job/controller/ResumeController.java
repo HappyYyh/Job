@@ -2,6 +2,7 @@ package com.yyh.job.controller;
 
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.common.base.AuthToken;
+import com.yyh.job.dto.request.ResumeDeleteRequest;
 import com.yyh.job.dto.request.resume.*;
 import com.yyh.job.service.ResumeService;
 import io.swagger.annotations.Api;
@@ -10,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * @Package com.yyh.job.controller
@@ -38,17 +38,23 @@ public class ResumeController {
         return resumeService.getResume(userId);
     }
 
-    @PostMapping("/addBase")
+    @PostMapping("/deleteResume")
     @AuthToken
-    public APIResult addBase(@RequestBody @Valid ResumeBaseRequest request, BindingResult bindingResult){
-        return resumeService.addBase(request);
+    public APIResult deleteResume(@RequestBody @Valid ResumeDeleteRequest request, BindingResult bindingResult){
+        return resumeService.delete(request);
     }
 
-    @PostMapping("/editBase")
+    @PostMapping("/submitBase")
     @AuthToken
-    public APIResult editBase(@RequestBody @Valid ResumeBaseRequest request, BindingResult bindingResult){
-        return resumeService.editBase(request);
+    public APIResult submitBase(@RequestBody @Valid ResumeBaseRequest request, BindingResult bindingResult){
+        return resumeService.submitBase(request);
     }
+
+//    @PostMapping("/editBase")
+//    @AuthToken
+//    public APIResult editBase(@RequestBody @Valid ResumeBaseRequest request, BindingResult bindingResult){
+//        return resumeService.editBase(request);
+//    }
 
     @PostMapping("/submitEducation")
     @AuthToken

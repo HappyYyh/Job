@@ -1,6 +1,7 @@
 package com.yyh.job.service;
 
 import com.yyh.job.common.base.APIResult;
+import com.yyh.job.dto.request.ResumeDeleteRequest;
 import com.yyh.job.dto.request.resume.*;
 
 import java.util.List;
@@ -25,14 +26,14 @@ public interface ResumeService {
      * @param request
      * @return
      */
-    APIResult addBase(ResumeBaseRequest request);
+    APIResult submitBase(ResumeBaseRequest request);
 
     /**
      * 修改基础简历信息
      * @param request
      * @return
      */
-    APIResult editBase(ResumeBaseRequest request);
+    //APIResult editBase(ResumeBaseRequest request);
 
     /**
      * 新增/修改简历教育信息
@@ -62,4 +63,11 @@ public interface ResumeService {
      * @return
      */
     APIResult getResume(Integer userId);
+
+    /**
+     * 删除简历信息
+     * @param request
+     * @return
+     */
+    APIResult delete(ResumeDeleteRequest request);
 }
