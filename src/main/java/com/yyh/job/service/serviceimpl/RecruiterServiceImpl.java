@@ -83,11 +83,18 @@ public class RecruiterServiceImpl implements RecruiterService {
         //先查询记录
         Recruiter recruiter = recruiterMapper.selectByRecruiterIdAndCompanyId(request.getRecruiterId(), request.getCompanyId());
         if(CommonEnum.ZERO.getCode().equals(request.getUpdateType())){
+            //同意绑定
             recruiter.setStatus(CommonEnum.ONE.getCode());
-        }else {
+            recruiterMapper.updateByPrimaryKeySelective(recruiter);
+        }else if(CommonEnum.ONE.getCode().equals(request.getUpdateType())){
+            //给予权限
             recruiter.setCanUpdate(CommonEnum.ONE.getCode());
+            recruiterMapper.updateByPrimaryKeySelective(recruiter);
+        }else {
+            //拒绝绑定
+            recruiterMapper.deleteByPrimaryKey(recruiter.getId());
         }
-        recruiterMapper.updateByPrimaryKeySelective(recruiter);
+
         return APIResult.ok();
     }
 }

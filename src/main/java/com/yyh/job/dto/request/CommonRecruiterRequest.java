@@ -26,7 +26,7 @@ public class CommonRecruiterRequest {
     private Integer companyId;
 
     /**
-     * 修改类型 (0:绑定通过 1:修改公司信息权限)
+     * 修改类型 (0:绑定通过 1:修改公司信息权限 2:绑定拒绝)
      */
     private Integer updateType;
 }
