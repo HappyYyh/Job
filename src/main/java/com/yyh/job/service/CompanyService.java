@@ -1,10 +1,9 @@
 package com.yyh.job.service;
 
 import com.yyh.job.common.base.APIResult;
-import com.yyh.job.dao.model.Company;
-import com.yyh.job.dto.request.CommonCompanyRequest;
-import com.yyh.job.dto.request.UpdateCompanyRequest;
-import com.yyh.job.dto.response.QueryCompanyResponse;
+import com.yyh.job.dto.request.company.CommonCompanyRequest;
+import com.yyh.job.dto.request.company.UpdateCompanyRequest;
+import com.yyh.job.dto.response.company.QueryCompanyResponse;
 
 import java.util.List;
 

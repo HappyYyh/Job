@@ -2,8 +2,9 @@ package com.yyh.job.controller;
 
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.common.base.AuthToken;
-import com.yyh.job.dto.request.CommonCompanyRequest;
-import com.yyh.job.dto.request.UpdateCompanyRequest;
+import com.yyh.job.dto.request.company.CommonCompanyRequest;
+import com.yyh.job.dto.request.company.UpdateCompanyRequest;
+import com.yyh.job.dto.request.company.QueryCompanyRequest;
 import com.yyh.job.service.CompanyService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +51,9 @@ public class CompanyController {
     @AuthToken
     public APIResult getAllCompanyName(){
         return companyService.getAllCompanyName();
+    }
+
+    public APIResult queryCompanyInfo(QueryCompanyRequest request){
+        return null;
     }
 }

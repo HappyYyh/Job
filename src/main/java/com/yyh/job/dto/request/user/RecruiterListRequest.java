@@ -1,4 +1,4 @@
-package com.yyh.job.dto.request;
+package com.yyh.job.dto.request.user;
 
 import com.yyh.job.common.base.BaseRequest;
 import lombok.Data;

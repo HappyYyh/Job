@@ -1,17 +1,20 @@
-package com.yyh.job.dto.request;
+package com.yyh.job.dto.request.company;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
 
 /**
+ * All rights Reserved, Designed By 863044052@qq.com
+ *
  * @Package com.yyh.job.dto.request
  * @author: 昊天
- * @date: 2019-04-13 19:47
+ * @date: 2019-04-12 22:06
  * @since V1.1.0-SNAPSHOT
  */
 @Data
-public class CommonRecruiterRequest {
+public class BindCompanyRequest {
 
     /**
      * 招聘者id
@@ -26,7 +29,10 @@ public class CommonRecruiterRequest {
     private Integer companyId;
 
     /**
-     * 修改类型 (0:绑定通过 1:修改公司信息权限 2:绑定拒绝)
+     * 职位
      */
-    private Integer updateType;
+    @NotBlank
+    private String position;
+
+
 }

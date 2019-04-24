@@ -2,9 +2,9 @@ package com.yyh.job.controller;
 
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.common.base.AuthToken;
-import com.yyh.job.dto.request.BindCompanyRequest;
-import com.yyh.job.dto.request.CommonRecruiterRequest;
-import com.yyh.job.dto.request.RecruiterListRequest;
+import com.yyh.job.dto.request.company.BindCompanyRequest;
+import com.yyh.job.dto.request.user.CommonRecruiterRequest;
+import com.yyh.job.dto.request.user.RecruiterListRequest;
 import com.yyh.job.service.RecruiterService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;

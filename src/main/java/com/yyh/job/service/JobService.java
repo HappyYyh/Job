@@ -1,8 +1,8 @@
 package com.yyh.job.service;
 
 import com.yyh.job.common.base.APIResult;
-import com.yyh.job.dto.request.CommonJobRequest;
-import com.yyh.job.dto.request.QueryJobRequest;
+import com.yyh.job.dto.request.job.CommonJobRequest;
+import com.yyh.job.dto.request.job.QueryJobRequest;
 
 /**
  * @Package com.yyh.job.service

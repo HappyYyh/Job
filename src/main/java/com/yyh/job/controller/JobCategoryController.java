@@ -1,7 +1,7 @@
 package com.yyh.job.controller;
 
 import com.yyh.job.common.base.APIResult;
-import com.yyh.job.dto.response.JobFirstCategoryResponse;
+import com.yyh.job.dto.response.job.JobFirstCategoryResponse;
 import com.yyh.job.service.JobCategoryService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;

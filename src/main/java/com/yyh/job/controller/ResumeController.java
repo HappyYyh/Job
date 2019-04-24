@@ -2,7 +2,7 @@ package com.yyh.job.controller;
 
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.common.base.AuthToken;
-import com.yyh.job.dto.request.ResumeDeleteRequest;
+import com.yyh.job.dto.request.resume.ResumeDeleteRequest;
 import com.yyh.job.dto.request.resume.*;
 import com.yyh.job.service.ResumeService;
 import io.swagger.annotations.Api;

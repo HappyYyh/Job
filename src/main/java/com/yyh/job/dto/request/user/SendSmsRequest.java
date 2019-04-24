@@ -1,4 +1,4 @@
-package com.yyh.job.dto.request;
+package com.yyh.job.dto.request.user;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;

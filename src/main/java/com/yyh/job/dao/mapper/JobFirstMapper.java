@@ -1,7 +1,7 @@
 package com.yyh.job.dao.mapper;
 
 import com.yyh.job.dao.model.JobFirst;
-import com.yyh.job.dto.response.JobFirstCategoryResponse;
+import com.yyh.job.dto.response.job.JobFirstCategoryResponse;
 
 import java.util.List;
 

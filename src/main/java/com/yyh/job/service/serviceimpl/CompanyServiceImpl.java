@@ -8,13 +8,12 @@ import com.yyh.job.dao.mapper.CompanyMapper;
 import com.yyh.job.dao.mapper.RecruiterMapper;
 import com.yyh.job.dao.model.Company;
 import com.yyh.job.dao.model.Recruiter;
-import com.yyh.job.dto.request.CommonCompanyRequest;
-import com.yyh.job.dto.request.UpdateCompanyRequest;
-import com.yyh.job.dto.response.QueryCompanyResponse;
+import com.yyh.job.dto.request.company.CommonCompanyRequest;
+import com.yyh.job.dto.request.company.UpdateCompanyRequest;
+import com.yyh.job.dto.response.company.QueryCompanyResponse;
 import com.yyh.job.service.CompanyService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -103,7 +102,6 @@ public class CompanyServiceImpl implements CompanyService {
      * @return
      */
     @Override
-    //@Cacheable(cacheNames = "AllCompanyName")
     public APIResult<List<QueryCompanyResponse>> getAllCompanyName() {
         List<Company> companyList = companyMapper.selectAllCompany();
         List<QueryCompanyResponse> responseList = Lists.newArrayList();

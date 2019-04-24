@@ -1,7 +1,7 @@
 package com.yyh.job.dao.mapper;
 
 import com.yyh.job.dao.model.Company;
-import com.yyh.job.dto.response.CompanyInfoResponse;
+import com.yyh.job.dto.response.company.CompanyInfoResponse;
 
 import java.util.List;
 

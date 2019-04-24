@@ -1,25 +1,27 @@
-package com.yyh.job.dto.request;
+package com.yyh.job.dto.request.company;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 
 /**
  * All rights Reserved, Designed By 863044052@qq.com
  *
  * @Package com.yyh.job.dto.request
  * @author: 昊天
- * @date: 2019-04-12 10:06
+ * @date: 2019-04-07 22:36
  * @since V1.1.0-SNAPSHOT
  */
 @Data
-public class UpdateCompanyRequest {
+public class CommonCompanyRequest {
 
     /**
-     * 主键id
+     * 招聘者id
      */
-    private Integer id;
+    @NotNull(message = "招聘者信息不存在")
+    private Integer recruiterId;
 
     /**
      * 公司名称
@@ -69,4 +71,6 @@ public class UpdateCompanyRequest {
      */
     @Max(5)
     private Integer staffNum;
+
+
 }

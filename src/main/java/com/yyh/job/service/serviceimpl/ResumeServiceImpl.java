@@ -12,19 +12,15 @@ import com.yyh.job.dao.model.ResumeBase;
 import com.yyh.job.dao.model.ResumeEducation;
 import com.yyh.job.dao.model.ResumeExperience;
 import com.yyh.job.dao.model.ResumeProject;
-import com.yyh.job.dto.request.ResumeDeleteRequest;
+import com.yyh.job.dto.request.resume.ResumeDeleteRequest;
 import com.yyh.job.dto.request.resume.*;
 import com.yyh.job.dto.response.resume.*;
 import com.yyh.job.service.ResumeService;
-import com.yyh.job.util.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.List;
 
 /**

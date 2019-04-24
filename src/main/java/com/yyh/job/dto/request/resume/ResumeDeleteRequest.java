@@ -1,4 +1,4 @@
-package com.yyh.job.dto.request;
+package com.yyh.job.dto.request.resume;
 
 import lombok.Data;
 

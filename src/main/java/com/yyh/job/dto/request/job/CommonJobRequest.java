@@ -1,4 +1,4 @@
-package com.yyh.job.dto.request;
+package com.yyh.job.dto.request.job;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;

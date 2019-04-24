@@ -1,4 +1,4 @@
-package com.yyh.job.dto.response;
+package com.yyh.job.dto.response.user;
 
 import com.yyh.job.dao.model.User;
 

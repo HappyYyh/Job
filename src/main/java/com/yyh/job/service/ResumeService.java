@@ -1,10 +1,8 @@
 package com.yyh.job.service;
 
 import com.yyh.job.common.base.APIResult;
-import com.yyh.job.dto.request.ResumeDeleteRequest;
+import com.yyh.job.dto.request.resume.ResumeDeleteRequest;
 import com.yyh.job.dto.request.resume.*;
-
-import java.util.List;
 
 /**
  * @Package com.yyh.job.service

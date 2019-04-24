@@ -1,4 +1,4 @@
-package com.yyh.job.dto.response;
+package com.yyh.job.dto.response.job;
 
 import lombok.Data;
 
