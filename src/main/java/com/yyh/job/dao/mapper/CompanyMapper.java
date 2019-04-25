@@ -1,7 +1,9 @@
 package com.yyh.job.dao.mapper;
 
 import com.yyh.job.dao.model.Company;
+import com.yyh.job.dto.request.company.QueryCompanyRequest;
 import com.yyh.job.dto.response.company.CompanyInfoResponse;
+import com.yyh.job.dto.response.company.QueryCompanyResponse;
 
 import java.util.List;
 
@@ -32,4 +34,11 @@ public interface CompanyMapper {
      * @return
      */
     List<Company> selectAllCompany();
+
+    /**
+     * 信息查询
+     * @param request
+     * @return
+     */
+    List<QueryCompanyResponse> selectCompanyInfos(QueryCompanyRequest request);
 }

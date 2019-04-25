@@ -2,6 +2,7 @@ package com.yyh.job.service;
 
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.dto.request.company.CommonCompanyRequest;
+import com.yyh.job.dto.request.company.QueryCompanyRequest;
 import com.yyh.job.dto.request.company.UpdateCompanyRequest;
 import com.yyh.job.dto.response.company.QueryCompanyResponse;
 
@@ -43,4 +44,11 @@ public interface CompanyService {
      * @return
      */
     APIResult<List<QueryCompanyResponse>> getAllCompanyName();
+
+    /**
+     * 根据条件查询公司信息
+     * @param request
+     * @return
+     */
+    APIResult queryCompanyInfo(QueryCompanyRequest request);
 }

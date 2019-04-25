@@ -14,6 +14,7 @@
     <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
     <result column="gmt_update" property="gmtUpdate" jdbcType="TIMESTAMP" />
   </resultMap>
+  <!--单个信息-->
   <resultMap id="CompanyInfo" type="com.yyh.job.dto.response.company.CompanyInfoResponse" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="company_name" property="companyName" jdbcType="VARCHAR" />
@@ -31,6 +32,16 @@
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.yyh.job.dao.model.Company" extends="BaseResultMap" >
     <result column="introduce" property="introduce" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <!--公司信息查询-->
+  <resultMap id="queryCompany" type="com.yyh.job.dto.response.company.QueryCompanyResponse">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company_name" property="name" jdbcType="VARCHAR" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="industry_category" property="industryCategory" jdbcType="BIT" />
+    <result column="financing_status" property="financingStatus" jdbcType="BIT" />
+    <result column="recruiterNum" property="recruiterNum" jdbcType="INTEGER" />
+    <result column="jobNum" property="jobNum" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, company_name, img, belong_place, registered_capital, industry_category, financing_status, 
@@ -223,4 +234,52 @@
     select id,company_name
     from tbl_company
   </select>
+
+  <select id="selectCompanyInfos" resultMap="queryCompany" parameterType="com.yyh.job.dto.request.company.QueryCompanyRequest">
+    SELECT newTable.id,newTable.company_name, newTable.img,newTable.industry_category,newTable.financing_status,sum(recruiterNum) as recruiterNum, sum(jobNum) as jobNum FROM
+	(
+      SELECT c.*, 0 as recruiterNum,COUNT(j.id) as jobNum FROM tbl_company c
+      LEFT JOIN tbl_job j on c.id = j.company_id
+      <where>
+        1=1
+        <if test="place != null and place !=''">
+          AND c.belong_place like CONCAT('%',#{place},'%')
+        </if>
+        <if test="industryCategory != null ">
+          AND c.industry_category = #{industryCategory}
+        </if>
+        <if test="financingStatus != null ">
+          AND c.financing_status = #{financingStatus}
+        </if>
+        <if test="staffNum != null ">
+          AND c.staff_num = #{staffNum}
+        </if>
+      </where>
+      group by c.id
+	UNION all
+      SELECT c.*, COUNT(r.id) as recruiterNum,0 as jobNum FROM tbl_company c
+      LEFT JOIN tbl_recruiter r on c.id = r.company_id
+      <where>
+        1=1
+        <if test="place != null and place !=''">
+          AND c.belong_place like CONCAT('%',#{place},'%')
+        </if>
+        <if test="industryCategory != null ">
+          AND c.industry_category = #{industryCategory}
+        </if>
+        <if test="financingStatus != null ">
+          AND c.financing_status = #{financingStatus}
+        </if>
+        <if test="staffNum != null ">
+          AND c.staff_num = #{staffNum}
+        </if>
+      </where>
+      group by c.id
+	)
+	as newTable
+	group by newTable.id
+	order by newTable.jobNum desc , newTable.recruiterNum desc
+  </select>
+
+
 </mapper>

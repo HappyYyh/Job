@@ -1,7 +1,10 @@
 package com.yyh.job.service.serviceimpl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.google.common.collect.Lists;
 import com.yyh.job.common.base.APIResult;
+import com.yyh.job.common.base.BaseResponse;
 import com.yyh.job.common.enums.BaseEnum;
 import com.yyh.job.common.enums.CommonEnum;
 import com.yyh.job.dao.mapper.CompanyMapper;
@@ -9,6 +12,7 @@ import com.yyh.job.dao.mapper.RecruiterMapper;
 import com.yyh.job.dao.model.Company;
 import com.yyh.job.dao.model.Recruiter;
 import com.yyh.job.dto.request.company.CommonCompanyRequest;
+import com.yyh.job.dto.request.company.QueryCompanyRequest;
 import com.yyh.job.dto.request.company.UpdateCompanyRequest;
 import com.yyh.job.dto.response.company.QueryCompanyResponse;
 import com.yyh.job.service.CompanyService;
@@ -112,5 +116,18 @@ public class CompanyServiceImpl implements CompanyService {
             responseList.add(response);
         });
         return APIResult.create(responseList);
+    }
+
+    /**
+     * 根据条件查询公司信息
+     *
+     * @param request
+     * @return
+     */
+    @Override
+    public APIResult queryCompanyInfo(QueryCompanyRequest request) {
+        Page page = PageHelper.startPage(request.getPageNo(), request.getPageSize());
+        List<QueryCompanyResponse> responseList = companyMapper.selectCompanyInfos(request);
+        return APIResult.create(BaseResponse.create(page.getTotal(),responseList));
     }
 }

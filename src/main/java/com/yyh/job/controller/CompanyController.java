@@ -53,7 +53,8 @@ public class CompanyController {
         return companyService.getAllCompanyName();
     }
 
-    public APIResult queryCompanyInfo(QueryCompanyRequest request){
-        return null;
+    @PostMapping("/query")
+    public APIResult queryCompanyInfo(@RequestBody QueryCompanyRequest request){
+        return companyService.queryCompanyInfo(request);
     }
 }
