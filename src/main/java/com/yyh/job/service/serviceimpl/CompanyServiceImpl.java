@@ -21,8 +21,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * All rights Reserved, Designed By 863044052@qq.com
@@ -128,6 +130,7 @@ public class CompanyServiceImpl implements CompanyService {
     public APIResult queryCompanyInfo(QueryCompanyRequest request) {
         Page page = PageHelper.startPage(request.getPageNo(), request.getPageSize());
         List<QueryCompanyResponse> responseList = companyMapper.selectCompanyInfos(request);
-        return APIResult.create(BaseResponse.create(page.getTotal(),responseList));
+        List<QueryCompanyResponse> collect = responseList.stream().sorted(Comparator.comparing(QueryCompanyResponse::getJobNum).reversed()).sorted(Comparator.comparing(QueryCompanyResponse::getRecruiterNum).reversed()).collect(Collectors.toList());
+        return APIResult.create(BaseResponse.create(page.getTotal(),collect));
     }
 }
