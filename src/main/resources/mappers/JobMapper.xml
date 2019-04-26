@@ -265,12 +265,19 @@
   <select id="selectByRecruiterId" resultMap="ResultMapWithBLOBs">
     select
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
+    from tbl_job
+    where company_id = #{companyId}
+    order by gmt_update desc
+  </select>
+
+  <select id="selectByCompanyId" resultMap="BaseResultMap">
+    select
+    id, job_name,work_place, work_education,work_experience, salary_start,salary_end
     from tbl_job
     where create_id = #{recruiterId}
     order by gmt_update desc
   </select>
+
 
   <select id="selectJobList" resultMap="JobList" parameterType="com.yyh.job.dto.request.job.QueryJobRequest">
     SELECT j.id,j.job_name,j.work_place,j.work_experience,j.work_education,j.salary_start,j.salary_end,j.gmt_update,

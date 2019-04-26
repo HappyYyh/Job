@@ -3,6 +3,7 @@ package com.yyh.job.controller;
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.common.base.AuthToken;
 import com.yyh.job.dto.request.company.CommonCompanyRequest;
+import com.yyh.job.dto.request.company.QueryCompanyJobsRequest;
 import com.yyh.job.dto.request.company.UpdateCompanyRequest;
 import com.yyh.job.dto.request.company.QueryCompanyRequest;
 import com.yyh.job.service.CompanyService;
@@ -56,5 +57,15 @@ public class CompanyController {
     @PostMapping("/query")
     public APIResult queryCompanyInfo(@RequestBody QueryCompanyRequest request){
         return companyService.queryCompanyInfo(request);
+    }
+
+    @GetMapping("/detail")
+    public APIResult getCompanyDetail(Integer id){
+        return companyService.getCompanyDetail(id);
+    }
+
+    @PostMapping("/getCompanyJobList")
+    public APIResult getCompanyJobList(@RequestBody QueryCompanyJobsRequest request){
+        return companyService.getCompanyJobList(request);
     }
 }

@@ -8,12 +8,16 @@ import com.yyh.job.common.base.BaseResponse;
 import com.yyh.job.common.enums.BaseEnum;
 import com.yyh.job.common.enums.CommonEnum;
 import com.yyh.job.dao.mapper.CompanyMapper;
+import com.yyh.job.dao.mapper.JobMapper;
 import com.yyh.job.dao.mapper.RecruiterMapper;
 import com.yyh.job.dao.model.Company;
+import com.yyh.job.dao.model.Job;
 import com.yyh.job.dao.model.Recruiter;
 import com.yyh.job.dto.request.company.CommonCompanyRequest;
+import com.yyh.job.dto.request.company.QueryCompanyJobsRequest;
 import com.yyh.job.dto.request.company.QueryCompanyRequest;
 import com.yyh.job.dto.request.company.UpdateCompanyRequest;
+import com.yyh.job.dto.response.company.CompanyDetailResponse;
 import com.yyh.job.dto.response.company.QueryCompanyResponse;
 import com.yyh.job.service.CompanyService;
 import org.springframework.beans.BeanUtils;
@@ -42,6 +46,9 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Autowired
     private RecruiterMapper recruiterMapper;
+
+    @Autowired
+    private JobMapper jobMapper;
 
     /**
      * 企业认证(新增)
@@ -132,5 +139,30 @@ public class CompanyServiceImpl implements CompanyService {
         List<QueryCompanyResponse> responseList = companyMapper.selectCompanyInfos(request);
         List<QueryCompanyResponse> collect = responseList.stream().sorted(Comparator.comparing(QueryCompanyResponse::getJobNum).reversed()).sorted(Comparator.comparing(QueryCompanyResponse::getRecruiterNum).reversed()).collect(Collectors.toList());
         return APIResult.create(BaseResponse.create(page.getTotal(),collect));
+    }
+
+    /**
+     * 查询公司详情
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public APIResult getCompanyDetail(Integer id) {
+        CompanyDetailResponse response = companyMapper.selectDetailById(id);
+        return APIResult.create(response);
+    }
+
+    /**
+     * 查询公司下职位
+     *
+     * @param request
+     * @return
+     */
+    @Override
+    public APIResult getCompanyJobList(QueryCompanyJobsRequest request) {
+        Page page = PageHelper.startPage(request.getPageNo(),request.getPageSize());
+        List<Job> jobList = jobMapper.selectByCompanyId(request.getCompanyId());
+        return APIResult.create(BaseResponse.create(page.getTotal(),jobList));
     }
 }

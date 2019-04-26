@@ -34,4 +34,11 @@ public interface JobMapper {
      * @return
      */
     List<QueryJobResponse> selectJobList(QueryJobRequest request);
+
+    /**
+     * 根据companyId查询
+     * @param companyId
+     * @return
+     */
+    List<Job> selectByCompanyId(Integer companyId);
 }

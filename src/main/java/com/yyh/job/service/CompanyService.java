@@ -2,6 +2,7 @@ package com.yyh.job.service;
 
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.dto.request.company.CommonCompanyRequest;
+import com.yyh.job.dto.request.company.QueryCompanyJobsRequest;
 import com.yyh.job.dto.request.company.QueryCompanyRequest;
 import com.yyh.job.dto.request.company.UpdateCompanyRequest;
 import com.yyh.job.dto.response.company.QueryCompanyResponse;
@@ -26,7 +27,7 @@ public interface CompanyService {
     APIResult certificate(CommonCompanyRequest request);
 
     /**
-     * 根据求职者id获取公司信息
+     * 根据求职者id获取公司信息（只有求职者本身能查看）
      * @param recruiterId
      * @return
      */
@@ -51,4 +52,18 @@ public interface CompanyService {
      * @return
      */
     APIResult queryCompanyInfo(QueryCompanyRequest request);
+
+    /**
+     * 查询公司详情
+     * @param id
+     * @return
+     */
+    APIResult getCompanyDetail(Integer id);
+
+    /**
+     * 查询公司下职位
+     * @param request
+     * @return
+     */
+    APIResult getCompanyJobList(QueryCompanyJobsRequest request);
 }

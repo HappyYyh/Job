@@ -43,6 +43,27 @@
     <result column="recruiterNum" property="recruiterNum" jdbcType="INTEGER" />
     <result column="jobNum" property="jobNum" jdbcType="INTEGER" />
   </resultMap>
+  <!--公司详情-->
+  <resultMap id="CompanyDetail" type="com.yyh.job.dto.response.company.CompanyDetailResponse">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="belong_place" property="belongPlace" jdbcType="VARCHAR" />
+    <result column="registered_capital" property="registeredCapital" jdbcType="VARCHAR" />
+    <result column="industry_category" property="industryCategory" jdbcType="BIT" />
+    <result column="financing_status" property="financingStatus" jdbcType="BIT" />
+    <result column="staff_num" property="staffNum" jdbcType="BIT" />
+    <result column="introduce" property="introduce" jdbcType="LONGVARCHAR" />
+    <collection property="recruiterResponseList" javaType="ArrayList"
+                ofType="com.yyh.job.dto.response.company.CompanysRecruiterResponse"
+                resultMap="CompanyRecruiter">
+    </collection>
+  </resultMap>
+  <resultMap id="CompanyRecruiter" type="com.yyh.job.dto.response.company.CompanysRecruiterResponse">
+    <result column="head_img" property="headImg" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+  </resultMap>
   <sql id="Base_Column_List" >
     id, company_name, img, belong_place, registered_capital, industry_category, financing_status, 
     staff_num, is_stop, gmt_create, gmt_update
@@ -287,5 +308,11 @@
 	order by newTable.jobNum desc , newTable.recruiterNum desc
   </select>
 
-
+  <select id="selectDetailById" resultMap="CompanyDetail">
+    SELECT c.*,r.position,u.nick_name,u.head_img
+    FROM tbl_company  c
+    LEFT JOIN tbl_recruiter r on c.id = r.company_id
+    LEFT JOIN tbl_user u on r.user_id = u.id
+    where c.id = #{id}
+  </select>
 </mapper>
