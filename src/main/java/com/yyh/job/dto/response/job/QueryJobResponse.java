@@ -56,6 +56,11 @@ public class QueryJobResponse {
     private Date gmtUpdate;
 
     /**
+     * 发布时间
+     */
+    private String createTime;
+
+    /**
      * 岗位
      */
     private String position;

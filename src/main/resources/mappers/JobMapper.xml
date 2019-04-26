@@ -273,7 +273,7 @@
   </select>
 
   <select id="selectJobList" resultMap="JobList" parameterType="com.yyh.job.dto.request.job.QueryJobRequest">
-    SELECT j.id,j.job_name,j.work_place,j.work_experience,j.work_education,j.salary_start,j.salary_end,
+    SELECT j.id,j.job_name,j.work_place,j.work_experience,j.work_education,j.salary_start,j.salary_end,j.gmt_update,
            r.position,
            u.head_img,u.nick_name,
            c.company_name,c.financing_status,c.industry_category,c.staff_num

@@ -14,11 +14,15 @@ import com.yyh.job.dto.request.job.CommonJobRequest;
 import com.yyh.job.dto.request.job.QueryJobRequest;
 import com.yyh.job.dto.response.job.QueryJobResponse;
 import com.yyh.job.service.JobService;
+import com.yyh.job.util.DateUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -112,6 +116,17 @@ public class JobServiceImpl implements JobService {
     public APIResult queryJobList(QueryJobRequest request) {
         Page page = PageHelper.startPage(request.getPageNo(),request.getPageSize());
         List<QueryJobResponse> responseList = jobMapper.selectJobList(request);
+        responseList.forEach(queryJobResponse -> {
+            if(StringUtils.isNotBlank(queryJobResponse.getWorkPlace())){
+                //将 浙江省/杭州市/下城区以/分割
+                String[] places = queryJobResponse.getWorkPlace().split("/");
+                queryJobResponse.setCity(places[1]);
+            }
+            LocalDate localDate = DateUtil.dateToLocalDate(queryJobResponse.getGmtUpdate());
+            //返回发布时间
+            String time = localDate.getMonthValue()+"月"+localDate.getDayOfMonth()+"日";
+            queryJobResponse.setCreateTime(time);
+        });
         return APIResult.create(BaseResponse.create(page.getTotal(),responseList));
     }
 }
