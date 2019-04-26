@@ -12,6 +12,8 @@ import lombok.Data;
 @Data
 public class QueryCompanyRequest extends BaseRequest {
 
+    private String name;
+
     /**
      * 公司地点:形如"南京"
      */

@@ -242,6 +242,9 @@
       LEFT JOIN tbl_job j on c.id = j.company_id
       <where>
         1=1
+        <if test="name != null and name !=''">
+          AND c.company_name like CONCAT('%',#{name},'%')
+        </if>
         <if test="place != null and place !=''">
           AND c.belong_place like CONCAT('%',#{place},'%')
         </if>
@@ -261,6 +264,9 @@
       LEFT JOIN tbl_recruiter r on c.id = r.company_id
       <where>
         1=1
+        <if test="name != null and name !=''">
+          AND c.company_name like CONCAT('%',#{name},'%')
+        </if>
         <if test="place != null and place !=''">
           AND c.belong_place like CONCAT('%',#{place},'%')
         </if>
