@@ -21,6 +21,23 @@
     <result column="job_duty" property="jobDuty" jdbcType="LONGVARCHAR" />
     <result column="job_requirement" property="jobRequirement" jdbcType="LONGVARCHAR" />
   </resultMap>
+  <resultMap id="JobList" type="com.yyh.job.dto.response.job.QueryJobResponse">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="job_name" property="jobName" jdbcType="VARCHAR" />
+    <result column="work_place" property="workPlace" jdbcType="VARCHAR" />
+    <result column="work_education" property="workEducation" jdbcType="BIT" />
+    <result column="work_experience" property="workExperience" jdbcType="BIT" />
+    <result column="salary_start" property="salaryStart" jdbcType="DOUBLE" />
+    <result column="salary_end" property="salaryEnd" jdbcType="DOUBLE" />
+    <result column="gmt_update" property="gmtUpdate" jdbcType="TIMESTAMP" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="head_img" property="headImg" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="industry_category" property="industryCategory" jdbcType="BIT" />
+    <result column="financing_status" property="financingStatus" jdbcType="BIT" />
+    <result column="staff_num" property="staffNum" jdbcType="BIT" />
+  </resultMap>
   <sql id="Base_Column_List" >
     id, job_name, category, company_id, create_id, work_place, work_education,work_experience, salary_start,
     salary_end, welfare, `status`, gmt_create, gmt_update
@@ -253,5 +270,50 @@
     from tbl_job
     where create_id = #{recruiterId}
     order by gmt_update desc
+  </select>
+
+  <select id="selectJobList" resultMap="JobList" parameterType="com.yyh.job.dto.request.job.QueryJobRequest">
+    SELECT j.id,j.job_name,j.work_place,j.work_experience,j.work_education,j.salary_start,j.salary_end,
+           r.position,
+           u.head_img,u.nick_name,
+           c.company_name,c.financing_status,c.industry_category,c.staff_num
+    from tbl_job j
+    LEFT JOIN tbl_company c on j.company_id = c.id
+    LEFT JOIN tbl_recruiter r on j.create_id = r.user_id
+    left JOIN tbl_user u on r.user_id = u.id
+    <where>
+      1=1
+      <if test="jobName != null and jobName !='' ">
+        and j.job_name like CONCAT('%',#{jobName},'%')
+      </if>
+      <if test="category != null and category !='' ">
+        and j.category = #{category}
+      </if>
+      <if test="city != null and city !='' ">
+        and j.work_place like CONCAT('%',#{city},'%')
+      </if>
+      <if test="country != null and country !='' ">
+        and j.work_place like CONCAT('%',#{city},'/',#{country})
+      </if>
+      <if test="workEducation != null  ">
+        and j.work_education = #{workEducation}
+      </if>
+      <if test="workExperience != null  ">
+        and j.work_experience = #{workExperience}
+      </if>
+      <if test="salaryStart != null and salaryEnd != null ">
+        and (j.salary_start between #{salaryStart} and #{salaryEnd}) or (j.salary_end between #{salaryStart} and #{salaryEnd})
+      </if>
+      <if test="industryCategory != null  ">
+        and c.industry_category = #{industryCategory}
+      </if>
+      <if test="financingStatus != null  ">
+        and c.financing_status = #{financingStatus}
+      </if>
+      <if test="staffNum != null  ">
+        and c.staff_num = #{staffNum}
+      </if>
+    </where>
+    ORDER BY j.gmt_create DESC
   </select>
 </mapper>

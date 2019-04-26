@@ -1,6 +1,8 @@
 package com.yyh.job.dao.mapper;
 
 import com.yyh.job.dao.model.Job;
+import com.yyh.job.dto.request.job.QueryJobRequest;
+import com.yyh.job.dto.response.job.QueryJobResponse;
 
 import java.util.List;
 
@@ -25,4 +27,11 @@ public interface JobMapper {
      * @return
      */
     List<Job> selectByRecruiterId(Integer recruiterId);
+
+    /**
+     * 查询条件查询
+     * @param request
+     * @return
+     */
+    List<QueryJobResponse> selectJobList(QueryJobRequest request);
 }

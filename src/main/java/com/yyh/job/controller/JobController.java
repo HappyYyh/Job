@@ -44,11 +44,24 @@ public class JobController {
         return jobService.update(request);
     }
 
-
+    /**
+     * 招聘者查看自己发布的职位
+     * @param request
+     * @return
+     */
     @PostMapping("/getJobList")
     @AuthToken
-    public APIResult getJobList(@RequestBody @Valid QueryJobRequest request, BindingResult bindingResult){
+    public APIResult getJobList(@RequestBody  QueryJobRequest request){
         return jobService.getJobList(request);
     }
+
+    /**
+     * 公共查询
+     */
+    @PostMapping("/list")
+    public APIResult queryJobList(@RequestBody QueryJobRequest request){
+        return jobService.queryJobList(request);
+    }
+
 
 }

@@ -39,4 +39,11 @@ public interface JobService {
      * @return
      */
     APIResult update(CommonJobRequest request);
+
+    /**
+     * 查询职位列表
+     * @param request
+     * @return
+     */
+    APIResult queryJobList(QueryJobRequest request);
 }

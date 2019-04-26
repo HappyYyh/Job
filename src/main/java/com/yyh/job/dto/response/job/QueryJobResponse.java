@@ -1,21 +1,19 @@
-package com.yyh.job.dto.request.job;
+package com.yyh.job.dto.response.job;
 
-import com.yyh.job.common.base.BaseRequest;
 import lombok.Data;
 
+import java.util.Date;
+
 /**
- * @Package com.yyh.job.dto.request
+ * @Package com.yyh.job.dto.response.job
  * @author: 昊天
- * @date: 2019-04-14 19:05
+ * @date: 2019-04-26 11:05
  * @since V1.1.0-SNAPSHOT
  */
 @Data
-public class QueryJobRequest extends BaseRequest {
+public class QueryJobResponse {
 
-    /**
-     * 招聘者id
-     */
-    private Integer recruiterId;
+    private Integer id;
 
     /**
      * 职位名称
@@ -23,19 +21,14 @@ public class QueryJobRequest extends BaseRequest {
     private String jobName;
 
     /**
-     * 行业分类
+     * 工作地点 :江苏省/南京市/江宁区
      */
-    private String category;
+    private String workPlace;
 
     /**
-     * 城市
+     * 城市 ，由workPlace转变而来
      */
     private String city;
-
-    /**
-     * 区/县
-     */
-    private String country;
 
     /**
      * 学历(0大专1本科2研究生3博士4不限)
@@ -56,6 +49,31 @@ public class QueryJobRequest extends BaseRequest {
      * 结束薪资
      */
     private Double salaryEnd;
+
+    /**
+     * 发布时间
+     */
+    private Date gmtUpdate;
+
+    /**
+     * 岗位
+     */
+    private String position;
+
+    /**
+     * 昵称
+     */
+    private String nickName;
+
+    /**
+     * 头像
+     */
+    private String headImg;
+
+    /**
+     * 公司名称
+     */
+    private String companyName;
 
     /**
      * 标签:行业分类

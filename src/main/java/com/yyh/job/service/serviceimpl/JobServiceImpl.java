@@ -12,6 +12,7 @@ import com.yyh.job.dao.model.Job;
 import com.yyh.job.dao.model.Recruiter;
 import com.yyh.job.dto.request.job.CommonJobRequest;
 import com.yyh.job.dto.request.job.QueryJobRequest;
+import com.yyh.job.dto.response.job.QueryJobResponse;
 import com.yyh.job.service.JobService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,5 +100,18 @@ public class JobServiceImpl implements JobService {
         job.setId(request.getJobId());
         jobMapper.updateByPrimaryKeySelective(job);
         return APIResult.ok();
+    }
+
+    /**
+     * 查询职位列表
+     *
+     * @param request
+     * @return
+     */
+    @Override
+    public APIResult queryJobList(QueryJobRequest request) {
+        Page page = PageHelper.startPage(request.getPageNo(),request.getPageSize());
+        List<QueryJobResponse> responseList = jobMapper.selectJobList(request);
+        return APIResult.create(BaseResponse.create(page.getTotal(),responseList));
     }
 }
