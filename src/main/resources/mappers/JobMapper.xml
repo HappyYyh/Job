@@ -323,4 +323,10 @@
     </where>
     ORDER BY j.gmt_create DESC
   </select>
+
+  <select id="selectWelfareByCompanyId" resultType="string">
+    select welfare
+    from tbl_job
+    where company_id = #{companyId}
+  </select>
 </mapper>

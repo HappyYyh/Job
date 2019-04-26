@@ -41,4 +41,11 @@ public interface JobMapper {
      * @return
      */
     List<Job> selectByCompanyId(Integer companyId);
+
+    /**
+     * 查询公司的福利待遇标签
+     * @param companyId
+     * @return
+     */
+    List<String> selectWelfareByCompanyId(Integer companyId);
 }

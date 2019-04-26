@@ -20,14 +20,13 @@ import com.yyh.job.dto.request.company.UpdateCompanyRequest;
 import com.yyh.job.dto.response.company.CompanyDetailResponse;
 import com.yyh.job.dto.response.company.QueryCompanyResponse;
 import com.yyh.job.service.CompanyService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -149,7 +148,21 @@ public class CompanyServiceImpl implements CompanyService {
      */
     @Override
     public APIResult getCompanyDetail(Integer id) {
+        //查询详情
         CompanyDetailResponse response = companyMapper.selectDetailById(id);
+        //查询福利标签
+        List<String> selectWelfareList = jobMapper.selectWelfareByCompanyId(id);
+        Set<String> welfareSet = new HashSet<>();
+        for (String welfare :selectWelfareList){
+            if(StringUtils.isNotBlank(welfare)){
+                //分割
+                String[] split = welfare.split("/");
+                welfareSet.addAll(Arrays.asList(split));
+            }
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        welfareSet.forEach(x->stringBuilder.append(x).append("/"));
+        response.setWelfares(stringBuilder.toString());
         return APIResult.create(response);
     }
 

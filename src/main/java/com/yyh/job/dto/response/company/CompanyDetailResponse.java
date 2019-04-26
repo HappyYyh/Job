@@ -63,6 +63,11 @@ public class CompanyDetailResponse {
     private Integer staffNum;
 
     /**
+     * 福利待遇:以/分割
+     */
+    private String welfares;
+
+    /**
      * 招聘者信息
      */
     private List<CompanysRecruiterResponse> recruiterResponseList;
