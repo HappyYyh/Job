@@ -76,6 +76,11 @@ public class QueryJobResponse {
     private String headImg;
 
     /**
+     * 公司id
+     */
+    private Integer companyId;
+
+    /**
      * 公司名称
      */
     private String companyName;

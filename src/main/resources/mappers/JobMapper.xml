@@ -34,6 +34,7 @@
     <result column="position" property="position" jdbcType="VARCHAR" />
     <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
     <result column="head_img" property="headImg" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
     <result column="company_name" property="companyName" jdbcType="VARCHAR" />
     <result column="industry_category" property="industryCategory" jdbcType="BIT" />
     <result column="financing_status" property="financingStatus" jdbcType="BIT" />
@@ -60,7 +61,7 @@
       <result column="gmt_update" property="gmtUpdate" jdbcType="TIMESTAMP" />
     </association>
     <association property="company" javaType="com.yyh.job.dao.model.Company">
-      <id column="id" property="id" jdbcType="INTEGER" />
+      <id column="company_id" property="id" jdbcType="INTEGER" />
       <result column="company_name" property="companyName" jdbcType="VARCHAR" />
       <result column="img" property="img" jdbcType="VARCHAR" />
       <result column="belong_place" property="belongPlace" jdbcType="VARCHAR" />
@@ -301,7 +302,7 @@
     ,
     <include refid="Blob_Column_List" />
     from tbl_job
-    where company_id = #{companyId}
+    where create_id = #{recruiterId}
     order by gmt_update desc
   </select>
 
@@ -309,7 +310,7 @@
     select
     id, job_name,work_place, work_education,work_experience, salary_start,salary_end,gmt_update
     from tbl_job
-    where create_id = #{recruiterId}
+    where company_id = #{companyId}
     order by gmt_update desc
   </select>
 
@@ -318,7 +319,7 @@
     SELECT j.id,j.job_name,j.work_place,j.work_experience,j.work_education,j.salary_start,j.salary_end,j.gmt_update,
            r.position,
            u.head_img,u.nick_name,
-           c.company_name,c.financing_status,c.industry_category,c.staff_num
+           c.id as company_id,c.company_name,c.financing_status,c.industry_category,c.staff_num
     from tbl_job j
     LEFT JOIN tbl_company c on j.company_id = c.id
     LEFT JOIN tbl_recruiter r on j.create_id = r.user_id
@@ -366,7 +367,7 @@
   </select>
 
   <select id="selectDetailById" resultMap="JobDetail">
-    SELECT j.*,c.*,r.position,u.head_img,u.nick_name
+    SELECT j.*,c.*,c.id as company_id,r.position,u.head_img,u.nick_name
     from tbl_job j
     LEFT JOIN tbl_company c on j.company_id = c.id
     LEFT JOIN tbl_recruiter r on j.create_id = r.user_id

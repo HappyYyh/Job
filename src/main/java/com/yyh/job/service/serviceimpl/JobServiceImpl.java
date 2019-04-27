@@ -67,6 +67,7 @@ public class JobServiceImpl implements JobService {
         job.setCompanyId(recruiter.getCompanyId());
         job.setCreateId(request.getRecruiterId());
         job.setGmtCreate(new Date());
+        job.setGmtUpdate(new Date());
         jobMapper.insert(job);
         return APIResult.ok();
     }
@@ -144,11 +145,17 @@ public class JobServiceImpl implements JobService {
     @Override
     public APIResult getJobDetail(Integer id) {
         QueryJobDetailResponse response = jobMapper.selectDetailById(id);
-        //返回发布时间
-        LocalDate localDate = DateUtil.dateToLocalDate(response.getJob().getGmtUpdate());
-        String time = localDate.getMonthValue()+"月"+localDate.getDayOfMonth()+"日";
-        response.setCreateTime(time);
-        response.setWelfares(companyService.getCompanyWelfares(response.getCompany().getId()));
+        if(response != null) {
+            if(response.getJob().getGmtUpdate() !=null) {
+                //返回发布时间
+                LocalDate localDate = DateUtil.dateToLocalDate(response.getJob().getGmtUpdate());
+                String time = localDate.getMonthValue() + "月" + localDate.getDayOfMonth() + "日";
+                response.setCreateTime(time);
+            }
+            if(response.getCompany().getId() != null) {
+                response.setWelfares(companyService.getCompanyWelfares(response.getCompany().getId()));
+            }
+        }
         return APIResult.create(response);
     }
 }
