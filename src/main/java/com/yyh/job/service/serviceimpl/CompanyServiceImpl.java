@@ -20,12 +20,14 @@ import com.yyh.job.dto.request.company.UpdateCompanyRequest;
 import com.yyh.job.dto.response.company.CompanyDetailResponse;
 import com.yyh.job.dto.response.company.QueryCompanyResponse;
 import com.yyh.job.service.CompanyService;
+import com.yyh.job.util.DateUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -162,7 +164,12 @@ public class CompanyServiceImpl implements CompanyService {
         }
         StringBuilder stringBuilder = new StringBuilder();
         welfareSet.forEach(x->stringBuilder.append(x).append("/"));
-        response.setWelfares(stringBuilder.toString());
+        String Welfares = "";
+        if(stringBuilder.toString().contains("/")){
+            //移除最后一个/
+            Welfares = stringBuilder.deleteCharAt(stringBuilder.length()-1).toString();
+        }
+        response.setWelfares(Welfares);
         return APIResult.create(response);
     }
 
@@ -176,6 +183,18 @@ public class CompanyServiceImpl implements CompanyService {
     public APIResult getCompanyJobList(QueryCompanyJobsRequest request) {
         Page page = PageHelper.startPage(request.getPageNo(),request.getPageSize());
         List<Job> jobList = jobMapper.selectByCompanyId(request.getCompanyId());
+        jobList.forEach(job -> {
+            if(StringUtils.isNotBlank(job.getWorkPlace())){
+                //将 浙江省/杭州市/下城区以/分割,返回城市
+                String[] split = job.getWorkPlace().split("/");
+                job.setWorkPlace(split[1]);
+            }
+            LocalDate localDate = DateUtil.dateToLocalDate(job.getGmtUpdate());
+            //返回发布时间
+            String time = localDate.getMonthValue()+"月"+localDate.getDayOfMonth()+"日";
+            //这里说明一点，为了减少新建一个bean，后端返回时间，把时间字段填写在jobDuty字段上面
+            job.setJobDuty(time);
+        });
         return APIResult.create(BaseResponse.create(page.getTotal(),jobList));
     }
 }

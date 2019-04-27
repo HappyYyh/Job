@@ -272,7 +272,7 @@
 
   <select id="selectByCompanyId" resultMap="BaseResultMap">
     select
-    id, job_name,work_place, work_education,work_experience, salary_start,salary_end
+    id, job_name,work_place, work_education,work_experience, salary_start,salary_end,gmt_update
     from tbl_job
     where create_id = #{recruiterId}
     order by gmt_update desc
