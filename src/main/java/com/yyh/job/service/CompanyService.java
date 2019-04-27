@@ -61,6 +61,13 @@ public interface CompanyService {
     APIResult getCompanyDetail(Integer id);
 
     /**
+     * 获取公司的福利
+     * @param companyId
+     * @return
+     */
+    String getCompanyWelfares(Integer companyId);
+
+    /**
      * 查询公司下职位
      * @param request
      * @return

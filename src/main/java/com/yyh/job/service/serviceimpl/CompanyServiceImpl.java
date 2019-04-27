@@ -152,8 +152,20 @@ public class CompanyServiceImpl implements CompanyService {
     public APIResult getCompanyDetail(Integer id) {
         //查询详情
         CompanyDetailResponse response = companyMapper.selectDetailById(id);
+        response.setWelfares(getCompanyWelfares(id));
+        return APIResult.create(response);
+    }
+
+    /**
+     * 获取公司的福利
+     *
+     * @param companyId
+     * @return
+     */
+    @Override
+    public String getCompanyWelfares(Integer companyId) {
         //查询福利标签
-        List<String> selectWelfareList = jobMapper.selectWelfareByCompanyId(id);
+        List<String> selectWelfareList = jobMapper.selectWelfareByCompanyId(companyId);
         Set<String> welfareSet = new HashSet<>();
         for (String welfare :selectWelfareList){
             if(StringUtils.isNotBlank(welfare)){
@@ -164,14 +176,14 @@ public class CompanyServiceImpl implements CompanyService {
         }
         StringBuilder stringBuilder = new StringBuilder();
         welfareSet.forEach(x->stringBuilder.append(x).append("/"));
-        String Welfares = "";
+        String welfares = "";
         if(stringBuilder.toString().contains("/")){
             //移除最后一个/
-            Welfares = stringBuilder.deleteCharAt(stringBuilder.length()-1).toString();
+            welfares = stringBuilder.deleteCharAt(stringBuilder.length()-1).toString();
         }
-        response.setWelfares(Welfares);
-        return APIResult.create(response);
+        return welfares;
     }
+
 
     /**
      * 查询公司下职位

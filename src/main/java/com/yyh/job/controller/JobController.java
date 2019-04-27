@@ -32,9 +32,14 @@ public class JobController {
         return jobService.addJob(request);
     }
 
-    @GetMapping("/detail")
+    /**
+     * 招聘者查看职位详情
+     * @param id
+     * @return
+     */
+    @GetMapping("/recruiterDetail")
     @AuthToken
-    public APIResult detail(Integer id){
+    public APIResult recruiterDetail(Integer id){
         return jobService.detail(id);
     }
 
@@ -61,6 +66,16 @@ public class JobController {
     @PostMapping("/list")
     public APIResult queryJobList(@RequestBody QueryJobRequest request){
         return jobService.queryJobList(request);
+    }
+
+    /**
+     * 职位详情
+     * @param id
+     * @return
+     */
+    @GetMapping("/detail")
+    public APIResult getJobDetail(Integer id){
+        return jobService.getJobDetail(id);
     }
 
 

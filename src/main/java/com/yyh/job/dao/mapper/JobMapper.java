@@ -2,6 +2,7 @@ package com.yyh.job.dao.mapper;
 
 import com.yyh.job.dao.model.Job;
 import com.yyh.job.dto.request.job.QueryJobRequest;
+import com.yyh.job.dto.response.job.QueryJobDetailResponse;
 import com.yyh.job.dto.response.job.QueryJobResponse;
 
 import java.util.List;
@@ -48,4 +49,11 @@ public interface JobMapper {
      * @return
      */
     List<String> selectWelfareByCompanyId(Integer companyId);
+
+    /**
+     * 查询公司详情
+     * @param id
+     * @return
+     */
+    QueryJobDetailResponse selectDetailById(Integer id);
 }

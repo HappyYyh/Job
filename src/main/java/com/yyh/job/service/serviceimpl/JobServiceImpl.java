@@ -12,7 +12,9 @@ import com.yyh.job.dao.model.Job;
 import com.yyh.job.dao.model.Recruiter;
 import com.yyh.job.dto.request.job.CommonJobRequest;
 import com.yyh.job.dto.request.job.QueryJobRequest;
+import com.yyh.job.dto.response.job.QueryJobDetailResponse;
 import com.yyh.job.dto.response.job.QueryJobResponse;
+import com.yyh.job.service.CompanyService;
 import com.yyh.job.service.JobService;
 import com.yyh.job.util.DateUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -40,6 +42,9 @@ public class JobServiceImpl implements JobService {
 
     @Autowired
     private RecruiterMapper recruiterMapper;
+
+    @Autowired
+    private CompanyService companyService;
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
@@ -128,5 +133,22 @@ public class JobServiceImpl implements JobService {
             queryJobResponse.setCreateTime(time);
         });
         return APIResult.create(BaseResponse.create(page.getTotal(),responseList));
+    }
+
+    /**
+     * 查询职位详情
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public APIResult getJobDetail(Integer id) {
+        QueryJobDetailResponse response = jobMapper.selectDetailById(id);
+        //返回发布时间
+        LocalDate localDate = DateUtil.dateToLocalDate(response.getJob().getGmtUpdate());
+        String time = localDate.getMonthValue()+"月"+localDate.getDayOfMonth()+"日";
+        response.setCreateTime(time);
+        response.setWelfares(companyService.getCompanyWelfares(response.getCompany().getId()));
+        return APIResult.create(response);
     }
 }

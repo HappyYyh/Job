@@ -46,4 +46,11 @@ public interface JobService {
      * @return
      */
     APIResult queryJobList(QueryJobRequest request);
+
+    /**
+     * 查询职位详情
+     * @param id
+     * @return
+     */
+    APIResult getJobDetail(Integer id);
 }
