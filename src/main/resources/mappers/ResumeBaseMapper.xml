@@ -21,6 +21,8 @@
   <resultMap id="ResultMapWithBLOBs" type="com.yyh.job.dao.model.ResumeBase" extends="BaseResultMap" >
     <result column="introduce" property="introduce" jdbcType="LONGVARCHAR" />
   </resultMap>
+  <resultMap id="ResumeBaseResponse" type="com.yyh.job.dto.response.resume.ResumeBaseResponse" extends="ResultMapWithBLOBs" >
+  </resultMap>
   <sql id="Base_Column_List" >
     id, user_id, `name`, birth_day, sex, city, phone, email, exp_job, exp_job_type, exp_city, 
     exp_start_salary, exp_end_salary, exp_now_status, exp_come_time
@@ -40,7 +42,7 @@
     delete from tbl_resume_base
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.yyh.job.dao.model.ResumeBase" >
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.yyh.job.dao.model.ResumeBase" >
     insert into tbl_resume_base (id, user_id, `name`, 
       birth_day, sex, city, phone, 
       email, exp_job, exp_job_type, 
@@ -245,4 +247,14 @@
       exp_come_time = #{expComeTime,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByUserId" resultMap="ResumeBaseResponse">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_resume_base
+    where user_id = #{userId,jdbcType=INTEGER}
+    limit 1
+  </select>
 </mapper>

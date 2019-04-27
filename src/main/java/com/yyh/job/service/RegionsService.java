@@ -5,7 +5,7 @@ import com.yyh.job.common.base.APIResult;
 import com.yyh.job.dao.model.City;
 import com.yyh.job.dao.model.Country;
 import com.yyh.job.dao.model.Province;
-import com.yyh.job.dto.response.RegionFirstResponse;
+import com.yyh.job.dto.response.regions.RegionFirstResponse;
 
 import java.util.List;
 

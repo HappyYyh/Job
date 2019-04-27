@@ -12,6 +12,9 @@
     <result column="description" property="description" jdbcType="LONGVARCHAR" />
     <result column="result" property="result" jdbcType="LONGVARCHAR" />
   </resultMap>
+  <resultMap id="ResumeProjectResponse" type="com.yyh.job.dto.response.resume.ResumeProjectResponse" extends="ResultMapWithBLOBs">
+
+  </resultMap>
   <sql id="Base_Column_List" >
     id, resume_id, project_name, start_time, end_time
   </sql>
@@ -129,4 +132,25 @@
       end_time = #{endTime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <insert id="batchInsert" parameterType="java.util.List">
+    insert into tbl_resume_project ( resume_id, project_name,
+                                   start_time, end_time,
+                                   description,`result`)
+    <foreach collection="list" item="item" separator=",">
+      values ( #{item.resumeId,jdbcType=INTEGER}, #{item.projectName,jdbcType=VARCHAR},
+               #{item.startTime,jdbcType=VARCHAR}, #{item.endTime,jdbcType=VARCHAR},
+               #{item.description,jdbcType=LONGVARCHAR}, #{item.result,jdbcType=LONGVARCHAR})
+    </foreach>
+  </insert>
+
+  <select id="selectByResumeId" resultMap="ResumeProjectResponse">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_resume_project
+    where resume_id = #{resumeId,jdbcType=INTEGER}
+    order by end_time desc
+  </select>
 </mapper>

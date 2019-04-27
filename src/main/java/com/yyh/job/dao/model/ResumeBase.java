@@ -51,7 +51,7 @@ public class ResumeBase {
     private String expJob;
 
     /**
-     * 期望职业类型(0全职1兼职2实习
+     * 期望职业类型(0全职1兼职2实习）
      */
     private Integer expJobType;
 

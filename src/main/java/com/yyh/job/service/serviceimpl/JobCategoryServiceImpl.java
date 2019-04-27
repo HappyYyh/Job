@@ -2,7 +2,7 @@ package com.yyh.job.service.serviceimpl;
 
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.dao.mapper.JobFirstMapper;
-import com.yyh.job.dto.response.JobFirstCategoryResponse;
+import com.yyh.job.dto.response.job.JobFirstCategoryResponse;
 import com.yyh.job.service.JobCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;

@@ -10,14 +10,21 @@ import com.yyh.job.dao.mapper.JobMapper;
 import com.yyh.job.dao.mapper.RecruiterMapper;
 import com.yyh.job.dao.model.Job;
 import com.yyh.job.dao.model.Recruiter;
-import com.yyh.job.dto.request.CommonJobRequest;
-import com.yyh.job.dto.request.QueryJobRequest;
+import com.yyh.job.dto.request.job.CommonJobRequest;
+import com.yyh.job.dto.request.job.QueryJobRequest;
+import com.yyh.job.dto.response.job.QueryJobDetailResponse;
+import com.yyh.job.dto.response.job.QueryJobResponse;
+import com.yyh.job.service.CompanyService;
 import com.yyh.job.service.JobService;
+import com.yyh.job.util.DateUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +42,9 @@ public class JobServiceImpl implements JobService {
 
     @Autowired
     private RecruiterMapper recruiterMapper;
+
+    @Autowired
+    private CompanyService companyService;
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
@@ -57,6 +67,7 @@ public class JobServiceImpl implements JobService {
         job.setCompanyId(recruiter.getCompanyId());
         job.setCreateId(request.getRecruiterId());
         job.setGmtCreate(new Date());
+        job.setGmtUpdate(new Date());
         jobMapper.insert(job);
         return APIResult.ok();
     }
@@ -99,5 +110,52 @@ public class JobServiceImpl implements JobService {
         job.setId(request.getJobId());
         jobMapper.updateByPrimaryKeySelective(job);
         return APIResult.ok();
+    }
+
+    /**
+     * 查询职位列表
+     *
+     * @param request
+     * @return
+     */
+    @Override
+    public APIResult queryJobList(QueryJobRequest request) {
+        Page page = PageHelper.startPage(request.getPageNo(),request.getPageSize());
+        List<QueryJobResponse> responseList = jobMapper.selectJobList(request);
+        responseList.forEach(queryJobResponse -> {
+            if(StringUtils.isNotBlank(queryJobResponse.getWorkPlace())){
+                //将 浙江省/杭州市/下城区以/分割
+                String[] places = queryJobResponse.getWorkPlace().split("/");
+                queryJobResponse.setCity(places[1]);
+            }
+            LocalDate localDate = DateUtil.dateToLocalDate(queryJobResponse.getGmtUpdate());
+            //返回发布时间
+            String time = localDate.getMonthValue()+"月"+localDate.getDayOfMonth()+"日";
+            queryJobResponse.setCreateTime(time);
+        });
+        return APIResult.create(BaseResponse.create(page.getTotal(),responseList));
+    }
+
+    /**
+     * 查询职位详情
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public APIResult getJobDetail(Integer id) {
+        QueryJobDetailResponse response = jobMapper.selectDetailById(id);
+        if(response != null) {
+            if(response.getJob().getGmtUpdate() !=null) {
+                //返回发布时间
+                LocalDate localDate = DateUtil.dateToLocalDate(response.getJob().getGmtUpdate());
+                String time = localDate.getMonthValue() + "月" + localDate.getDayOfMonth() + "日";
+                response.setCreateTime(time);
+            }
+            if(response.getCompany().getId() != null) {
+                response.setWelfares(companyService.getCompanyWelfares(response.getCompany().getId()));
+            }
+        }
+        return APIResult.create(response);
     }
 }

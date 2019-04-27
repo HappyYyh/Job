@@ -11,7 +11,7 @@
     <result column="status" property="status" jdbcType="BIT" />
   </resultMap>
 
-  <resultMap id="RecruitersMap" type="com.yyh.job.dto.response.BindCompanyRecruiterResponse" >
+  <resultMap id="RecruitersMap" type="com.yyh.job.dto.response.company.BindCompanyRecruiterResponse" >
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="nick_name" property="nickName" jdbcType="VARCHAR" />

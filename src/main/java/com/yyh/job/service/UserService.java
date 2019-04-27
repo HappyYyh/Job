@@ -1,10 +1,10 @@
 package com.yyh.job.service;
 
 import com.yyh.job.common.base.APIResult;
-import com.yyh.job.dto.request.CommonUserRequest;
-import com.yyh.job.dto.request.SendSmsRequest;
-import com.yyh.job.dto.request.UpdateUserRequest;
-import com.yyh.job.dto.request.UserLoginRequest;
+import com.yyh.job.dto.request.user.CommonUserRequest;
+import com.yyh.job.dto.request.user.SendSmsRequest;
+import com.yyh.job.dto.request.user.UpdateUserRequest;
+import com.yyh.job.dto.request.user.UserLoginRequest;
 
 /**
  * All rights Reserved, Designed By 863044052@qq.com

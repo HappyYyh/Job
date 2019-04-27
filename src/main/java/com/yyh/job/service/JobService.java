@@ -1,8 +1,8 @@
 package com.yyh.job.service;
 
 import com.yyh.job.common.base.APIResult;
-import com.yyh.job.dto.request.CommonJobRequest;
-import com.yyh.job.dto.request.QueryJobRequest;
+import com.yyh.job.dto.request.job.CommonJobRequest;
+import com.yyh.job.dto.request.job.QueryJobRequest;
 
 /**
  * @Package com.yyh.job.service
@@ -39,4 +39,18 @@ public interface JobService {
      * @return
      */
     APIResult update(CommonJobRequest request);
+
+    /**
+     * 查询职位列表
+     * @param request
+     * @return
+     */
+    APIResult queryJobList(QueryJobRequest request);
+
+    /**
+     * 查询职位详情
+     * @param id
+     * @return
+     */
+    APIResult getJobDetail(Integer id);
 }
