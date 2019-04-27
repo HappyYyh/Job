@@ -1,7 +1,7 @@
 package com.yyh.job.service;
 
 import com.yyh.job.common.base.APIResult;
-import com.yyh.job.dto.response.JobFirstCategoryResponse;
+import com.yyh.job.dto.response.job.JobFirstCategoryResponse;
 
 import java.util.List;
 

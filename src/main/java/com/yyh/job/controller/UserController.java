@@ -1,10 +1,10 @@
 package com.yyh.job.controller;
 
 import com.yyh.job.common.base.APIResult;
-import com.yyh.job.dto.request.CommonUserRequest;
-import com.yyh.job.dto.request.SendSmsRequest;
-import com.yyh.job.dto.request.UpdateUserRequest;
-import com.yyh.job.dto.request.UserLoginRequest;
+import com.yyh.job.dto.request.user.CommonUserRequest;
+import com.yyh.job.dto.request.user.SendSmsRequest;
+import com.yyh.job.dto.request.user.UpdateUserRequest;
+import com.yyh.job.dto.request.user.UserLoginRequest;
 import com.yyh.job.service.UserService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;

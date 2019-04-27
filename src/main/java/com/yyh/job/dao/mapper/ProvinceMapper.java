@@ -1,7 +1,7 @@
 package com.yyh.job.dao.mapper;
 
 import com.yyh.job.dao.model.Province;
-import com.yyh.job.dto.response.RegionFirstResponse;
+import com.yyh.job.dto.response.regions.RegionFirstResponse;
 
 import java.util.List;
 

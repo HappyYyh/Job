@@ -7,23 +7,23 @@
     <result column="first_id" property="firstId" jdbcType="VARCHAR" />
   </resultMap>
 
-  <resultMap id="firstMap" type="com.yyh.job.dto.response.JobFirstCategoryResponse">
+  <resultMap id="firstMap" type="com.yyh.job.dto.response.job.JobFirstCategoryResponse">
     <result column="firstName"  property="firstName" jdbcType="VARCHAR"/>
     <result column="first_id"  property="firstId" jdbcType="VARCHAR"/>
     <collection property="jobSecondCategoryResponseList" javaType="ArrayList" column="first_id"
-                ofType="com.yyh.job.dto.response.JobSecondCategoryResponse" resultMap="secondMap">
+                ofType="com.yyh.job.dto.response.job.JobSecondCategoryResponse" resultMap="secondMap">
     </collection>
   </resultMap>
 
-  <resultMap id="secondMap" type="com.yyh.job.dto.response.JobSecondCategoryResponse">
+  <resultMap id="secondMap" type="com.yyh.job.dto.response.job.JobSecondCategoryResponse">
     <result column="secondName"  property="secondName" jdbcType="VARCHAR"/>
     <result column="second_id"  property="secondId" jdbcType="VARCHAR"/>
     <collection property="jobThirdCategoryResponseList" javaType="ArrayList" column="first_id"
-                ofType="com.yyh.job.dto.response.JobThirdCategoryResponse" resultMap="thirdMap">
+                ofType="com.yyh.job.dto.response.job.JobThirdCategoryResponse" resultMap="thirdMap">
     </collection>
   </resultMap>
 
-  <resultMap id="thirdMap" type="com.yyh.job.dto.response.JobThirdCategoryResponse">
+  <resultMap id="thirdMap" type="com.yyh.job.dto.response.job.JobThirdCategoryResponse">
     <result column="thirdName"  property="thirdName" jdbcType="VARCHAR"/>
   </resultMap>
 

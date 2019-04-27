@@ -1,10 +1,11 @@
 package com.yyh.job.service;
 
 import com.yyh.job.common.base.APIResult;
-import com.yyh.job.dao.model.Company;
-import com.yyh.job.dto.request.CommonCompanyRequest;
-import com.yyh.job.dto.request.UpdateCompanyRequest;
-import com.yyh.job.dto.response.QueryCompanyResponse;
+import com.yyh.job.dto.request.company.CommonCompanyRequest;
+import com.yyh.job.dto.request.company.QueryCompanyJobsRequest;
+import com.yyh.job.dto.request.company.QueryCompanyRequest;
+import com.yyh.job.dto.request.company.UpdateCompanyRequest;
+import com.yyh.job.dto.response.company.QueryCompanyResponse;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public interface CompanyService {
     APIResult certificate(CommonCompanyRequest request);
 
     /**
-     * 根据求职者id获取公司信息
+     * 根据求职者id获取公司信息（只有求职者本身能查看）
      * @param recruiterId
      * @return
      */
@@ -44,4 +45,32 @@ public interface CompanyService {
      * @return
      */
     APIResult<List<QueryCompanyResponse>> getAllCompanyName();
+
+    /**
+     * 根据条件查询公司信息
+     * @param request
+     * @return
+     */
+    APIResult queryCompanyInfo(QueryCompanyRequest request);
+
+    /**
+     * 查询公司详情
+     * @param id
+     * @return
+     */
+    APIResult getCompanyDetail(Integer id);
+
+    /**
+     * 获取公司的福利
+     * @param companyId
+     * @return
+     */
+    String getCompanyWelfares(Integer companyId);
+
+    /**
+     * 查询公司下职位
+     * @param request
+     * @return
+     */
+    APIResult getCompanyJobList(QueryCompanyJobsRequest request);
 }

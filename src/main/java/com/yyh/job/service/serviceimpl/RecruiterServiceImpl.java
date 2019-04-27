@@ -8,10 +8,10 @@ import com.yyh.job.common.enums.BaseEnum;
 import com.yyh.job.common.enums.CommonEnum;
 import com.yyh.job.dao.mapper.RecruiterMapper;
 import com.yyh.job.dao.model.Recruiter;
-import com.yyh.job.dto.request.BindCompanyRequest;
-import com.yyh.job.dto.request.CommonRecruiterRequest;
-import com.yyh.job.dto.request.RecruiterListRequest;
-import com.yyh.job.dto.response.BindCompanyRecruiterResponse;
+import com.yyh.job.dto.request.company.BindCompanyRequest;
+import com.yyh.job.dto.request.user.CommonRecruiterRequest;
+import com.yyh.job.dto.request.user.RecruiterListRequest;
+import com.yyh.job.dto.response.company.BindCompanyRecruiterResponse;
 import com.yyh.job.service.RecruiterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,11 +83,18 @@ public class RecruiterServiceImpl implements RecruiterService {
         //先查询记录
         Recruiter recruiter = recruiterMapper.selectByRecruiterIdAndCompanyId(request.getRecruiterId(), request.getCompanyId());
         if(CommonEnum.ZERO.getCode().equals(request.getUpdateType())){
+            //同意绑定
             recruiter.setStatus(CommonEnum.ONE.getCode());
-        }else {
+            recruiterMapper.updateByPrimaryKeySelective(recruiter);
+        }else if(CommonEnum.ONE.getCode().equals(request.getUpdateType())){
+            //给予权限
             recruiter.setCanUpdate(CommonEnum.ONE.getCode());
+            recruiterMapper.updateByPrimaryKeySelective(recruiter);
+        }else {
+            //拒绝绑定
+            recruiterMapper.deleteByPrimaryKey(recruiter.getId());
         }
-        recruiterMapper.updateByPrimaryKeySelective(recruiter);
+
         return APIResult.ok();
     }
 }

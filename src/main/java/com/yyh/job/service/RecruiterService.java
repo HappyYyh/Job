@@ -1,13 +1,9 @@
 package com.yyh.job.service;
 
-import com.github.pagehelper.PageInfo;
 import com.yyh.job.common.base.APIResult;
-import com.yyh.job.dto.request.BindCompanyRequest;
-import com.yyh.job.dto.request.CommonRecruiterRequest;
-import com.yyh.job.dto.request.RecruiterListRequest;
-import com.yyh.job.dto.response.BindCompanyRecruiterResponse;
-
-import java.util.List;
+import com.yyh.job.dto.request.company.BindCompanyRequest;
+import com.yyh.job.dto.request.user.CommonRecruiterRequest;
+import com.yyh.job.dto.request.user.RecruiterListRequest;
 
 /**
  * All rights Reserved, Designed By 863044052@qq.com

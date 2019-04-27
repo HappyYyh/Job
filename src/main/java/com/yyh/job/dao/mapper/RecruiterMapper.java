@@ -1,7 +1,7 @@
 package com.yyh.job.dao.mapper;
 
 import com.yyh.job.dao.model.Recruiter;
-import com.yyh.job.dto.response.BindCompanyRecruiterResponse;
+import com.yyh.job.dto.response.company.BindCompanyRecruiterResponse;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
