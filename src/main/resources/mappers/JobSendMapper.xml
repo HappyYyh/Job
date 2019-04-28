@@ -90,4 +90,11 @@
       send_status = #{sendStatus,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByJobIdAndUserId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbl_job_send
+    where job_id = #{jobId} and user_id = #{userId}
+  </select>
 </mapper>
