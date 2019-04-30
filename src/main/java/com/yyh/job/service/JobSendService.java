@@ -5,6 +5,8 @@ import com.yyh.job.dto.request.job.CommonJobSendRequest;
 import com.yyh.job.dto.request.job.SeekerSendListRequest;
 import com.yyh.job.dto.request.job.UpdateSendStatusRequest;
 
+import java.util.Map;
+
 /**
  * @Package com.yyh.job.service
  * @author: 昊天
