@@ -17,6 +17,7 @@
     <result column="salary_start" property="salaryStart" jdbcType="DOUBLE" />
     <result column="salary_end" property="salaryEnd" jdbcType="DOUBLE" />
     <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="companyId" property="companyId" jdbcType="INTEGER"/>
   </resultMap>
   <sql id="Base_Column_List" >
     id, job_id, user_id, send_time, send_status
@@ -109,10 +110,11 @@
   </select>
 
   <select id="selectByUserIdAndStatus" resultMap="seekJobSendList">
-    SELECT s.send_time,s.send_status,j.id as jobId,j.job_name,j.salary_start,j.salary_end,j.work_place,c.company_name
+    SELECT s.send_time,s.send_status,j.id as jobId,j.job_name,j.salary_start,j.salary_end,j.work_place,c.company_name,c.id as companyId
     from tbl_job_send s
     LEFT JOIN tbl_job j on s.job_id = j.id
     LEFT JOIN tbl_company c on j.company_id = c.id
     where s.user_id = #{userId} and s.send_status = #{type}
+    order by s.id desc
   </select>
 </mapper>

@@ -40,7 +40,7 @@ public class JobSendController {
     }
 
     @PostMapping("/seekerSendList")
-    //@AuthToken
+    @AuthToken
     public APIResult seekerSendList(@RequestBody SeekerSendListRequest request){
         return jobSendService.seekerSendList(request);
     }
