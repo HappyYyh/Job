@@ -32,4 +32,11 @@ public interface JobSendService {
      * @return
      */
     APIResult seekerSendList(SeekerSendListRequest request);
+
+    /**
+     * 招聘者查看自己发布职位的职位投递情况
+     * @param recruiterId
+     * @return
+     */
+    APIResult recruiterGotList(Integer recruiterId);
 }

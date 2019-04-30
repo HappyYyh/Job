@@ -14,6 +14,7 @@ import com.yyh.job.dao.model.ResumeBase;
 import com.yyh.job.dao.model.User;
 import com.yyh.job.dto.request.job.CommonJobSendRequest;
 import com.yyh.job.dto.request.job.SeekerSendListRequest;
+import com.yyh.job.dto.response.job.RecruiterGotListResponse;
 import com.yyh.job.dto.response.job.SeekerSendListResponse;
 import com.yyh.job.dto.response.resume.ResumeBaseResponse;
 import com.yyh.job.service.JobSendService;
@@ -119,5 +120,17 @@ public class JobSendServiceImpl implements JobSendService {
             response.setShowTime(time);
         });
         return APIResult.create(BaseResponse.create(page.getTotal(),responseList));
+    }
+
+    /**
+     * 招聘者查看自己发布职位的职位投递情况
+     *
+     * @param recruiterId
+     * @return
+     */
+    @Override
+    public APIResult recruiterGotList(Integer recruiterId) {
+        List<RecruiterGotListResponse> responseList = jobSendMapper.selectByRecruiterId(recruiterId);
+        return APIResult.create(responseList);
     }
 }

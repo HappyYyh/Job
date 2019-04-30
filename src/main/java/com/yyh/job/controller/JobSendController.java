@@ -8,10 +8,7 @@ import com.yyh.job.service.JobSendService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -44,4 +41,11 @@ public class JobSendController {
     public APIResult seekerSendList(@RequestBody SeekerSendListRequest request){
         return jobSendService.seekerSendList(request);
     }
+
+    @GetMapping("/recruiterGotList")
+    //@AuthToken
+    public APIResult recruiterGotList(Integer recruiterId){
+        return jobSendService.recruiterGotList(recruiterId);
+    }
+
 }

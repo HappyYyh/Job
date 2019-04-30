@@ -19,6 +19,22 @@
     <result column="company_name" property="companyName" jdbcType="VARCHAR" />
     <result column="companyId" property="companyId" jdbcType="INTEGER"/>
   </resultMap>
+  <resultMap id="recruiterGotListResponse" type="com.yyh.job.dto.response.job.RecruiterGotListResponse">
+    <result column="jobId" property="jobId" jdbcType="INTEGER"/>
+    <result column="job_name" property="jobName" jdbcType="VARCHAR" />
+    <result column="work_place" property="workPlace" jdbcType="VARCHAR" />
+    <result column="salary_start" property="salaryStart" jdbcType="DOUBLE" />
+    <result column="salary_end" property="salaryEnd" jdbcType="DOUBLE" />
+    <collection property="seekerInfoResponseList" javaType="ArrayList"
+                ofType="com.yyh.job.dto.response.job.SeekerInfoResponse" resultMap="seekerInfo">
+    </collection>
+  </resultMap>
+  <resultMap id="seekerInfo" type="com.yyh.job.dto.response.job.SeekerInfoResponse">
+    <result column="user_id" property="userId" jdbcType="INTEGER"/>
+    <result column="name" property="userName" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="resumeBaseId" property="resumeBaseId" jdbcType="INTEGER" />
+  </resultMap>
   <sql id="Base_Column_List" >
     id, job_id, user_id, send_time, send_status
   </sql>
@@ -116,5 +132,13 @@
     LEFT JOIN tbl_company c on j.company_id = c.id
     where s.user_id = #{userId} and s.send_status = #{type}
     order by s.id desc
+  </select>
+
+  <select id="selectByRecruiterId" resultMap="recruiterGotListResponse">
+    SELECT j.id as jobId,j.job_name,j.salary_start,j.salary_end,j.work_place,r.user_id,r.`name`,r.phone,r.id as resumeBaseId
+    FROM tbl_job j
+    LEFT JOIN tbl_job_send s on j.id = s.job_id
+    LEFT JOIN tbl_resume_base r on s.user_id = r.user_id
+    where j.create_id = #{recruiterId} and s.id is not null
   </select>
 </mapper>
