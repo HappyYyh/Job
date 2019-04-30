@@ -4,10 +4,7 @@ import com.google.common.collect.Lists;
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.common.enums.BaseEnum;
 import com.yyh.job.common.enums.CommonEnum;
-import com.yyh.job.dao.mapper.ResumeBaseMapper;
-import com.yyh.job.dao.mapper.ResumeEducationMapper;
-import com.yyh.job.dao.mapper.ResumeExperienceMapper;
-import com.yyh.job.dao.mapper.ResumeProjectMapper;
+import com.yyh.job.dao.mapper.*;
 import com.yyh.job.dao.model.ResumeBase;
 import com.yyh.job.dao.model.ResumeEducation;
 import com.yyh.job.dao.model.ResumeExperience;
@@ -43,6 +40,9 @@ public class ResumeServiceImpl implements ResumeService {
 
     @Autowired
     private ResumeProjectMapper resumeProjectMapper;
+
+    @Autowired
+    private JobSendMapper jobSendMapper;
 
     /**
      * 新增简历
@@ -230,6 +230,23 @@ public class ResumeServiceImpl implements ResumeService {
                 break;
         }
         return APIResult.ok();
+    }
+
+    /**
+     * 招聘者查看求职者信息
+     *
+     * @param request
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = RuntimeException.class)
+    public APIResult recruiterGet(RecruiterReviewResumeRequest request) {
+        //把投递状态改为被查看
+        int update = jobSendMapper.updateByJobIdAndUserId(request.getJobId(), request.getUserId(), 1);
+        if(update>0){
+            return getResume(request.getUserId());
+        }
+        return APIResult.error();
     }
 
 }

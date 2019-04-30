@@ -330,7 +330,7 @@
         and j.job_name like CONCAT('%',#{jobName},'%')
       </if>
       <if test="category != null and category !='' ">
-        and j.category = #{category}
+        and j.category  like CONCAT('%',#{category})
       </if>
       <if test="city != null and city !='' ">
         and j.work_place like CONCAT('%',#{city},'%')

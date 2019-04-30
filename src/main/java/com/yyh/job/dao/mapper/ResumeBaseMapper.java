@@ -1,6 +1,7 @@
 package com.yyh.job.dao.mapper;
 
 import com.yyh.job.dao.model.ResumeBase;
+import com.yyh.job.dto.response.resume.MyResumeResponse;
 import com.yyh.job.dto.response.resume.ResumeBaseResponse;
 
 public interface ResumeBaseMapper {
@@ -24,4 +25,11 @@ public interface ResumeBaseMapper {
      * @return
      */
     ResumeBaseResponse selectByUserId(Integer userId);
+
+    /**
+     * 关联查询我的简历
+     * @param userId
+     * @return
+     */
+    //MyResumeResponse selectMyResumeByUserId(Integer userId);
 }

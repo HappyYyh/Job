@@ -21,8 +21,55 @@
   <resultMap id="ResultMapWithBLOBs" type="com.yyh.job.dao.model.ResumeBase" extends="BaseResultMap" >
     <result column="introduce" property="introduce" jdbcType="LONGVARCHAR" />
   </resultMap>
+  <!--基础-->
   <resultMap id="ResumeBaseResponse" type="com.yyh.job.dto.response.resume.ResumeBaseResponse" extends="ResultMapWithBLOBs" >
+    <result column="head_img" property="headImg" jdbcType="VARCHAR" />
   </resultMap>
+  <!--教育-->
+  <resultMap id="ResumeEducationResponse" type="com.yyh.job.dto.response.resume.ResumeEducationResponse">
+    <id column="educationId" property="id" jdbcType="INTEGER" />
+    <result column="resume_id" property="resumeId" jdbcType="INTEGER" />
+    <result column="university_name" property="universityName" jdbcType="VARCHAR" />
+    <result column="start_year" property="startYear" jdbcType="VARCHAR" />
+    <result column="end_year" property="endYear" jdbcType="VARCHAR" />
+    <result column="education" property="education" jdbcType="BIT" />
+    <result column="professional_name" property="professionalName" jdbcType="VARCHAR" />
+  </resultMap>
+  <!--经验-->
+  <resultMap id="ResumeExperienceResponse" type="com.yyh.job.dto.response.resume.ResumeExperienceResponse">
+    <id column="experienceId" property="id" jdbcType="INTEGER" />
+    <result column="resume_id" property="resumeId" jdbcType="INTEGER" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="job" property="job" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="VARCHAR" />
+    <result column="end_time" property="endTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <!--项目-->
+  <resultMap id="ResumeProjectResponse" type="com.yyh.job.dto.response.resume.ResumeProjectResponse">
+    <id column="projectId" property="id" jdbcType="INTEGER" />
+    <result column="resume_id" property="resumeId" jdbcType="INTEGER" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="VARCHAR" />
+    <result column="end_time" property="endTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <!--我的简历-->
+  <resultMap id="MyResume" type="com.yyh.job.dto.response.resume.MyResumeResponse">
+    <association property="resumeBaseResponse" javaType="com.yyh.job.dto.response.resume.ResumeBaseResponse"
+                 resultMap="ResumeBaseResponse">
+    </association>
+    <collection property="resumeEducationResponseList" ofType="com.yyh.job.dto.response.resume.ResumeEducationResponse"
+                javaType="ArrayList" resultMap="ResumeEducationResponse">
+    </collection>
+    <collection property="resumeExperienceResponseList" ofType="com.yyh.job.dto.response.resume.ResumeExperienceResponse"
+                javaType="ArrayList" resultMap="ResumeExperienceResponse">
+    </collection>
+    <collection property="resumeProjectResponseList" ofType="com.yyh.job.dto.response.resume.ResumeProjectResponse"
+                javaType="ArrayList" resultMap="ResumeProjectResponse">
+    </collection>
+  </resultMap>
+
   <sql id="Base_Column_List" >
     id, user_id, `name`, birth_day, sex, city, phone, email, exp_job, exp_job_type, exp_city, 
     exp_start_salary, exp_end_salary, exp_now_status, exp_come_time
@@ -249,12 +296,18 @@
   </update>
 
   <select id="selectByUserId" resultMap="ResumeBaseResponse">
-    select
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from tbl_resume_base
+    select b.*,u.head_img
+    from tbl_resume_base b
+    left join tbl_user u on b.user_id = u.id
     where user_id = #{userId,jdbcType=INTEGER}
     limit 1
   </select>
+  <!--<select id="selectMyResumeByUserId" resultMap="MyResume">-->
+    <!--SELECT *,b.id as educationId,c.id as experienceId,d.id as proejctId-->
+    <!--FROM tbl_resume_base a-->
+    <!--LEFT JOIN tbl_resume_edu b on a.id = b.resume_id-->
+    <!--LEFT JOIN tbl_resume_experience c on a.id= c.resume_id-->
+    <!--LEFT JOIN tbl_resume_project d on a.id= d.resume_id-->
+    <!--where a.user_id = #{userId}-->
+  <!--</select>-->
 </mapper>

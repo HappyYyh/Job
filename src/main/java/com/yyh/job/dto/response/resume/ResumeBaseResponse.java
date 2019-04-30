@@ -23,6 +23,11 @@ public class ResumeBaseResponse {
     private Integer userId;
 
     /**
+     * 用户头像
+     */
+    private String headImg;
+
+    /**
      * 姓名
      */
     private String name;

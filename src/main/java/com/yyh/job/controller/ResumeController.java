@@ -32,10 +32,20 @@ public class ResumeController {
         return resumeService.addResume(request);
     }
 
+    /**
+     * 用户查看自己的简历
+     * @param userId
+     * @return
+     */
     @GetMapping("/getResume")
     @AuthToken
     public APIResult getResume(Integer userId){
         return resumeService.getResume(userId);
+    }
+
+    @PostMapping("/recruiterGet")
+    public APIResult recruiterGet(@RequestBody RecruiterReviewResumeRequest request){
+        return resumeService.recruiterGet(request);
     }
 
     @PostMapping("/deleteResume")
@@ -49,12 +59,6 @@ public class ResumeController {
     public APIResult submitBase(@RequestBody @Valid ResumeBaseRequest request, BindingResult bindingResult){
         return resumeService.submitBase(request);
     }
-
-//    @PostMapping("/editBase")
-//    @AuthToken
-//    public APIResult editBase(@RequestBody @Valid ResumeBaseRequest request, BindingResult bindingResult){
-//        return resumeService.editBase(request);
-//    }
 
     @PostMapping("/submitEducation")
     @AuthToken
