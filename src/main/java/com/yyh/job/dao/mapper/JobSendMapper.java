@@ -1,7 +1,10 @@
 package com.yyh.job.dao.mapper;
 
 import com.yyh.job.dao.model.JobSend;
+import com.yyh.job.dto.response.job.SeekerSendListResponse;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface JobSendMapper {
     int deleteByPrimaryKey(Integer id);
@@ -23,4 +26,12 @@ public interface JobSendMapper {
      * @return
      */
     JobSend selectByJobIdAndUserId(@Param("userId") Integer userId,@Param("jobId") Integer jobId);
+
+    /**
+     * 根据根据userId和status查询
+     * @param userId
+     * @param type
+     * @return
+     */
+    List<SeekerSendListResponse> selectByUserIdAndStatus(@Param("userId") Integer userId, @Param("type") Integer type);
 }

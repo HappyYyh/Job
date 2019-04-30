@@ -3,6 +3,7 @@ package com.yyh.job.controller;
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.common.base.AuthToken;
 import com.yyh.job.dto.request.job.CommonJobSendRequest;
+import com.yyh.job.dto.request.job.SeekerSendListRequest;
 import com.yyh.job.service.JobSendService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,11 @@ public class JobSendController {
     @PostMapping("/isSend")
     public APIResult isSend(@RequestBody CommonJobSendRequest request){
         return jobSendService.isSend(request);
+    }
+
+    @PostMapping("/seekerSendList")
+    //@AuthToken
+    public APIResult seekerSendList(@RequestBody SeekerSendListRequest request){
+        return jobSendService.seekerSendList(request);
     }
 }

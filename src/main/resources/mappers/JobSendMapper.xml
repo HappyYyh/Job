@@ -8,6 +8,16 @@
     <result column="send_time" property="sendTime" jdbcType="TIMESTAMP" />
     <result column="send_status" property="sendStatus" jdbcType="BIT" />
   </resultMap>
+  <resultMap id="seekJobSendList" type="com.yyh.job.dto.response.job.SeekerSendListResponse">
+    <result column="send_time" property="sendTime" jdbcType="TIMESTAMP" />
+    <result column="send_status" property="sendStatus" jdbcType="BIT" />
+    <result column="jobId" property="jobId" jdbcType="INTEGER"/>
+    <result column="job_name" property="jobName" jdbcType="VARCHAR" />
+    <result column="work_place" property="workPlace" jdbcType="VARCHAR" />
+    <result column="salary_start" property="salaryStart" jdbcType="DOUBLE" />
+    <result column="salary_end" property="salaryEnd" jdbcType="DOUBLE" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+  </resultMap>
   <sql id="Base_Column_List" >
     id, job_id, user_id, send_time, send_status
   </sql>
@@ -96,5 +106,13 @@
     <include refid="Base_Column_List" />
     from tbl_job_send
     where job_id = #{jobId} and user_id = #{userId}
+  </select>
+
+  <select id="selectByUserIdAndStatus" resultMap="seekJobSendList">
+    SELECT s.send_time,s.send_status,j.id as jobId,j.job_name,j.salary_start,j.salary_end,j.work_place,c.company_name
+    from tbl_job_send s
+    LEFT JOIN tbl_job j on s.job_id = j.id
+    LEFT JOIN tbl_company c on j.company_id = c.id
+    where s.user_id = #{userId} and s.send_status = #{type}
   </select>
 </mapper>

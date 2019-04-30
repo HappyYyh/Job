@@ -1,6 +1,9 @@
 package com.yyh.job.service.serviceimpl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.yyh.job.common.base.APIResult;
+import com.yyh.job.common.base.BaseResponse;
 import com.yyh.job.common.enums.BaseEnum;
 import com.yyh.job.common.enums.CommonEnum;
 import com.yyh.job.dao.mapper.JobSendMapper;
@@ -8,11 +11,18 @@ import com.yyh.job.dao.mapper.UserMapper;
 import com.yyh.job.dao.model.JobSend;
 import com.yyh.job.dao.model.User;
 import com.yyh.job.dto.request.job.CommonJobSendRequest;
+import com.yyh.job.dto.request.job.SeekerSendListRequest;
+import com.yyh.job.dto.response.job.SeekerSendListResponse;
 import com.yyh.job.service.JobSendService;
+import com.yyh.job.util.DateUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Package com.yyh.job.service.serviceimpl
@@ -74,5 +84,29 @@ public class JobSendServiceImpl implements JobSendService {
         JobSend isSend = jobSendMapper.selectByJobIdAndUserId(request.getUserId(),request.getJobId());
         //投递过返回1，未投递返回0
         return isSend==null?APIResult.create(0):APIResult.create(1);
+    }
+
+    /**
+     * 求职者查看自己的投递记录
+     *
+     * @param request
+     * @return
+     */
+    @Override
+    public APIResult seekerSendList(SeekerSendListRequest request) {
+        Page page = PageHelper.startPage(request.getPageNo(),request.getPageSize());
+        List<SeekerSendListResponse> responseList = jobSendMapper.selectByUserIdAndStatus(request.getUserId(),request.getType());
+        responseList.forEach(response -> {
+            if(StringUtils.isNotBlank(response.getWorkPlace())){
+                //将 浙江省/杭州市/下城区以/分割
+                String[] places = response.getWorkPlace().split("/");
+                response.setCity(places[1]);
+            }
+            LocalDateTime localDateTime = DateUtil.dateToLocalDateTime(response.getSendTime());
+            //返回发布时间
+            String time = localDateTime.getMonthValue()+"月"+localDateTime.getDayOfMonth()+"日"+localDateTime.getHour()+"时"+localDateTime.getMinute()+"分";
+            response.setShowTime(time);
+        });
+        return APIResult.create(BaseResponse.create(page.getTotal(),responseList));
     }
 }

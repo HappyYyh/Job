@@ -2,6 +2,7 @@ package com.yyh.job.service;
 
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.dto.request.job.CommonJobSendRequest;
+import com.yyh.job.dto.request.job.SeekerSendListRequest;
 
 /**
  * @Package com.yyh.job.service
@@ -24,4 +25,11 @@ public interface JobSendService {
      * @return
      */
     APIResult isSend(CommonJobSendRequest request);
+
+    /**
+     * 求职者查看自己的投递记录
+     * @param request
+     * @return
+     */
+    APIResult seekerSendList(SeekerSendListRequest request);
 }
