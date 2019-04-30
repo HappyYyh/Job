@@ -42,7 +42,8 @@ public enum BaseEnum {
     RESUME_BASE(540,"暂无简历，赶紧创建一个吧!"),
 
     RECRUITER_CANNOT_SEND(550,"招聘者无法投递简历!"),
-    YOU_HAVE_SEND(551,"您已经投递过该职位了,请不要重复投递!")
+    YOU_HAVE_SEND(551,"您已经投递过该职位了,请不要重复投递!"),
+    HAVE_NOT_RESUME(552,"您尚未创建简历,赶紧创建简历吧!")
     ;
 
     @Getter

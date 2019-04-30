@@ -7,12 +7,15 @@ import com.yyh.job.common.base.BaseResponse;
 import com.yyh.job.common.enums.BaseEnum;
 import com.yyh.job.common.enums.CommonEnum;
 import com.yyh.job.dao.mapper.JobSendMapper;
+import com.yyh.job.dao.mapper.ResumeBaseMapper;
 import com.yyh.job.dao.mapper.UserMapper;
 import com.yyh.job.dao.model.JobSend;
+import com.yyh.job.dao.model.ResumeBase;
 import com.yyh.job.dao.model.User;
 import com.yyh.job.dto.request.job.CommonJobSendRequest;
 import com.yyh.job.dto.request.job.SeekerSendListRequest;
 import com.yyh.job.dto.response.job.SeekerSendListResponse;
+import com.yyh.job.dto.response.resume.ResumeBaseResponse;
 import com.yyh.job.service.JobSendService;
 import com.yyh.job.util.DateUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -39,6 +42,9 @@ public class JobSendServiceImpl implements JobSendService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private ResumeBaseMapper resumeBaseMapper;
+
 
     /**
      * 投递前需进行身份校验
@@ -62,6 +68,11 @@ public class JobSendServiceImpl implements JobSendService {
         JobSend isSend = jobSendMapper.selectByJobIdAndUserId(request.getUserId(),request.getJobId());
         if(isSend !=null){
             return APIResult.error(BaseEnum.YOU_HAVE_SEND);
+        }
+        //判断是否已经创建简历
+        ResumeBaseResponse hasResume = resumeBaseMapper.selectByUserId(user.getId());
+        if(null == hasResume){
+            return APIResult.error(BaseEnum.HAVE_NOT_RESUME);
         }
         JobSend jobSend = new JobSend();
         jobSend.setJobId(request.getJobId());
