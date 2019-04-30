@@ -2,6 +2,7 @@ package com.yyh.job.util;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
@@ -25,5 +26,14 @@ public class DateUtil {
         Instant instant = date.toInstant();
         ZoneId zoneId = ZoneId.systemDefault();
         return instant.atZone(zoneId).toLocalDate();
+    }
+
+    public static LocalDateTime dateToLocalDateTime(Date date){
+        if(null == date){
+            return null;
+        }
+        Instant instant = date.toInstant();
+        ZoneId zoneId = ZoneId.systemDefault();
+        return LocalDateTime.ofInstant(instant,zoneId);
     }
 }
