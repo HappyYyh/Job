@@ -14,6 +14,7 @@ import com.yyh.job.dao.model.ResumeBase;
 import com.yyh.job.dao.model.User;
 import com.yyh.job.dto.request.job.CommonJobSendRequest;
 import com.yyh.job.dto.request.job.SeekerSendListRequest;
+import com.yyh.job.dto.request.job.UpdateSendStatusRequest;
 import com.yyh.job.dto.response.job.RecruiterGotListResponse;
 import com.yyh.job.dto.response.job.SeekerSendListResponse;
 import com.yyh.job.dto.response.resume.ResumeBaseResponse;
@@ -22,6 +23,7 @@ import com.yyh.job.util.DateUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -132,5 +134,18 @@ public class JobSendServiceImpl implements JobSendService {
     public APIResult recruiterGotList(Integer recruiterId) {
         List<RecruiterGotListResponse> responseList = jobSendMapper.selectByRecruiterId(recruiterId);
         return APIResult.create(responseList);
+    }
+
+    /**
+     * 修改投递状态
+     *
+     * @param request
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = RuntimeException.class)
+    public APIResult updateSendStatus(UpdateSendStatusRequest request) {
+        jobSendMapper.updateByJobIdAndUserId(request.getJobId(),request.getUserId(),request.getType());
+        return APIResult.ok();
     }
 }

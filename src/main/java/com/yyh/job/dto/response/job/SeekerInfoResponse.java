@@ -26,10 +26,4 @@ public class SeekerInfoResponse {
      */
     private String phone;
 
-    /**
-     * 简历基础id
-     */
-    private Integer resumeBaseId;
-
-
 }

@@ -42,4 +42,13 @@ public interface JobSendMapper {
      * @return
      */
     List<RecruiterGotListResponse> selectByRecruiterId(Integer recruiterId);
+
+    /**
+     * 修改状态
+     * @param jobId
+     * @param userId
+     * @param sendStatus
+     * @return
+     */
+    int updateByJobIdAndUserId(@Param("jobId") Integer jobId, @Param("userId") Integer userId,@Param("sendStatus") Integer sendStatus);
 }

@@ -68,4 +68,11 @@ public interface ResumeService {
      * @return
      */
     APIResult delete(ResumeDeleteRequest request);
+
+    /**
+     * 招聘者查看求职者信息
+     * @param request
+     * @return
+     */
+    APIResult recruiterGet(RecruiterReviewResumeRequest request);
 }

@@ -3,6 +3,7 @@ package com.yyh.job.service;
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.dto.request.job.CommonJobSendRequest;
 import com.yyh.job.dto.request.job.SeekerSendListRequest;
+import com.yyh.job.dto.request.job.UpdateSendStatusRequest;
 
 /**
  * @Package com.yyh.job.service
@@ -39,4 +40,11 @@ public interface JobSendService {
      * @return
      */
     APIResult recruiterGotList(Integer recruiterId);
+
+    /**
+     * 修改投递状态
+     * @param request
+     * @return
+     */
+    APIResult updateSendStatus(UpdateSendStatusRequest request);
 }

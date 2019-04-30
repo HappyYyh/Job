@@ -4,6 +4,7 @@ import com.yyh.job.common.base.APIResult;
 import com.yyh.job.common.base.AuthToken;
 import com.yyh.job.dto.request.job.CommonJobSendRequest;
 import com.yyh.job.dto.request.job.SeekerSendListRequest;
+import com.yyh.job.dto.request.job.UpdateSendStatusRequest;
 import com.yyh.job.service.JobSendService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +44,17 @@ public class JobSendController {
     }
 
     @GetMapping("/recruiterGotList")
-    //@AuthToken
+    @AuthToken
     public APIResult recruiterGotList(Integer recruiterId){
         return jobSendService.recruiterGotList(recruiterId);
     }
+
+    @PostMapping("/updateSendStatus")
+    @AuthToken
+    public APIResult updateSendStatus(@RequestBody UpdateSendStatusRequest request){
+        return jobSendService.updateSendStatus(request);
+    }
+
+
 
 }
