@@ -242,11 +242,11 @@ public class ResumeServiceImpl implements ResumeService {
     @Transactional(rollbackFor = RuntimeException.class)
     public APIResult recruiterGet(RecruiterReviewResumeRequest request) {
         //把投递状态改为被查看
-        //int update = jobSendMapper.updateByJobIdAndUserId(request.getJobId(), request.getUserId(), 1);
-        //if(update>0){
+        int update = jobSendMapper.updateByJobIdAndUserId(request.getJobId(), request.getUserId(), 1);
+        if(update>0){
             return getResume(request.getUserId());
-//        }
-//        return APIResult.error();
+        }
+        return APIResult.error();
     }
 
 }

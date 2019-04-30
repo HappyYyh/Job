@@ -139,6 +139,7 @@
     LEFT JOIN tbl_job_send s on j.id = s.job_id
     LEFT JOIN tbl_resume_base r on s.user_id = r.user_id
     where j.create_id = #{recruiterId} and s.send_status in (0,1)
+    order by s.send_time desc
   </select>
 
   <update id="updateByJobIdAndUserId">
