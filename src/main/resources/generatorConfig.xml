@@ -128,6 +128,10 @@
             <columnOverride column="is_owner" javaType="Integer"/>
         </table>
 
+        <!--职位订阅表-->
+        <table tableName="tbl_job_subscribe" domainObjectName="JobSubScribe" enableCountByExample="false"
+        enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>
+
 
 </context>
 </generatorConfiguration>
