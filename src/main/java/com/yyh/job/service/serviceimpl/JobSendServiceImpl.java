@@ -101,7 +101,7 @@ public class JobSendServiceImpl implements JobSendService {
         Map<String,Object> map = new HashMap<>();
         map.put("userName",hasResume.getName());
         map.put("phone",hasResume.getPhone());
-        map.put("time",LocalDateTime.now().toString());
+        map.put("time",DateUtil.getStringDateTime());
         Job job = jobMapper.selectByPrimaryKey(request.getJobId());
         map.put("jobName",job.getJobName());
         map.put("salaryStart",job.getSalaryStart());

@@ -4,8 +4,8 @@ import com.google.gson.Gson;
 import com.rabbitmq.client.Channel;
 import com.yyh.job.common.enums.RoleEnum;
 import com.yyh.job.config.webSocket.WebSocketServer;
+import com.yyh.job.service.JobSubScribeService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -13,8 +13,10 @@ import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,6 +36,9 @@ public class RabbitMqUtil implements RabbitTemplate.ConfirmCallback,RabbitTempla
     private String recruiterExchange;
 
     private RabbitTemplate rabbitTemplate;
+
+    @Autowired
+    private JobSubScribeService jobSubScribeService;
 
     private static final Gson gson = new Gson();
 
@@ -119,10 +124,16 @@ public class RabbitMqUtil implements RabbitTemplate.ConfirmCallback,RabbitTempla
         try {
             String msg = new String(message.getBody(),"UTF-8");
             Map map = gson.fromJson(msg, Map.class);
-            Integer userId = (Integer) map.get("userId");
+            //查询订阅的用户
+            String category = String.valueOf(map.get("category"));
+            List<Integer> userIds = jobSubScribeService.getByCategory(category);
             for (WebSocketServer webSocketServer : WebSocketServer.webSocketSet){
                 //如果监听到消息时该用户在线，则实时推送
-                webSocketServer.sendMessage(msg);
+                if(!CollectionUtils.isEmpty(userIds)){
+                    if(userIds.contains(webSocketServer.getId())){
+                        webSocketServer.sendMessage(msg);
+                    }
+                }
             }
             channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
         } catch (Exception e) {
@@ -132,8 +143,4 @@ public class RabbitMqUtil implements RabbitTemplate.ConfirmCallback,RabbitTempla
         }
     }
 
-    public static void main(String[] args) {
-        Double d = 11.0;
-        System.out.println((int)(double)d);
-    }
 }

@@ -6,6 +6,8 @@ import com.yyh.job.common.base.APIResult;
 import com.yyh.job.common.base.BaseResponse;
 import com.yyh.job.common.enums.BaseEnum;
 import com.yyh.job.common.enums.CommonEnum;
+import com.yyh.job.common.enums.RoleEnum;
+import com.yyh.job.dao.mapper.CompanyMapper;
 import com.yyh.job.dao.mapper.JobMapper;
 import com.yyh.job.dao.mapper.RecruiterMapper;
 import com.yyh.job.dao.model.Job;
@@ -17,6 +19,7 @@ import com.yyh.job.dto.response.job.QueryJobResponse;
 import com.yyh.job.service.CompanyService;
 import com.yyh.job.service.JobService;
 import com.yyh.job.util.DateUtil;
+import com.yyh.job.util.SendMsgUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +29,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Package com.yyh.job.service.serviceimpl
@@ -45,6 +50,12 @@ public class JobServiceImpl implements JobService {
 
     @Autowired
     private CompanyService companyService;
+
+    @Autowired
+    private CompanyMapper companyMapper;
+
+    @Autowired
+    private SendMsgUtil sendMsgUtil;
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
@@ -69,6 +80,18 @@ public class JobServiceImpl implements JobService {
         job.setGmtCreate(new Date());
         job.setGmtUpdate(new Date());
         jobMapper.insert(job);
+
+        //4、新增消息到消息队列中
+        Map<String,Object> map = new HashMap<>();
+        map.put("jobName",job.getJobName());
+        map.put("category",job.getCategory());
+        map.put("salaryStart",job.getSalaryStart());
+        map.put("salaryEnd",job.getSalaryEnd());
+        map.put("companyName",companyMapper.selectByPrimaryKey(job.getCompanyId()).getCompanyName());
+        map.put("position",recruiter.getPosition());
+        map.put("time",DateUtil.getStringDateTime());
+        sendMsgUtil.sendMsgToRabbit(RoleEnum.SEEKER,map);
+
         return APIResult.ok();
     }
 

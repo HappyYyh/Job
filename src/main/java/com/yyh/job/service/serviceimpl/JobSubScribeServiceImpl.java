@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Package com.yyh.job.service.serviceimpl
@@ -81,6 +82,17 @@ public class JobSubScribeServiceImpl implements JobSubScribeService {
     public APIResult delete(Integer id) {
         jobSubScribeMapper.deleteByPrimaryKey(id);
         return APIResult.ok();
+    }
+
+    /**
+     * 查询订阅者的id
+     *
+     * @param category
+     * @return
+     */
+    @Override
+    public List<Integer> getByCategory(String category) {
+        return jobSubScribeMapper.selectByCategory(category);
     }
 
 }

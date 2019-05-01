@@ -3,6 +3,8 @@ package com.yyh.job.service;
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.dto.request.job.CommonJobSubScribeRequest;
 
+import java.util.List;
+
 /**
  * @Package com.yyh.job.service
  * @author: 昊天
@@ -38,4 +40,11 @@ public interface JobSubScribeService {
      * @return
      */
     APIResult delete(Integer id);
+
+    /**
+     * 查询订阅者的id
+     * @param category
+     * @return
+     */
+    List<Integer>  getByCategory(String category);
 }

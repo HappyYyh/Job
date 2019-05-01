@@ -28,6 +28,10 @@ public class DateUtil {
         return instant.atZone(zoneId).toLocalDate();
     }
 
+    /**
+     * date转LocalDateTime
+     * @return
+     */
     public static LocalDateTime dateToLocalDateTime(Date date){
         if(null == date){
             return null;
@@ -36,4 +40,25 @@ public class DateUtil {
         ZoneId zoneId = ZoneId.systemDefault();
         return LocalDateTime.ofInstant(instant,zoneId);
     }
+
+
+    /**
+     * 获取string类型的datetime
+     * @return
+     */
+    public static String getStringDateTime(){
+        LocalDateTime now = LocalDateTime.now();
+        return now.getMonthValue()+"月"+now.getDayOfMonth()+"日"+now.getHour()+"时"+now.getMinute()+"分";
+    }
+
+    /**
+     * 获取string类型的日期
+     * @return
+     */
+    public static String getStringDate(){
+        LocalDate now = LocalDate.now();
+        return now.getDayOfMonth()+"月"+now.getDayOfMonth()+"日";
+    }
+
+
 }

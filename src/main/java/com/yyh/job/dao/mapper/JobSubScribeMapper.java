@@ -2,6 +2,8 @@ package com.yyh.job.dao.mapper;
 
 import com.yyh.job.dao.model.JobSubScribe;
 
+import java.util.List;
+
 public interface JobSubScribeMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -21,4 +23,11 @@ public interface JobSubScribeMapper {
      * @return
      */
     JobSubScribe selectByUserId(Integer userId);
+
+    /**
+     * 查询订阅者的ID
+     * @param category
+     * @return
+     */
+    List<Integer> selectByCategory(String category);
 }
