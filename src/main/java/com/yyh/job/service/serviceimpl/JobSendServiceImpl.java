@@ -6,9 +6,12 @@ import com.yyh.job.common.base.APIResult;
 import com.yyh.job.common.base.BaseResponse;
 import com.yyh.job.common.enums.BaseEnum;
 import com.yyh.job.common.enums.CommonEnum;
+import com.yyh.job.common.enums.RoleEnum;
+import com.yyh.job.dao.mapper.JobMapper;
 import com.yyh.job.dao.mapper.JobSendMapper;
 import com.yyh.job.dao.mapper.ResumeBaseMapper;
 import com.yyh.job.dao.mapper.UserMapper;
+import com.yyh.job.dao.model.Job;
 import com.yyh.job.dao.model.JobSend;
 import com.yyh.job.dao.model.ResumeBase;
 import com.yyh.job.dao.model.User;
@@ -20,6 +23,7 @@ import com.yyh.job.dto.response.job.SeekerSendListResponse;
 import com.yyh.job.dto.response.resume.ResumeBaseResponse;
 import com.yyh.job.service.JobSendService;
 import com.yyh.job.util.DateUtil;
+import com.yyh.job.util.SendMsgUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +31,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Package com.yyh.job.service.serviceimpl
@@ -43,10 +50,16 @@ public class JobSendServiceImpl implements JobSendService {
     private JobSendMapper jobSendMapper;
 
     @Autowired
+    private JobMapper jobMapper;
+
+    @Autowired
     private UserMapper userMapper;
 
     @Autowired
     private ResumeBaseMapper resumeBaseMapper;
+
+    @Autowired
+    private SendMsgUtil sendMsgUtil;
 
 
     /**
@@ -83,8 +96,22 @@ public class JobSendServiceImpl implements JobSendService {
         jobSend.setSendTime(new Date());
         jobSend.setSendStatus(0);
         jobSendMapper.insert(jobSend);
+
+        //构建消息内容
+        Map<String,Object> map = new HashMap<>();
+        map.put("userName",hasResume.getName());
+        map.put("phone",hasResume.getPhone());
+        map.put("time",DateUtil.getStringDateTime());
+        Job job = jobMapper.selectByPrimaryKey(request.getJobId());
+        map.put("jobName",job.getJobName());
+        map.put("salaryStart",job.getSalaryStart());
+        map.put("salaryEnd",job.getSalaryEnd());
+        map.put("recruiterId",job.getCreateId());
+        sendMsgUtil.sendMsgToRabbit(RoleEnum.RECRUITER,map);
         return APIResult.ok();
     }
+
+
 
     /**
      * 判断是否已经投递过
