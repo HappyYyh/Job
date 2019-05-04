@@ -25,6 +25,25 @@ spring:
 
     timeout: 6000
 
+  #rabbitmq配置
+  rabbitmq:
+    host: 120.79.252.252
+    port: 5672
+    username: guest
+    password: guest
+    #消息发送到交换机确认机制,是否确认回调
+    publisher-confirms: true
+    #消息发送到队列确认机制，是否确认回调
+    publisher-returns: true
+    #手动确认消息
+    listener:
+      simple:
+        acknowledge-mode: manual
+#交换机
+job:
+  exchange:
+    seeker: seeker
+    recruiter: recruiter
 
 #mybatis
 mybatis:
@@ -39,7 +58,6 @@ pagehelper:
   helper-dialect: mysql
   support-methods-arguments: true
   params: count=countSql
-
 
 #七牛云服务
 qiniu:
