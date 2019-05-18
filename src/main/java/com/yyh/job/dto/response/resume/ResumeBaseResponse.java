@@ -97,4 +97,19 @@ public class ResumeBaseResponse {
      * 个人介绍
      */
     private String introduce;
+
+    /**
+     * 是否公开简历：0不公开 1公开
+     */
+    private Integer isPublic;
+
+    /**
+     * 屏蔽的公司id,以逗号分隔
+     */
+    private String shieldCompanyId;
+
+    /**
+     * 屏蔽的公司的数量
+     */
+    private Integer shieldCompanyCount;
 }

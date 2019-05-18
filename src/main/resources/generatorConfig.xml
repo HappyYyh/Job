@@ -132,6 +132,16 @@
         <table tableName="tbl_job_subscribe" domainObjectName="JobSubScribe" enableCountByExample="false"
         enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"/>
 
+        <!--简历权限表-->
+        <table tableName="tbl_resume_privacy" domainObjectName="ResumePrivacy" enableCountByExample="false"
+            enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false">
+            <columnOverride column="is_public" javaType="Integer"/>
+        </table>
+
+        <!--三方简历表-->
+        <table tableName="tbl_resume_other" domainObjectName="ResumeOther" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false">
+        </table>
 
 </context>
 </generatorConfiguration>

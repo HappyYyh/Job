@@ -39,6 +39,10 @@ spring:
     listener:
       simple:
         acknowledge-mode: manual
+  http:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
 #交换机
 job:
   exchange:

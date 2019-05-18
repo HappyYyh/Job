@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyh.job.dao.mapper.ResumePrivacyMapper" >
+  <resultMap id="BaseResultMap" type="com.yyh.job.dao.model.ResumePrivacy" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="resume_id" property="resumeId" jdbcType="INTEGER" />
+    <result column="is_public" property="isPublic" jdbcType="BIT" />
+    <result column="shield_company_id" property="shieldCompanyId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, resume_id, is_public, shield_company_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_resume_privacy
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tbl_resume_privacy
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yyh.job.dao.model.ResumePrivacy" >
+    insert into tbl_resume_privacy (id, resume_id, is_public, 
+      shield_company_id)
+    values (#{id,jdbcType=INTEGER}, #{resumeId,jdbcType=INTEGER}, #{isPublic,jdbcType=BIT}, 
+      #{shieldCompanyId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyh.job.dao.model.ResumePrivacy" >
+    insert into tbl_resume_privacy
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="resumeId != null" >
+        resume_id,
+      </if>
+      <if test="isPublic != null" >
+        is_public,
+      </if>
+      <if test="shieldCompanyId != null" >
+        shield_company_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="resumeId != null" >
+        #{resumeId,jdbcType=INTEGER},
+      </if>
+      <if test="isPublic != null" >
+        #{isPublic,jdbcType=BIT},
+      </if>
+      <if test="shieldCompanyId != null" >
+        #{shieldCompanyId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyh.job.dao.model.ResumePrivacy" >
+    update tbl_resume_privacy
+    <set >
+      <if test="resumeId != null" >
+        resume_id = #{resumeId,jdbcType=INTEGER},
+      </if>
+      <if test="isPublic != null" >
+        is_public = #{isPublic,jdbcType=BIT},
+      </if>
+      <if test="shieldCompanyId != null" >
+        shield_company_id = #{shieldCompanyId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyh.job.dao.model.ResumePrivacy" >
+    update tbl_resume_privacy
+    set resume_id = #{resumeId,jdbcType=INTEGER},
+      is_public = #{isPublic,jdbcType=BIT},
+      shield_company_id = #{shieldCompanyId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

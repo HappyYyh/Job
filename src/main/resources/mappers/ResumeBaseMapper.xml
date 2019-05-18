@@ -24,6 +24,8 @@
   <!--基础-->
   <resultMap id="ResumeBaseResponse" type="com.yyh.job.dto.response.resume.ResumeBaseResponse" extends="ResultMapWithBLOBs" >
     <result column="head_img" property="headImg" jdbcType="VARCHAR" />
+    <result column="is_public" property="isPublic" jdbcType="BIT" />
+    <result column="shield_company_id" property="shieldCompanyId" jdbcType="VARCHAR" />
   </resultMap>
   <!--教育-->
   <resultMap id="ResumeEducationResponse" type="com.yyh.job.dto.response.resume.ResumeEducationResponse">
@@ -296,9 +298,10 @@
   </update>
 
   <select id="selectByUserId" resultMap="ResumeBaseResponse">
-    select b.*,u.head_img
+    select b.*,u.head_img,p.is_public,p.shield_company_id
     from tbl_resume_base b
     left join tbl_user u on b.user_id = u.id
+    left join tbl_resume_privacy p on b.id = p.resume_id
     where user_id = #{userId,jdbcType=INTEGER}
     limit 1
   </select>

@@ -67,12 +67,20 @@ public class ResumeController {
     }
 
     @PostMapping("/submitExperience")
+    @AuthToken
     public APIResult submitExperience(@RequestBody @Valid ResumeExperienceRequest request, BindingResult bindingResult){
         return resumeService.submitExperience(request);
     }
 
     @PostMapping("/submitProject")
+    @AuthToken
     public APIResult submitProject(@RequestBody @Valid ResumeProjectRequest request, BindingResult bindingResult){
         return resumeService.submitProject(request);
+    }
+
+    @PostMapping("/addOtherResume")
+    @AuthToken
+    public APIResult addOtherResume(@RequestBody @Valid AddOtherResumeRequest request, BindingResult bindingResult){
+        return resumeService.addOtherResume(request);
     }
 }

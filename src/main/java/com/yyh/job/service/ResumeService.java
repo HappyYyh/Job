@@ -75,4 +75,11 @@ public interface ResumeService {
      * @return
      */
     APIResult recruiterGet(RecruiterReviewResumeRequest request);
+
+    /**
+     * 新增三方简历
+     * @param request
+     * @return
+     */
+    APIResult addOtherResume(AddOtherResumeRequest request);
 }

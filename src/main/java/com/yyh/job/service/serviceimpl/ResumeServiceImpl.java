@@ -1,18 +1,17 @@
 package com.yyh.job.service.serviceimpl;
 
 import com.google.common.collect.Lists;
+import com.google.gson.Gson;
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.common.enums.BaseEnum;
 import com.yyh.job.common.enums.CommonEnum;
 import com.yyh.job.dao.mapper.*;
-import com.yyh.job.dao.model.ResumeBase;
-import com.yyh.job.dao.model.ResumeEducation;
-import com.yyh.job.dao.model.ResumeExperience;
-import com.yyh.job.dao.model.ResumeProject;
+import com.yyh.job.dao.model.*;
 import com.yyh.job.dto.request.resume.ResumeDeleteRequest;
 import com.yyh.job.dto.request.resume.*;
 import com.yyh.job.dto.response.resume.*;
 import com.yyh.job.service.ResumeService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +42,9 @@ public class ResumeServiceImpl implements ResumeService {
 
     @Autowired
     private JobSendMapper jobSendMapper;
+
+    @Autowired
+    private ResumeOtherMapper resumeOtherMapper;
 
     /**
      * 新增简历
@@ -193,6 +195,12 @@ public class ResumeServiceImpl implements ResumeService {
         if(null ==resumeBaseResponse){
             return APIResult.error(BaseEnum.RESUME_BASE);
         }
+        if(StringUtils.isNotBlank(resumeBaseResponse.getShieldCompanyId())){
+            //处理公司id
+            String companyIds = resumeBaseResponse.getShieldCompanyId();
+            String[] split = companyIds.split(",");
+            resumeBaseResponse.setShieldCompanyCount(split.length);
+        }
         Integer resumeId = resumeBaseResponse.getId();
         //查询教育信息
         List<ResumeEducationResponse> resumeEducationResponseList = resumeEducationMapper.selectByResumeId(resumeId);
@@ -247,6 +255,17 @@ public class ResumeServiceImpl implements ResumeService {
             return getResume(request.getUserId());
         }
         return APIResult.error();
+    }
+
+    @Override
+    @Transactional(rollbackFor = RuntimeException.class)
+    public APIResult addOtherResume(AddOtherResumeRequest request) {
+        ResumeOther other = new ResumeOther();
+        other.setUserId(request.getUserId());
+        other.setOtherUrl(request.getUrl());
+        other.setOtherName(request.getName());
+        resumeOtherMapper.insert(other);
+        return APIResult.ok();
     }
 
 }
