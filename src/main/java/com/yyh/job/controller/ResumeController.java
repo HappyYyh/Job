@@ -83,4 +83,10 @@ public class ResumeController {
     public APIResult addOtherResume(@RequestBody @Valid AddOtherResumeRequest request, BindingResult bindingResult){
         return resumeService.addOtherResume(request);
     }
+
+    @GetMapping("/deleteOtherResume")
+    @AuthToken
+    public APIResult deleteOtherResume(Integer id) {
+        return resumeService.deleteOtherResume(id);
+    }
 }

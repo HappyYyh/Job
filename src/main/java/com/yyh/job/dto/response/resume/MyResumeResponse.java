@@ -32,4 +32,9 @@ public class MyResumeResponse {
      * 项目经验
      */
     private List<ResumeProjectResponse> resumeProjectResponseList;
+
+    /**
+     * 三方简历信息
+     */
+    private List<ResumeOtherResponse>  resumeOtherResponseList;
 }

@@ -11,13 +11,20 @@ import com.yyh.job.dto.request.resume.ResumeDeleteRequest;
 import com.yyh.job.dto.request.resume.*;
 import com.yyh.job.dto.response.resume.*;
 import com.yyh.job.service.ResumeService;
+import com.yyh.job.util.DateUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
+import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+
+import static com.sun.tools.doclint.Entity.copy;
 
 /**
  * @Package com.yyh.job.service.serviceimpl
@@ -208,11 +215,14 @@ public class ResumeServiceImpl implements ResumeService {
         List<ResumeExperienceResponse> resumeExperienceResponseList = resumeExperienceMapper.selectByResumeId(resumeId);
         //查询项目信息
         List<ResumeProjectResponse> resumeProjectResponseList = resumeProjectMapper.selectByResumeId(resumeId);
+        //查询三方简历
+        List<ResumeOtherResponse> resumeOtherResponseList = this.getOtherResume(userId);
         //数据填充
         response.setResumeBaseResponse(resumeBaseResponse);
         response.setResumeEducationResponseList(resumeEducationResponseList);
         response.setResumeExperienceResponseList(resumeExperienceResponseList);
         response.setResumeProjectResponseList(resumeProjectResponseList);
+        response.setResumeOtherResponseList(resumeOtherResponseList);
         return APIResult.create(response);
     }
 
@@ -265,6 +275,40 @@ public class ResumeServiceImpl implements ResumeService {
         other.setOtherUrl(request.getUrl());
         other.setOtherName(request.getName());
         resumeOtherMapper.insert(other);
+        return APIResult.ok();
+    }
+
+    @Override
+    public List<ResumeOtherResponse> getOtherResume(Integer userId) {
+        List<ResumeOther> list = resumeOtherMapper.selectByUserId(userId);
+        List<ResumeOtherResponse> responseList = Lists.newArrayList();
+        if(CollectionUtils.isEmpty(list)){
+            return responseList;
+        }
+        list.forEach(x->{
+            ResumeOtherResponse response = new ResumeOtherResponse();
+            response.setId(x.getId());
+            response.setUrl(x.getOtherUrl());
+            response.setName(x.getOtherName());
+            LocalDateTime localDateTime = DateUtil.dateToLocalDateTime(x.getGmtUpdate());
+            if(localDateTime != null) {
+                response.setUpdateTime(DateUtil.getStringDateTime(localDateTime));
+            }
+            responseList.add(response);
+
+        });
+        return responseList;
+    }
+
+    /**
+     * 删除三方简历记录
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public APIResult deleteOtherResume(Integer id) {
+        resumeOtherMapper.deleteByPrimaryKey(id);
         return APIResult.ok();
     }
 

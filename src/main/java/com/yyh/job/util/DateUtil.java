@@ -52,6 +52,14 @@ public class DateUtil {
     }
 
     /**
+     * 获取string类型的datetime
+     * @return
+     */
+    public static String getStringDateTime(LocalDateTime localDateTime){
+        return localDateTime.getYear()+"年"+localDateTime.getMonthValue()+"月"+localDateTime.getDayOfMonth()+"日"+localDateTime.getHour()+"时"+localDateTime.getMinute()+"分";
+    }
+
+    /**
      * 获取string类型的日期
      * @return
      */

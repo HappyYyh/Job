@@ -117,6 +117,7 @@ public class FileUtil {
         String originalFilename = file.getOriginalFilename();
         //获取后缀（转小写）eg:.jpg
         String fileNameExtension = originalFilename.substring(originalFilename.lastIndexOf(".")).toLowerCase();
+        //获取后缀
         String keyPrefix = getKeyPrefix(fileNameExtension.substring(1));
         Random random = new Random();
         return keyPrefix + System.currentTimeMillis() + random.nextInt(10000) +fileNameExtension;

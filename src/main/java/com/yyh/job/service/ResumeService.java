@@ -1,8 +1,12 @@
 package com.yyh.job.service;
 
 import com.yyh.job.common.base.APIResult;
+import com.yyh.job.dao.model.ResumeOther;
 import com.yyh.job.dto.request.resume.ResumeDeleteRequest;
 import com.yyh.job.dto.request.resume.*;
+import com.yyh.job.dto.response.resume.ResumeOtherResponse;
+
+import java.util.List;
 
 /**
  * @Package com.yyh.job.service
@@ -82,4 +86,19 @@ public interface ResumeService {
      * @return
      */
     APIResult addOtherResume(AddOtherResumeRequest request);
+
+    /**
+     * 查询用户的三方简历信息
+     * @param userId
+     * @return
+     */
+    List<ResumeOtherResponse> getOtherResume(Integer userId);
+
+    /**
+     * 删除三方简历记录
+     * @param id
+     * @return
+     */
+    APIResult deleteOtherResume(Integer id);
+
 }
