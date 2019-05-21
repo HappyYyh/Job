@@ -267,6 +267,11 @@ public class ResumeServiceImpl implements ResumeService {
         return APIResult.error();
     }
 
+    /**
+     * 新增三方简历
+     * @param request
+     * @return
+     */
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public APIResult addOtherResume(AddOtherResumeRequest request) {
@@ -278,6 +283,11 @@ public class ResumeServiceImpl implements ResumeService {
         return APIResult.ok();
     }
 
+    /**
+     * 查询用户的三方简历信息
+     * @param userId
+     * @return
+     */
     @Override
     public List<ResumeOtherResponse> getOtherResume(Integer userId) {
         List<ResumeOther> list = resumeOtherMapper.selectByUserId(userId);
@@ -307,8 +317,25 @@ public class ResumeServiceImpl implements ResumeService {
      * @return
      */
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public APIResult deleteOtherResume(Integer id) {
         resumeOtherMapper.deleteByPrimaryKey(id);
+        return APIResult.ok();
+    }
+
+    /**
+     * 更新三方简历名称
+     *
+     * @param request
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = RuntimeException.class)
+    public APIResult updateOtherResume(UpdateOtherResumeRequest request) {
+        ResumeOther resumeOther = new ResumeOther();
+        resumeOther.setId(request.getId());
+        resumeOther.setOtherName(request.getName());
+        resumeOtherMapper.updateByPrimaryKeySelective(resumeOther);
         return APIResult.ok();
     }
 

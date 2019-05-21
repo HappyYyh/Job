@@ -84,6 +84,12 @@ public class ResumeController {
         return resumeService.addOtherResume(request);
     }
 
+    @PostMapping("/updateOtherResume")
+    @AuthToken
+    public APIResult updateOtherResume(@RequestBody  UpdateOtherResumeRequest request){
+        return resumeService.updateOtherResume(request);
+    }
+
     @GetMapping("/deleteOtherResume")
     @AuthToken
     public APIResult deleteOtherResume(Integer id) {

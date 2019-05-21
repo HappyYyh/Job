@@ -101,4 +101,10 @@ public interface ResumeService {
      */
     APIResult deleteOtherResume(Integer id);
 
+    /**
+     * 更新三方简历名称
+     * @param request
+     * @return
+     */
+    APIResult updateOtherResume(UpdateOtherResumeRequest request);
 }
