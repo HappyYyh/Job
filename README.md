@@ -110,7 +110,7 @@ redis配置：
 
 ```yml
 redis:
-		#redis相关配置
+#redis相关配置
     host: 120.79.252.252
     pool:
       max-active: 200
