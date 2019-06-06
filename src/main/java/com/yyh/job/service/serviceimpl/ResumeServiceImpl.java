@@ -1,13 +1,11 @@
 package com.yyh.job.service.serviceimpl;
 
 import com.google.common.collect.Lists;
-import com.google.gson.Gson;
 import com.yyh.job.common.base.APIResult;
 import com.yyh.job.common.enums.BaseEnum;
 import com.yyh.job.common.enums.CommonEnum;
 import com.yyh.job.dao.mapper.*;
 import com.yyh.job.dao.model.*;
-import com.yyh.job.dto.request.resume.ResumeDeleteRequest;
 import com.yyh.job.dto.request.resume.*;
 import com.yyh.job.dto.response.resume.*;
 import com.yyh.job.service.ResumeService;
@@ -20,11 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
-
-import static com.sun.tools.doclint.Entity.copy;
 
 /**
  * @Package com.yyh.job.service.serviceimpl
