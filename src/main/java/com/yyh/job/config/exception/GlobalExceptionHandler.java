@@ -20,10 +20,15 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    /**
+     * 业务异常
+     * @param e
+     * @return
+     */
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public APIResult exception(Exception e) {
-        log.error("拦截到异常：",e.getMessage());
+        log.error("拦截到异常：{}",e.getMessage());
         e.printStackTrace();
         return APIResult.error(BaseEnum.ERROR);
     }
@@ -37,6 +42,17 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public APIResult bindErrorException(BindErrorException e) {
         return APIResult.error(String.valueOf(BaseEnum.PARAM_HAS_ERROR.getCode()),e.getMessage());
+    }
+
+    /**
+     * 权限异常
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(PermissionException.class)
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+    public APIResult PermissionException(PermissionException e) {
+        return APIResult.error("403",e.getMessage());
     }
 
 }
