@@ -35,18 +35,17 @@ public class PermissionAspect {
     @Autowired
     private RedisTemplate redisTemplate;
 
-    @Pointcut(value = "public * com.yyh.job.controller.*.*(..))")
+    @Pointcut(value = "execution(public * com.yyh.job.controller.*.*(..))")
     public void cutPermission(){
 
     }
 
     /**
      * 校验权限
-     * @param joinPoint
      * @param permission
      */
     @Before(value = "cutPermission() && @annotation(permission)")
-    public void checkPermission(ProceedingJoinPoint joinPoint,Permission permission){
+    public void checkPermission(Permission permission){
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = requestAttributes.getRequest();
         //获取到方法上需要的权限名称
