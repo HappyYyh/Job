@@ -25,4 +25,13 @@ public enum  RoleEnum {
         this.code = code;
         this.msg = msg;
     }
+
+    public static String getMsgByType(Integer type){
+        for (RoleEnum roleEnum : RoleEnum.values()){
+            if(roleEnum.getCode().equals(type)){
+                return roleEnum.getMsg();
+            }
+        }
+        return null;
+    }
 }

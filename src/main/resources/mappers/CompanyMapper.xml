@@ -304,7 +304,8 @@
       group by c.id
 	)
 	as newTable
-	group by newTable.id
+	/*mysql 5.7 full group by 会报错，这里把所有的都列出来，有空再研究*/
+	group by newTable.id,newTable.company_name, newTable.img,newTable.industry_category,newTable.financing_status,newTable.jobNum,newTable.recruiterNum
 	order by newTable.jobNum desc , newTable.recruiterNum desc
   </select>
 
