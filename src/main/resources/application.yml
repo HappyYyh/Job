@@ -22,8 +22,8 @@ spring:
       max-wait: 5000
       max-idle: 150
       min-idle: 0
-
     timeout: 6000
+    port: 16379
 
   #rabbitmq配置
   rabbitmq:
