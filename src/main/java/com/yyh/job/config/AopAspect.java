@@ -49,7 +49,7 @@ public class AopAspect {
         for (Object arg :args){
             if(arg instanceof BindingResult){
                 BindingResult bindingResult = (BindingResult) arg;
-                APIResult result = this.vaildReuqestParams(bindingResult);
+                APIResult result = this.verifyRequestParams(bindingResult);
                 if(!result.isSuccess()){
                     //如果绑定失败则抛出异常
                     throw new BindErrorException(result.getData().toString());
@@ -68,7 +68,7 @@ public class AopAspect {
         //log.info("执行返回值:{}",JSON.toJSON(result));
     }
 
-    private APIResult vaildReuqestParams(BindingResult bindingResult){
+    private APIResult verifyRequestParams(BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             List<ObjectError> allErrors = bindingResult.getAllErrors();
             List<String> list = new ArrayList<>();
