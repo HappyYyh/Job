@@ -97,9 +97,9 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     #这里改成自己的数据库连接
-    url: jdbc:mysql://rm-bp1908u6a7tofk507ko.mysql.rds.aliyuncs.com:3306/db_job?useUnicode=true&allowMultiQueries=true&useSSL=false&characterEncoding=utf-8
+    url: jdbc:mysql://rm-xxx.mysql.rds.aliyuncs.com:3306/db_job?useUnicode=true&allowMultiQueries=true&useSSL=false&characterEncoding=utf-8
     username: root
-    password: aiYYH!1314
+    password: xxx
     tomcat:
       max-active: 10
       max-idle: 5
@@ -154,8 +154,8 @@ job:
 #七牛云服务
 qiniu:
   bucket: job_bucket
-  secretKey: QuVitoseWoGsZedMV2KUIsLz_ruew8PvCvXqH4lU
-  accessKey: YI609XuwI9gp-o6DZnVhEfGPSf-cGWHJIo8S-ASj
+  secretKey: QuV**********************************lU
+  accessKey: YI6**********************************ASj
   urlPrefix: http://image.yangyhao.top/
 ```
 
