@@ -33,8 +33,8 @@ public class SmsUtil {
     /**
      * 阿里云访问权限
      */
-    private static final String ACCESS_KEY_ID = "LTAIrsLt9DlDzSnD";
-    private static final String ACCESS_KEY_SECRET = "PReiSpagypzfFNEg3xs9qcSHJ2bOKx";
+    private static final String ACCESS_KEY_ID = "";
+    private static final String ACCESS_KEY_SECRET = "";
 
     /**
      * <p> 发送验证码 </p>
